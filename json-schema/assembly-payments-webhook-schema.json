@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-webhook-schema.json",
+  "title": "Webhook",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-webhooks-api-openapi.yml#/components/schemas/Webhook",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "object_type": {
+      "type": "string"
+    },
+    "http_method": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "links": {
+      "$ref": "#/$defs/WebhookLinks"
+    }
+  },
+  "$defs": {
+    "WebhookLinks": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        },
+        "webhooks": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

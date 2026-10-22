@@ -1,0 +1,1436 @@
+openapi: 3.2.0
+info:
+  title: Assembly Wallet Accounts API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Wallet Accounts
+paths:
+  /wallet_accounts/{id}:
+    get:
+      tags:
+      - Wallet Accounts
+      summary: Show Wallet Account
+      description: Show details of a specific **Wallet Account** using a given `:id.`
+      operationId: showWalletAccount
+      parameters:
+      - name: id
+        in: path
+        description: Account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+        example: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account'
+              examples:
+                response:
+                  value:
+                    wallet_accounts:
+                      id: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+                      active: true
+                      created_at: '2019-04-29T02:42:31.536Z'
+                      updated_at: '2020-05-03T12:01:02.254Z'
+                      balance: 663337
+                      currency: AUD
+                      links:
+                        self: /transactions/aed45af0-6f63-0138-901c-0a58a9feac03/wallet_accounts
+                        users: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/users
+                        batch_transactions: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/batch_transactions
+                        transactions: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/transactions
+                        bpay_details: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/bpay_details
+                        npp_details: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/npp_details
+                        virtual_accounts: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/virtual_accounts
+  /wallet_accounts/{id}/bill_payment:
+    post:
+      tags:
+      - Wallet Accounts
+      summary: Pay a Bill
+      description: Pay a bill by withdrawing funds from a **Wallet Account** to a specified bpay account.
+      operationId: billPayment
+      parameters:
+      - name: id
+        in: path
+        description: Account ID
+        required: true
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bill_payment_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_disbursement'
+              examples:
+                response:
+                  value:
+                    disbursements:
+                      reference_id: test100
+                      id: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+                      amount: 173
+                      currency: AUD
+                      batch_id: null
+                      cuscal_payment_transaction_id: null
+                      created_at: '2020-05-09T07:09:03.383Z'
+                      updated_at: '2020-05-09T07:09:04.585Z'
+                      state: pending
+                      to: BPay Account
+                      account_name: My Water Company
+                      biller_name: ABC Water
+                      biller_code: 123456
+                      crn: 0987654321
+                      links:
+                        transactions: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+                        wallet_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts
+                        bank_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts
+                        bpay_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bpay_accounts
+                        paypal_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts
+                        items: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items
+                        users: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users
+  /wallet_accounts/{id}/bpay_details:
+    get:
+      tags:
+      - Wallet Accounts
+      summary: Show Wallet Account BPAY Details
+      description: Show BPAY details of a specific **Wallet Account** using a given `:id.`
+      operationId: showWalletAccountNBPAYDetails
+      parameters:
+      - name: id
+        in: path
+        description: Account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+        example: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account_bpay_details'
+              examples:
+                response:
+                  value:
+                    wallet_accounts:
+                      id: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+                      bpay_details:
+                        biller_code: '230680'
+                        reference: '100014012148074'
+                        amount: $0.00
+                        currency: AUD
+  /wallet_accounts/{id}/npp_details:
+    get:
+      tags:
+      - Wallet Accounts
+      summary: Show Wallet Account NPP Details
+      description: Show NPP details of a specific **Wallet Account** using a given `:id.`
+      operationId: showWalletAccountNPPDetails
+      parameters:
+      - name: id
+        in: path
+        description: Account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+        example: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account_npp_details'
+              examples:
+                response:
+                  value:
+                    wallet_accounts:
+                      id: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+                      npp_details:
+                        pay_id: npp@assemblypayments.com
+                        marketplace_pay_ids:
+                        - pay_id: npp@assemblypayments.com
+                          type: emal
+                        - pay_id: Assembly Payments
+                          type: orgn
+                        - pay_id: 96637632645
+                          type: aubn
+                        reference: '100014012148074'
+                        amount: $0.00
+                        currency: AUD
+  /wallet_accounts/{id}/npp_last_domestic_leg:
+    post:
+      tags:
+      - Wallet Accounts
+      summary: Initiate Last Domestic Leg Payout
+      description: Facilitate the real-time settlement of the last domestic leg payout for International Funds Transfer Instructions (IFTI) through NPP rails.
+      operationId: nppLastDomesticLeg
+      parameters:
+      - name: id
+        in: path
+        description: Wallet account ID
+        required: true
+        schema:
+          type: string
+          default: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+        example: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/npp_last_domestic_leg_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  disbursements:
+                    $ref: '#/components/schemas/npp_last_domestic_leg_disbursement'
+              examples:
+                response:
+                  value:
+                    disbursements:
+                      id: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+                      reference_id: 7190770-1-2908
+                      amount: 173
+                      currency: AUD
+                      batch_id: null
+                      cuscal_payment_transaction_id: null
+                      created_at: '2020-05-09T07:09:03.383Z'
+                      updated_at: '2020-05-09T07:09:04.585Z'
+                      state: pending
+                      to: Bank Account
+                      bank_name: Test Bank Assembly
+                      bank_account_name: Assembly seller71718579
+                      bank_account_number: XXX130
+                      bank_routing_number: XXXXX8
+                      npp_payout_state: trying
+                      end_to_end_id: PRTYAUXXXX
+                      ifti_information:
+                        instruction_identification: BANKNTSTXXXI20180501000000000000010
+                        ultimate_debtor_information:
+                          name: John Doe
+                          country_of_residence: AU
+                          address:
+                            country_code: AU
+                            address_line:
+                            - Level 4
+                            - 1 Margaret
+                          organisation_identification:
+                          - identification: sample
+                            identification_type_proprietary: sample
+                            identification_type_code: BBAN
+                            identification_issuer: sample
+                        charge_bearer: CRED
+                        previous_instructing_agent:
+                          agent_bic: YOURBIC1234
+                        creditor_agent_instruction:
+                        - instruction_information: sample
+                          code: CHQB
+                        initiating_party_information:
+                          name: Initiator Name
+                          address:
+                            country_code: AU
+                            address_line:
+                            - Level 4
+                            - 1 Margaret
+                          organisation_identification:
+                          - identification: sample
+                            identification_type_proprietary: sample
+                            identification_type_code: BBAN
+                            identification_issuer: sample
+                        instructed_amount:
+                          currency: AUD
+                          amount: '3.25'
+                        ultimate_creditor_information:
+                          name: Jane Doe
+                          country_of_residence: AU
+                          address:
+                            country_code: AU
+                            address_line:
+                            - Level 4
+                            - 2 Margaret
+                          organisation_identification:
+                          - identification: sample
+                            identification_type_proprietary: sample
+                            identification_type_code: BBAN
+                            identification_issuer: sample
+                        exchange_rate: '1.23'
+                        payment_purpose_proprietary: Prtry
+                        payment_information:
+                          remittance_information_unstructured: MAP_RE_Happy
+                          payment_purpose_code: EPAY
+                        regulatory_reporting:
+                        - authority_name: Name
+                        remittance_information_structured:
+                          referred_document_amount:
+                          - due_payable_amount:
+                              currency: AUD
+                              amount: '3.25'
+                        related_remittance_information:
+                        - identification: S010
+                      links:
+                        transactions: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+                        wallet_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts
+                        bank_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts
+                        paypal_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts
+                        items: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items
+                        users: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users
+  /wallet_accounts/{id}/users:
+    get:
+      tags:
+      - Wallet Accounts
+      summary: Show Wallet Account User
+      description: Show the **User** the **Wallet Account** is associated with using a given `:id`.
+      operationId: showWalletAccountUser
+      parameters:
+      - name: id
+        in: path
+        description: Account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 901d8cd0-6af3-0138-967d-0a58a9feac04
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03T07:59:00.379Z'
+                      updated_at: '2020-04-03T07:59:00.379Z'
+                      id: Seller_1234
+                      full_name: Samuel Seller
+                      email: sam@example.com
+                      mobile: 69543131
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Samuel
+                      last_name: Seller
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /bank_accounts/901d8cd0-6af3-0138-967d-0a58a9feac04/users
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+  /wallet_accounts/{id}/withdraw:
+    post:
+      tags:
+      - Wallet Accounts
+      summary: Withdraw Funds
+      description: Withdraw funds from a **Wallet Account** to a specified disbursement account.
+      operationId: withdrawFunds
+      parameters:
+      - name: id
+        in: path
+        description: Wallet account ID
+        required: true
+        schema:
+          type: string
+          default: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+        example: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/withdraw_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_disbursement'
+              examples:
+                response:
+                  value:
+                    disbursements:
+                      id: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+                      reference_id: 7190770-1-2908
+                      amount: 173
+                      currency: AUD
+                      batch_id: null
+                      cuscal_payment_transaction_id: null
+                      created_at: '2020-05-09T07:09:03.383Z'
+                      updated_at: '2020-05-09T07:09:04.585Z'
+                      state: pending
+                      to: Bank Account
+                      bank_name: Test Bank Assembly
+                      bank_account_name: Assembly seller71718579
+                      bank_account_number: XXX130
+                      bank_routing_number: XXXXX8
+                      npp_payout_state: trying
+                      links:
+                        transactions: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+                        wallet_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts
+                        bank_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts
+                        paypal_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts
+                        items: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items
+                        users: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users
+components:
+  schemas:
+    single_disbursement:
+      type: object
+      properties:
+        disbursements:
+          $ref: '#/components/schemas/disbursement'
+    party_identification_sample:
+      properties:
+        name:
+          type: string
+          example: John Doe
+        country_of_residence:
+          type: string
+          example: AU
+        address:
+          type: object
+          properties:
+            country_code:
+              type: string
+              example: AU
+            address_line:
+              type: array
+              example:
+              - Level 4
+              - 1 Margaret
+        organisation_identification:
+          type: array
+          items:
+            type: object
+            properties:
+              identification:
+                type: string
+                example: ID12345
+    ifti_information_response:
+      type: object
+      properties:
+        instruction_identification:
+          type: string
+          example: BANKNTSTXXXI20180501000000000000010
+        ultimate_debtor_information:
+          allOf:
+          - $ref: '#/components/schemas/party_identification_sample'
+          - type: object
+        charge_bearer:
+          type: string
+          example: CRED
+        previous_instructing_agent:
+          type: object
+          properties:
+            agent_bic:
+              type: string
+              example: YOURBIC1234
+        creditor_agent_instruction:
+          type: object
+          properties:
+            instruction_information:
+              type: string
+              example: sample
+            code:
+              type: string
+              example: CHQB
+        initiating_party_information:
+          allOf:
+          - $ref: '#/components/schemas/party_identification_sample'
+          - type: object
+        instructed_amount:
+          type: object
+          properties:
+            currency:
+              type: string
+              example: AUD
+            amount:
+              type: string
+              example: '3.25'
+        ultimate_creditor_information:
+          allOf:
+          - $ref: '#/components/schemas/party_identification_sample'
+          - type: object
+        exchange_rate:
+          type: string
+          example: '1.23'
+        payment_purpose_proprietary:
+          type: string
+          example: Prtry
+        payment_information:
+          type: object
+          properties:
+            remittance_information_unstructured:
+              type: string
+              example: MAP_RE_Happy
+            payment_purpose_code:
+              type: string
+              example: EPAY
+        regulatory_reporting:
+          type: array
+          items:
+            type: object
+            properties:
+              authority_name:
+                type: string
+                example: Name
+        remittance_information_structured:
+          type: object
+          properties:
+            referred_document_amount:
+              type: object
+              properties:
+                due_payable_amount:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      example: AUD
+                    amount:
+                      type: string
+                      example: '3.25'
+        related_remittance_information:
+          type: array
+          items:
+            type: object
+            properties:
+              identification:
+                type: string
+                example: S010
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+    contact_details:
+      type: object
+      properties:
+        name_prefix:
+          type: string
+          enum:
+          - DOCT
+          - MIST
+          - MISS
+          - MADM
+        name:
+          maxLength: 140
+          type: string
+        phone_number:
+          pattern: \+[0-9]{1,3}-[0-9()+\-]{1,30}
+          type: string
+        mobile_number:
+          pattern: \+[0-9]{1,3}-[0-9()+\-]{1,30}
+          type: string
+        fax_number:
+          pattern: \+[0-9]{1,3}-[0-9()+\-]{1,30}
+          type: string
+        email_address:
+          maxLength: 2048
+          type: string
+        other:
+          maxLength: 35
+          type: string
+    wallet_account_bpay_details:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        bpay_details:
+          type: object
+          properties:
+            biller_code:
+              type: string
+            reference:
+              type: string
+            amount:
+              type: string
+            currency:
+              type: string
+    disbursement:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ad688d54-6791-4f1d-add7-88fbd89b70d1
+        reference_id:
+          type: string
+          example: 7190770-1-2908
+        amount:
+          type: integer
+          example: 10000
+        currency:
+          type: string
+          example: AUD
+        batch_id:
+          type: string
+          example: null
+        cuscal_payment_transaction_id:
+          type: string
+          example: null
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+          example: pending
+        to:
+          type: string
+          example: Bank Account
+        bank_name:
+          type: string
+          example: Bank of Australia
+        bank_account_name:
+          type: string
+          example: Samuel Seller
+        bank_account_number:
+          type: string
+          example: XXX234
+        bank_routing_number:
+          type: string
+          example: XXXXX3
+        npp_payout_state:
+          type: string
+          example: trying
+        account_name:
+          type: string
+          example: My Water Company
+        biller_name:
+          type: string
+          example: ABC Water
+        biller_code:
+          type: string
+          example: 123456
+        crn:
+          type: string
+          example: 0987654321
+        links:
+          type: object
+          properties:
+            transactions:
+              type: string
+              example: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+            wallet_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/wallet_accounts
+            paypal_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/paypal_accounts
+            bank_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bank_accounts
+            bpay_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bpay_accounts
+            items:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/items
+            users:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/users
+    party_identification:
+      type: object
+      properties:
+        name:
+          maxLength: 140
+          type: string
+          example: John Doe
+        address:
+          allOf:
+          - $ref: '#/components/schemas/ifti_address'
+        organisation_identification:
+          type: array
+          items:
+            $ref: '#/components/schemas/generic_identification'
+        organisation_bic:
+          pattern: '[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}'
+          type: string
+          example: SMPLAU2SXXX
+        private_identification:
+          type: array
+          items:
+            $ref: '#/components/schemas/generic_identification'
+        date_place_of_birth:
+          $ref: '#/components/schemas/date_and_place_of_birth'
+        country_of_residence:
+          pattern: '[A-Z]{2,2}'
+          type: string
+          example: AU
+        contact_details:
+          $ref: '#/components/schemas/contact_details'
+    npp_last_domestic_leg_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      - ifti_information
+      - end_to_end_id
+      properties:
+        account_id:
+          description: Account to withdraw to.
+          type: string
+          example: c1824ad0-73f1-0138-3700-0a58a9feac09
+          default: c1824ad0-73f1-0138-3700-0a58a9feac09
+        amount:
+          description: Amount (in cents) to withdraw.
+          type: integer
+          example: '173'
+          default: '173'
+        custom_descriptor:
+          description: A descriptor specified by the customer to be passed on the withdraw call. This requires that custom_descriptors are enabled. In the case of fast payments (AU / NPP) Assembly will append a value in the beginning of descriptor, the customer can use 200 characters (excluding URL, javascript/code, emojis). In the case of DE batch payments will allow 18 characters
+          type: string
+          example: ''
+        reference_id:
+          description: Unique reference information that can be specified for a for wallet withdrawal request. This is an optional field and cannot contain '.' character.
+          type: string
+          example: 7190770-1-2908
+          default: 7190770-1-2908
+        end_to_end_id:
+          description: A unique identifier assigned by the initiating party to track and reconcile the IFTI payout throughout its lifecycle. This value must be unique per transaction and is included in payment messaging for traceability across participating financial institutions. This is the Debtor’s (customer) reference for the Payment to be provided to Creditor (customer). Mandatory for NPP IFTI Payment.
+          type: string
+          example: PRTYAUXXXX
+          default: NOTPROVIDED
+        ifti_information:
+          required:
+          - instruction_identification
+          - ultimate_debtor_information
+          - charge_bearer
+          - previous_instructing_agent
+          - creditor_agent_instruction
+          - initiating_party_information
+          description: 'IFTI Payer Information.
+
+
+            This is a required field and cannot contain invalid characters.
+
+            Please get in touch with customer service before enabling this feature.
+
+
+            Fields marked below are required exclusively for **IFTI payout processing to meet reporting and compliance
+
+            requirements**.
+
+
+            Please refer to individual field descriptions for specific conditional requirements'
+          type: object
+          properties:
+            instruction_identification:
+              description: 'A unique transaction reference number that identifies the
+
+                final domestic payout request for NPP. It is recommended that this reference
+
+                number matches the point-to-point transaction reference used in your Austrac reporting.
+
+                Mandatory for NPP IFTI Payment.'
+              type: string
+              example: BANKNTSTXXXI20180501000000000000010
+            ultimate_debtor_information:
+              allOf:
+              - $ref: '#/components/schemas/party_identification'
+              - description: 'Following fields are mandatory.
+
+
+                  **name, address.country_code, address.address_line, country_of_residence**.
+
+
+                  Fields from these two groups must not be mixed. Either (organisation_identification
+
+                  or organisation_identification and organisation_bic) or (private_identification,
+
+                  or private_identification and date_place_of_birth) **must be present**.'
+            charge_bearer:
+              description: 'Specifies which party/parties will bear the charges of processing payment transaction.
+
+
+                Valid values -
+
+                ''CRED'' (Borne by Creditor),
+
+                ''DEBT'' (Borne by Debtor),
+
+                ''SHAR'' (Shared).'
+              type: string
+              enum:
+              - CRED
+              - DEBT
+              - SHAR
+              example: CRED
+            previous_instructing_agent:
+              description: This identifies the agent or remitter's bank that instructs the intermediary bank or NPP payer participant to clear funds, typically for bulk or aggregated transfers to your account. This can either be the agent_bic OR clearing system identification and clearing system member identification.
+              type: object
+              properties:
+                agent_bic:
+                  type: string
+                  example: YOURBIC1234
+                clearing_system_identification:
+                  type: string
+                  example: BICCODE123
+                clearing_system_member_identification:
+                  type: string
+                  example: BICCODE123MEM
+            creditor_agent_instruction:
+              description: Refers to additional details or instructions provided to the bank or financial institution responsible for crediting the funds to the recipient (the creditor). These instructions are provided by the initiating party and help the creditor agent accurately complete the transfer.
+              type: array
+              items:
+                type: object
+                properties:
+                  instruction_information:
+                    description: 'We recommend providing the Originating Debtor Agent BIC as indicated in the initial message,
+
+                      which received the international pay-in instruction from the initiating party.'
+                    type: string
+                    example: sample
+                  code:
+                    type: string
+                    example: CHQB
+            initiating_party_information:
+              allOf:
+              - $ref: '#/components/schemas/party_identification'
+              - description: 'Following fields are mandatory.
+
+
+                  **name, address.country_code, address.address_line, country_of_residence**.
+
+
+                  Fields from these two groups must not be mixed. Either (organisation_identification
+
+                  or organisation_identification and organisation_bic) or (private_identification,
+
+                  or private_identification and date_place_of_birth) **must be present**.'
+            ultimate_creditor_information:
+              allOf:
+              - $ref: '#/components/schemas/party_identification'
+              - description: 'The name of the final recipient of the funds, not including any intermediaries
+
+                  or account holders. Mandatory for IFTI if present in the source international message."'
+            instructed_amount:
+              description: Transaction Amount. This is the amount originated in foreign currency.
+              type: object
+              properties:
+                currency:
+                  type: string
+                  example: AUD
+                amount:
+                  type: string
+                  example: '3.25'
+            exchange_rate:
+              description: Exchange rate used for AUD FX conversion.  Mandatory for IFTI if present in the source international message.
+              type: string
+              example: '1.23'
+            payment_purpose_proprietary:
+              description: Refers to a code or description used to specify the reason or purpose for the payment. This information is often provided by the sender to clarify the intent of the transfer, such as payment for goods, services, or a personal remittance. Mandatory for IFTI if present in the source international message.
+              type: string
+              example: Prtry
+            payment_information:
+              description: Mandatory for IFTI if present in the source international message.
+              type: object
+              properties:
+                remittance_information_unstructured:
+                  description: Refers to additional, free-text details provided by the sender about the purpose or context of the payment.
+                  type: string
+                  example: MAP_RE_Happy
+                payment_purpose_code:
+                  description: This refers to the standardized code that indicates the reason for the payment. It helps to identify the nature of the transaction for regulatory and compliance purposes. Refer to https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets for full list of Payment Purpose code.
+                  type: string
+                  example: EPAY
+            regulatory_reporting:
+              description: Refers to the obligation to report certain transaction details to regulatory authorities to comply with anti-money laundering (AML), counter-terrorism financing (CTF), and other financial regulations.
+              type: array
+              items:
+                type: object
+                properties:
+                  authority_name:
+                    description: Refers to the name of the regulatory body or financial authority to which the payment details are reported for compliance purposes. This is typically a government or financial intelligence agency that monitors transactions for anti-money laundering (AML) and counter-terrorism financing (CTF) efforts.
+                    type: string
+                    example: Name
+            remittance_information_structured:
+              description: It is any additional information or directions provided by the offshore debtor to the creditor in relation to the instruction should be forwarded in this field.
+              type: object
+              properties:
+                referred_document_amount:
+                  description: Transaction Amount
+                  type: object
+                  properties:
+                    due_payable_amount:
+                      type: object
+                      properties:
+                        currency:
+                          type: string
+                          maximum: 3
+                          minimum: 3
+                          example: AUD
+                        amount:
+                          type: string
+                          example: '3.25'
+            related_remittance_information:
+              type: array
+              items:
+                type: object
+                properties:
+                  identification:
+                    type: string
+                    example: S010
+    withdraw_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      properties:
+        account_id:
+          description: Account to withdraw to.
+          type: string
+          example: c1824ad0-73f1-0138-3700-0a58a9feac09
+          default: c1824ad0-73f1-0138-3700-0a58a9feac09
+        amount:
+          description: Amount (in cents) to withdraw.
+          type: integer
+          example: 173
+          default: 173
+        custom_descriptor:
+          description: A descriptor specified by the customer to be passed on the withdraw call. This requires that custom_descriptors are enabled. In the case of fast payments (AU / NPP) Assembly will append a value in the beginning of descriptor, the customer can use 200 characters (excluding URL, javascript/code, emojis). In the case of DE batch payments will allow 18 characters
+          type: string
+          example: ''
+        reference_id:
+          description: Unique reference information that can be specified for a wallet withdrawal request. This is an optional field and cannot contain '.' character.
+          type: string
+          example: 7190770-1-2908
+          default: 7190770-1-2908
+    npp_last_domestic_leg_disbursement:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/disbursement'
+      - type: object
+        properties:
+          end_to_end_id:
+            type: string
+            example: PRTYAUXXXX
+          ifti_information:
+            allOf:
+            - $ref: '#/components/schemas/ifti_information_response'
+    wallet_account:
+      type: object
+      properties:
+        wallet_accounts:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            id:
+              type: string
+              format: uuid
+              example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+            currency:
+              type: string
+              example: AUD
+            verification_status:
+              type: string
+              enum:
+              - verified
+              - not_verified
+              example: not_verified
+            balance:
+              type: integer
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  example: /transactions/aed45af0-6f63-0138-901c-0a58a9feac03/wallet_accounts
+                users:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/users
+                batch_transactions:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/batch_transactions
+                transactions:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/transactions
+                bpay_details:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/bpay_details
+                npp_details:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/npp_details
+                virtual_accounts:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/virtual_accounts
+    address_type:
+      enum:
+      - ADDR
+      - BIZZ
+      - DLVY
+      - HOME
+      - MLTO
+      - PBOX
+      type: string
+      description: 'Address Type
+
+
+        ADDR - Postal Address is the complete postal address
+
+        BIZZ - Business Address is the business address
+
+        DLVY - Delivery To Address is the address to which delivery is to take place
+
+        HOME - Residential Address is the home address
+
+        MLTO - Mail To Address is the address to which mail is sent
+
+        PBOX - POBox Address is a postal office (PO) box'
+    ifti_address:
+      type: object
+      description: 'This represents address of an individual or non-individual customer of a NPP participant.
+
+        This object could be populated in one of formats below:'
+      properties:
+        address_type:
+          allOf:
+          - $ref: '#/components/schemas/address_type'
+        department:
+          maxLength: 70
+          minLength: 1
+          type: string
+          description: Department
+          example: Finance
+        sub_department:
+          maxLength: 70
+          minLength: 1
+          type: string
+          description: Sub Department
+          example: Billing
+        street_name:
+          maxLength: 70
+          minLength: 1
+          type: string
+          description: Street Name
+          example: Kent
+        bldg_name:
+          maxLength: 16
+          minLength: 1
+          type: string
+          description: Building name
+          example: '123'
+        postcode:
+          maxLength: 16
+          minLength: 1
+          type: string
+          description: Post Code
+          example: '2000'
+        town_name:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Town name
+          example: Sydney
+        ctry_sub_division:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Country Subdivision
+          example: NSW
+        country_code:
+          pattern: '[A-Z]{2,2}'
+          type: string
+          description: Country Code
+          example: AU
+        address_line:
+          maxItems: 7
+          minItems: 0
+          type: array
+          items:
+            maxLength: 70
+            minLength: 1
+            type: string
+          description: 'Address Lines:
+
+
+            "address_line": ["Melbourne", "2000" ]'
+    date_and_place_of_birth:
+      required:
+      - birth_date
+      - city_of_birth
+      - country_of_birth
+      type: object
+      properties:
+        birth_date:
+          type: string
+          format: date
+        place_of_birth:
+          maxLength: 35
+          type: string
+        city_of_birth:
+          maxLength: 35
+          type: string
+        country_of_birth:
+          pattern: '[A-Z]{2,2}'
+          type: string
+          example: AU
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    wallet_account_npp_details:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        npp_details:
+          type: object
+          properties:
+            pay_id:
+              type: string
+            marketplace_pay_ids:
+              type: array
+              items:
+                type: object
+                properties:
+                  pay_id:
+                    type: string
+                    example: npp@assemblypayments.com
+                  type:
+                    type: string
+                    enum:
+                    - emal
+                    - aubn
+                    - orgn
+            reference:
+              type: string
+            amount:
+              type: string
+            currency:
+              type: string
+    generic_identification:
+      required:
+      - identification
+      type: object
+      properties:
+        identification:
+          maxLength: 35
+          type: string
+        identification_type_proprietary:
+          maxLength: 35
+          type: string
+        identification_type_code:
+          maxLength: 4
+          minLength: 1
+          type: string
+          example: BBAN
+        identification_issuer:
+          maxLength: 35
+          type: string
+    bill_payment_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      properties:
+        account_id:
+          description: BPay Account to withdraw to. This needs to be a bpay_account id
+          type: string
+          example: c1824ad0-73f1-0138-3700-0a58a9feac09
+          default: c1824ad0-73f1-0138-3700-0a58a9feac09
+        amount:
+          description: Amount (in cents) to withdraw.
+          type: integer
+          example: '173'
+          default: ''
+        reference_id:
+          description: Unique reference information that can be specified for Pay a Bill request. This is an optional field and cannot contain '.' character.
+          type: string
+          example: test100
+          default: ''
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

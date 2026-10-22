@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-charge-request-body-schema.json",
+  "title": "charge_requestBody",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-api-openapi.yml#/components/schemas/charge_requestBody",
+  "type": "object",
+  "required": [
+    "account_id",
+    "amount",
+    "email",
+    "zip",
+    "country"
+  ],
+  "properties": {
+    "account_id": {
+      "description": "Bank Account or Card Account ID",
+      "type": "string",
+      "default": "5ef44050-4c56-0137-abdf-0242ac110002"
+    },
+    "name": {
+      "description": "Description of the Charge being created.",
+      "type": "string"
+    },
+    "amount": {
+      "description": "The cost being charged in cents.",
+      "type": "integer",
+      "default": "1000"
+    },
+    "email": {
+      "description": "Email of the user associated with the account being charged.",
+      "type": "string",
+      "default": "buyer-1556505753@promisepay.com"
+    },
+    "zip": {
+      "description": "Postcode",
+      "type": "integer",
+      "default": "3000"
+    },
+    "country": {
+      "description": "[ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Officially_assigned_code_elements) country code of the User being charged.",
+      "type": "string",
+      "default": "AUS"
+    },
+    "user_id": {
+      "description": "The ID of the User",
+      "type": "string"
+    },
+    "fee_ids": {
+      "description": "A comma separated list of fee IDs to apply",
+      "type": "string"
+    },
+    "currency": {
+      "description": "[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This is an optional field and if not provided, the item will be created with the default currency of the marketplace.",
+      "type": "string"
+    },
+    "retain_account": {
+      "description": "True - Enables the account to be charged in the future. False - Redacts the account after this charge.\n",
+      "type": "boolean"
+    },
+    "device_id": {
+      "description": "Device Information for the device initiating the payment",
+      "type": "string"
+    },
+    "ip_address": {
+      "description": "IP Information for the device initiating the payment",
+      "type": "string"
+    },
+    "custom_descriptor": {
+      "description": "When `custom_descriptors` are enabled, this is the information to appear on credit card and direct debit statements.",
+      "type": "string"
+    },
+    "cvv": {
+      "description": "CVV / CVC",
+      "type": "string"
+    }
+  }
+}

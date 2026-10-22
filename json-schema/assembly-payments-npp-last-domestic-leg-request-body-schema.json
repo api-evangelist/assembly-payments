@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json",
+  "title": "npp_last_domestic_leg_requestBody",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-api-openapi.yml#/components/schemas/npp_last_domestic_leg_requestBody",
+  "type": "object",
+  "required": [
+    "account_id",
+    "amount",
+    "ifti_information",
+    "end_to_end_id"
+  ],
+  "properties": {
+    "account_id": {
+      "description": "Account to withdraw to.",
+      "type": "string",
+      "default": "c1824ad0-73f1-0138-3700-0a58a9feac09"
+    },
+    "amount": {
+      "description": "Amount (in cents) to withdraw.",
+      "type": "integer",
+      "default": "173"
+    },
+    "custom_descriptor": {
+      "description": "A descriptor specified by the customer to be passed on the withdraw call. This requires that custom_descriptors are enabled. In the case of fast payments (AU / NPP) Assembly will append a value in the beginning of descriptor, the customer can use 200 characters (excluding URL, javascript/code, emojis). In the case of DE batch payments will allow 18 characters",
+      "type": "string"
+    },
+    "reference_id": {
+      "description": "Unique reference information that can be specified for a for wallet withdrawal request. This is an optional field and cannot contain '.' character.",
+      "type": "string",
+      "default": "7190770-1-2908"
+    },
+    "end_to_end_id": {
+      "description": "A unique identifier assigned by the initiating party to track and reconcile the IFTI payout throughout its lifecycle. This value must be unique per transaction and is included in payment messaging for traceability across participating financial institutions. This is the Debtor’s (customer) reference for the Payment to be provided to Creditor (customer). Mandatory for NPP IFTI Payment.",
+      "type": "string",
+      "default": "NOTPROVIDED"
+    },
+    "ifti_information": {
+      "required": [
+        "instruction_identification",
+        "ultimate_debtor_information",
+        "charge_bearer",
+        "previous_instructing_agent",
+        "creditor_agent_instruction",
+        "initiating_party_information"
+      ],
+      "description": "IFTI Payer Information.\n\nThis is a required field and cannot contain invalid characters.\nPlease get in touch with customer service before enabling this feature.\n\nFields marked below are required exclusively for **IFTI payout processing to meet reporting and compliance\nrequirements**.\n\nPlease refer to individual field descriptions for specific conditional requirements",
+      "type": "object",
+      "properties": {
+        "instruction_identification": {
+          "description": "A unique transaction reference number that identifies the\nfinal domestic payout request for NPP. It is recommended that this reference\nnumber matches the point-to-point transaction reference used in your Austrac reporting.\nMandatory for NPP IFTI Payment.",
+          "type": "string"
+        },
+        "ultimate_debtor_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification"
+            },
+            {
+              "description": "Following fields are mandatory.\n\n**name, address.country_code, address.address_line, country_of_residence**.\n\nFields from these two groups must not be mixed. Either (organisation_identification\nor organisation_identification and organisation_bic) or (private_identification,\nor private_identification and date_place_of_birth) **must be present**."
+            }
+          ]
+        },
+        "charge_bearer": {
+          "description": "Specifies which party/parties will bear the charges of processing payment transaction.\n\nValid values -\n'CRED' (Borne by Creditor),\n'DEBT' (Borne by Debtor),\n'SHAR' (Shared).",
+          "type": "string",
+          "enum": [
+            "CRED",
+            "DEBT",
+            "SHAR"
+          ]
+        },
+        "previous_instructing_agent": {
+          "description": "This identifies the agent or remitter's bank that instructs the intermediary bank or NPP payer participant to clear funds, typically for bulk or aggregated transfers to your account. This can either be the agent_bic OR clearing system identification and clearing system member identification.",
+          "type": "object",
+          "properties": {
+            "agent_bic": {
+              "type": "string"
+            },
+            "clearing_system_identification": {
+              "type": "string"
+            },
+            "clearing_system_member_identification": {
+              "type": "string"
+            }
+          }
+        },
+        "creditor_agent_instruction": {
+          "description": "Refers to additional details or instructions provided to the bank or financial institution responsible for crediting the funds to the recipient (the creditor). These instructions are provided by the initiating party and help the creditor agent accurately complete the transfer.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instruction_information": {
+                "description": "We recommend providing the Originating Debtor Agent BIC as indicated in the initial message,\nwhich received the international pay-in instruction from the initiating party.",
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "initiating_party_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification"
+            },
+            {
+              "description": "Following fields are mandatory.\n\n**name, address.country_code, address.address_line, country_of_residence**.\n\nFields from these two groups must not be mixed. Either (organisation_identification\nor organisation_identification and organisation_bic) or (private_identification,\nor private_identification and date_place_of_birth) **must be present**."
+            }
+          ]
+        },
+        "ultimate_creditor_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification"
+            },
+            {
+              "description": "The name of the final recipient of the funds, not including any intermediaries\nor account holders. Mandatory for IFTI if present in the source international message.\""
+            }
+          ]
+        },
+        "instructed_amount": {
+          "description": "Transaction Amount. This is the amount originated in foreign currency.",
+          "type": "object",
+          "properties": {
+            "currency": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string"
+            }
+          }
+        },
+        "exchange_rate": {
+          "description": "Exchange rate used for AUD FX conversion.  Mandatory for IFTI if present in the source international message.",
+          "type": "string"
+        },
+        "payment_purpose_proprietary": {
+          "description": "Refers to a code or description used to specify the reason or purpose for the payment. This information is often provided by the sender to clarify the intent of the transfer, such as payment for goods, services, or a personal remittance. Mandatory for IFTI if present in the source international message.",
+          "type": "string"
+        },
+        "payment_information": {
+          "description": "Mandatory for IFTI if present in the source international message.",
+          "type": "object",
+          "properties": {
+            "remittance_information_unstructured": {
+              "description": "Refers to additional, free-text details provided by the sender about the purpose or context of the payment.",
+              "type": "string"
+            },
+            "payment_purpose_code": {
+              "description": "This refers to the standardized code that indicates the reason for the payment. It helps to identify the nature of the transaction for regulatory and compliance purposes. Refer to https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets for full list of Payment Purpose code.",
+              "type": "string"
+            }
+          }
+        },
+        "regulatory_reporting": {
+          "description": "Refers to the obligation to report certain transaction details to regulatory authorities to comply with anti-money laundering (AML), counter-terrorism financing (CTF), and other financial regulations.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authority_name": {
+                "description": "Refers to the name of the regulatory body or financial authority to which the payment details are reported for compliance purposes. This is typically a government or financial intelligence agency that monitors transactions for anti-money laundering (AML) and counter-terrorism financing (CTF) efforts.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "remittance_information_structured": {
+          "description": "It is any additional information or directions provided by the offshore debtor to the creditor in relation to the instruction should be forwarded in this field.",
+          "type": "object",
+          "properties": {
+            "referred_document_amount": {
+              "description": "Transaction Amount",
+              "type": "object",
+              "properties": {
+                "due_payable_amount": {
+                  "type": "object",
+                  "properties": {
+                    "currency": {
+                      "type": "string",
+                      "maximum": 3,
+                      "minimum": 3
+                    },
+                    "amount": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "related_remittance_information": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "identification": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "address_type": {
+      "enum": [
+        "ADDR",
+        "BIZZ",
+        "DLVY",
+        "HOME",
+        "MLTO",
+        "PBOX"
+      ],
+      "type": "string",
+      "description": "Address Type\n\nADDR - Postal Address is the complete postal address\nBIZZ - Business Address is the business address\nDLVY - Delivery To Address is the address to which delivery is to take place\nHOME - Residential Address is the home address\nMLTO - Mail To Address is the address to which mail is sent\nPBOX - POBox Address is a postal office (PO) box"
+    },
+    "contact_details": {
+      "type": "object",
+      "properties": {
+        "name_prefix": {
+          "type": "string",
+          "enum": [
+            "DOCT",
+            "MIST",
+            "MISS",
+            "MADM"
+          ]
+        },
+        "name": {
+          "maxLength": 140,
+          "type": "string"
+        },
+        "phone_number": {
+          "pattern": "\\+[0-9]{1,3}-[0-9()+\\-]{1,30}",
+          "type": "string"
+        },
+        "mobile_number": {
+          "pattern": "\\+[0-9]{1,3}-[0-9()+\\-]{1,30}",
+          "type": "string"
+        },
+        "fax_number": {
+          "pattern": "\\+[0-9]{1,3}-[0-9()+\\-]{1,30}",
+          "type": "string"
+        },
+        "email_address": {
+          "maxLength": 2048,
+          "type": "string"
+        },
+        "other": {
+          "maxLength": 35,
+          "type": "string"
+        }
+      }
+    },
+    "date_and_place_of_birth": {
+      "required": [
+        "birth_date",
+        "city_of_birth",
+        "country_of_birth"
+      ],
+      "type": "object",
+      "properties": {
+        "birth_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "place_of_birth": {
+          "maxLength": 35,
+          "type": "string"
+        },
+        "city_of_birth": {
+          "maxLength": 35,
+          "type": "string"
+        },
+        "country_of_birth": {
+          "pattern": "[A-Z]{2,2}",
+          "type": "string"
+        }
+      }
+    },
+    "generic_identification": {
+      "required": [
+        "identification"
+      ],
+      "type": "object",
+      "properties": {
+        "identification": {
+          "maxLength": 35,
+          "type": "string"
+        },
+        "identification_type_proprietary": {
+          "maxLength": 35,
+          "type": "string"
+        },
+        "identification_type_code": {
+          "maxLength": 4,
+          "minLength": 1,
+          "type": "string"
+        },
+        "identification_issuer": {
+          "maxLength": 35,
+          "type": "string"
+        }
+      }
+    },
+    "ifti_address": {
+      "type": "object",
+      "description": "This represents address of an individual or non-individual customer of a NPP participant.\nThis object could be populated in one of formats below:",
+      "properties": {
+        "address_type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/address_type"
+            }
+          ]
+        },
+        "department": {
+          "maxLength": 70,
+          "minLength": 1,
+          "type": "string",
+          "description": "Department"
+        },
+        "sub_department": {
+          "maxLength": 70,
+          "minLength": 1,
+          "type": "string",
+          "description": "Sub Department"
+        },
+        "street_name": {
+          "maxLength": 70,
+          "minLength": 1,
+          "type": "string",
+          "description": "Street Name"
+        },
+        "bldg_name": {
+          "maxLength": 16,
+          "minLength": 1,
+          "type": "string",
+          "description": "Building name"
+        },
+        "postcode": {
+          "maxLength": 16,
+          "minLength": 1,
+          "type": "string",
+          "description": "Post Code"
+        },
+        "town_name": {
+          "maxLength": 35,
+          "minLength": 1,
+          "type": "string",
+          "description": "Town name"
+        },
+        "ctry_sub_division": {
+          "maxLength": 35,
+          "minLength": 1,
+          "type": "string",
+          "description": "Country Subdivision"
+        },
+        "country_code": {
+          "pattern": "[A-Z]{2,2}",
+          "type": "string",
+          "description": "Country Code"
+        },
+        "address_line": {
+          "maxItems": 7,
+          "minItems": 0,
+          "type": "array",
+          "items": {
+            "maxLength": 70,
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": "Address Lines:\n\n\"address_line\": [\"Melbourne\", \"2000\" ]"
+        }
+      }
+    },
+    "party_identification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "maxLength": 140,
+          "type": "string"
+        },
+        "address": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ifti_address"
+            }
+          ]
+        },
+        "organisation_identification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/generic_identification"
+          }
+        },
+        "organisation_bic": {
+          "pattern": "[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}",
+          "type": "string"
+        },
+        "private_identification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/generic_identification"
+          }
+        },
+        "date_place_of_birth": {
+          "$ref": "#/$defs/date_and_place_of_birth"
+        },
+        "country_of_residence": {
+          "pattern": "[A-Z]{2,2}",
+          "type": "string"
+        },
+        "contact_details": {
+          "$ref": "#/$defs/contact_details"
+        }
+      }
+    }
+  }
+}

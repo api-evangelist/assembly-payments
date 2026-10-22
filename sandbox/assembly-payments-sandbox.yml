@@ -1,0 +1,68 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/environments
+docs:
+- https://developer.hellozai.com/docs/environments
+- https://developer.hellozai.com/docs/test-data
+- https://developer.hellozai.com/docs/simulate-payto-apis-in-pre-live
+description: 'Pre-live (sandbox) environment, fully separate from Live: "All money is virtual. No real money will be charged or sent." Direct Debits / ACH are processed automatically every three minutes;
+  payouts reach "batched" but not "successful".'
+environments:
+- name: Pre-live
+  base_url: https://test.api.promisepay.com
+  auth_server: https://au-0000.sandbox.auth.assemblypay.com
+- name: Live
+  base_url: https://secure.api.promisepay.com
+  auth_server: https://au-0000.auth.assemblypay.com
+mode_selection: 'Separate credentials and endpoint per environment (no key prefix scheme documented); 3DS2 SDK uses env: "pre-live" vs "production".'
+test_cards:
+- brand: American Express
+  numbers:
+  - 3434 3434 343 4343
+- brand: MasterCard
+  numbers:
+  - 5555 5555 5555 4444
+  - 5454 5454 5454 5454
+  - 2221 0000 0000 0009
+- brand: MasterCard Debit
+  numbers:
+  - 5163 6136 1361 3613
+- brand: Visa
+  numbers:
+  - 4444 3333 2222 1111
+  - 4911 8300 0000 0000
+  - 4917 6100 0000 0000
+- brand: Visa Debit
+  numbers:
+  - 4462 0300 0000 0000
+  - 4917 6100 0000 0003
+card_expiry: Up to seven years in the future
+card_cvv: '123'
+bank_accounts: There's currently no valid test data for bank accounts in our Pre-live environment. To test these payment methods, you can provide any value to emulate a bank account.
+mobile:
+  number: Any valid number (eg. +61 412 341 234)
+  pin: '123456'
+bpay_test_data:
+- biller_code: '93807'
+  crn: '235645806'
+  amount: '5000'
+  result: Success
+- biller_code: '7997'
+  crn: '2134567'
+  result: Biller Code provided is invalid or inactive. Please check your entry and try again.
+- biller_code: '93906'
+  crn: '158400020000'
+  result: Customer Reference Number you have entered is not valid. Please check your entry and try again.
+- biller_code: '93864'
+  crn: '8136748'
+  result: BPAY details provided were not accepted by the Biller. Please check your entry and try again.
+- biller_code: '93880'
+  crn: '713200085114'
+  amount: '450000'
+  result: Amount entered is more than the maximum amount accepted by the Biller. Please enter a lower amount and try again.
+triggers:
+- name: Verify User (Prelive Only)
+  operation: verifyuser
+  docs: https://developer.hellozai.com/reference/verifyuser
+- name: Simulate PayTo APIs in pre-live
+  docs: https://developer.hellozai.com/docs/simulate-payto-apis-in-pre-live

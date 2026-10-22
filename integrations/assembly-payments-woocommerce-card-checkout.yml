@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Pay a WooCommerce order through Zai (Assembly Payments)
+  version: 1.0.0
+  description: Reads a WooCommerce order, mirrors it as a Zai Item, charges the buyer card account with makePayment, then marks the WooCommerce order processing. Mirrors the Zai Payment Plugin for WooCommerce
+    described at https://developer.hellozai.com/docs/woocommerce. Buyer/seller Zai user IDs and the buyer card account ID are inputs; onboarding users is out of scope.
+sourceDescriptions:
+- name: woocommerceOrders
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/main/openapi/woocommerce-orders-api-openapi.yml
+  type: openapi
+- name: zaiApi
+  url: https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/openapi/assembly-payments-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: payWooCommerceOrderWithZai
+  summary: WooCommerce order -> Zai item -> card payment -> order status update
+  inputs:
+    type: object
+    required:
+    - order_id
+    - buyer_id
+    - seller_id
+    - account_id
+    properties:
+      order_id:
+        type: integer
+      buyer_id:
+        type: string
+      seller_id:
+        type: string
+      account_id:
+        type: string
+        description: Zai card account ID of the buyer
+      payment_type:
+        type: integer
+        default: 2
+  steps:
+  - stepId: getOrder
+    operationId: $sourceDescriptions.woocommerceOrders.getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.order_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      order_total: $response.body#/total
+      order_currency: $response.body#/currency
+      order_number: $response.body#/number
+  - stepId: createItem
+    operationId: $sourceDescriptions.zaiApi.createItem
+    requestBody:
+      contentType: application/json
+      payload:
+        id: woo-$inputs.order_id
+        name: WooCommerce order $steps.getOrder.outputs.order_number
+        amount: $steps.getOrder.outputs.order_total
+        currency: $steps.getOrder.outputs.order_currency
+        payment_type: $inputs.payment_type
+        buyer_id: $inputs.buyer_id
+        seller_id: $inputs.seller_id
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      item_id: $response.body#/items/id
+  - stepId: makePayment
+    operationId: $sourceDescriptions.zaiApi.makePayment
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createItem.outputs.item_id
+    requestBody:
+      contentType: application/json
+      payload:
+        account_id: $inputs.account_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      item_state: $response.body#/items/state
+  - stepId: updateOrder
+    operationId: $sourceDescriptions.woocommerceOrders.updateOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.order_id
+    requestBody:
+      contentType: application/json
+      payload:
+        status: processing
+        transaction_id: $steps.createItem.outputs.item_id
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    item_id: $steps.createItem.outputs.item_id
+    item_state: $steps.makePayment.outputs.item_state
+x-integration:
+  partner: woocommerce
+  edge_evidence: https://developer.hellozai.com/docs/woocommerce
+  edge_type: docs
+  method: generated
+  generated: '2026-10-22'
+  generator: docs module (claude-opus-5-5)
+  guessed_steps:
+  - step: createItem
+    cause: provider-contract
+    why: WooCommerce total is a decimal string while Zai amount is in cents; the contract states no conversion, so the mapping is unverified.
+  - step: makePayment
+    cause: provider-contract
+    why: Response path items.state assumed from single_item schema wrapper.

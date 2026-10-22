@@ -1,0 +1,719 @@
+openapi: 3.2.0
+info:
+  title: PayIDs Virtual Accounts API
+  description: 'Simplify payin reconciliations by creating a dedicated _Virtual Account_ for each user on your platform.
+
+
+    Enhance the payments experience on your platform by registering a user friendly identifier, i.e. a _PayID_, for each user''s _Virtual Account_. Your users should then be able to address payins using _PayIDs_ which are easier to remember and use than a BSB and account number.
+
+
+    This swagger document lists APIs for _Virtual Account_ and _PayID_ creation and management.'
+  contact:
+    url: https://developer.hellozai.com/reference/overview
+    email: support@hellozai.com
+  version: 0.12-external
+servers:
+- description: Zai Prelive API
+  url: https://sandbox.au-0000.api.assemblypay.com
+- description: Zai Production API
+  url: https://au-0000.api.assemblypay.com
+tags:
+- name: Virtual Accounts
+paths:
+  /virtual_accounts/{id}:
+    get:
+      tags:
+      - Virtual Accounts
+      summary: Show Virtual Account
+      description: Show details of a specific _Virtual Account_ using the given `id`.
+      operationId: showVirtualAccount
+      parameters:
+      - name: id
+        in: path
+        description: _Virtual Account_ ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_deprecated'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_va'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account_not_found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /virtual_accounts/{id}/account_name:
+    patch:
+      tags:
+      - Virtual Accounts
+      summary: Update Account Name
+      description: Change the name of a _Virtual Account_.
+      operationId: updateVirtualAccountAccountName
+      parameters:
+      - name: id
+        in: path
+        description: Identifies a _Virtual Account_.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_virtual_account_account_name_request'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+              example:
+                errors:
+                  aka_names:
+                  - 'must be between 1 and 140 characters (inclusive): '
+                  - 'must only contain printable ASCII characters: ¢¢¢'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_inactive'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account_not_found'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_409_patch'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /virtual_accounts/{id}/aka_names:
+    patch:
+      tags:
+      - Virtual Accounts
+      summary: Update AKA Names
+      description: Replace the list of AKA Names for a _Virtual Account_.
+      operationId: updateVirtualAccountAKAName
+      parameters:
+      - name: id
+        in: path
+        description: Identifies a _Virtual Account_.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_virtual_account_aka_names_request'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+              example:
+                errors:
+                  aka_names:
+                  - 'must be between 1 and 140 characters (inclusive): '
+                  - 'must only contain printable ASCII characters: ¢¢¢'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_inactive'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account_not_found'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_409_patch'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /virtual_accounts/{id}/status:
+    patch:
+      tags:
+      - Virtual Accounts
+      summary: Update Virtual Account Status
+      description: Update the status of a _Virtual Account_.
+      operationId: updateVirtualAccount
+      parameters:
+      - name: id
+        in: path
+        description: Identifies a _Virtual Account_.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - closed
+                  example: closed
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update_va_status_resp'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+              examples:
+                Invalid Status:
+                  value:
+                    errors:
+                      status:
+                      - must be a valid status value
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_inactive'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account_not_found'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_409_object'
+              examples:
+                has_active_payids:
+                  summary: Cannot close with active PayIDs
+                  value:
+                    errors:
+                      error: Cannot close a Virtual Account with active PayIDs registered.
+                      code: has_active_payids
+                      pay_ids:
+                      - f7aa99c9-4556-48da-aab1-39470fd933ab
+                      - f2aa99c9-4556-48da-aab1-39470fd9333b
+                update_in_progress:
+                  summary: Cannot have concurrent updates
+                  value:
+                    errors:
+                      error: An update for this Virtual Account is already in progress. Please try again later.
+                      code: update_in_progress
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+  /wallet_accounts/{id}/virtual_accounts:
+    post:
+      tags:
+      - Virtual Accounts
+      summary: Create Virtual Account
+      description: Create a _Virtual Account_ for a given _Wallet Account_.
+      operationId: createVirtualAccount
+      parameters:
+      - name: id
+        in: path
+        description: _Wallet Account_ ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_virtual_account_request'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_account'
+              example:
+                id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                routing_number: '123456'
+                account_number: '100000017'
+                currency: AUD
+                wallet_account_id: ae07556e-22ef-11eb-adc1-0242ac120002
+                user_external_id: ca12346e-22ef-11eb-adc1-0242ac120002
+                status: pending_activation
+                created_at: '2020-04-27T20:28:22.378Z'
+                updated_at: '2020-04-27T20:28:22.378Z'
+                account_type: NIND
+                full_legal_account_name: Prop Tech Marketplace
+                account_name: Real Estate Agency X
+                aka_names:
+                - Realestate agency X
+                merchant_id: 46deb476c1a641eb8eb726a695bbe5bc
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_deprecated'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_va'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account_not_found'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_409'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+    get:
+      tags:
+      - Virtual Accounts
+      summary: List Virtual Accounts
+      description: List _Virtual Accounts_ for a given _Wallet Account_.
+      operationId: listVirtualAccountByWalletAccount
+      parameters:
+      - name: id
+        in: path
+        description: _Wallet Account_ ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/virtual_accounts_list'
+              example:
+                virtual_accounts:
+                - id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                  routing_number: '123456'
+                  account_number: '100000017'
+                  wallet_account_id: ae07556e-22ef-11eb-adc1-0242ac120002
+                  user_external_id: ca12346e-22ef-11eb-adc1-0242ac120002
+                  currency: AUD
+                  status: active
+                  created_at: '2020-04-27T20:28:22.378Z'
+                  updated_at: '2020-04-27T20:28:22.378Z'
+                  account_type: NIND
+                  full_legal_account_name: Prop Tech Marketplace
+                  account_name: Real Estate Agency X
+                  aka_names:
+                  - Realestate agency X
+                  merchant_id: 46deb476c1a641eb8eb726a695bbe5bc
+                - id: aaaaaaaa-cccc-dddd-eeee-ffffffffffff
+                  routing_number: '123456'
+                  account_number: '100000025'
+                  currency: AUD
+                  wallet_account_id: ae07556e-22ef-11eb-adc1-0242ac120002
+                  user_external_id: ca12346e-22ef-11eb-adc1-0242ac120002
+                  status: pending_activation
+                  created_at: '2020-04-27T20:28:22.378Z'
+                  updated_at: '2020-04-27T20:28:22.378Z'
+                  account_type: NIND
+                  full_legal_account_name: Prop Tech Marketplace
+                  account_name: Real Estate Agency X
+                  aka_names:
+                  - Realestate agency X
+                  merchant_id: 46deb476c1a641eb8eb726a695bbe5bc
+                meta:
+                  total: 2
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_deprecated'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_401'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_va'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account_not_found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
+components:
+  schemas:
+    inline_response_409_object:
+      properties:
+        errors:
+          type: object
+          properties:
+            error:
+              type: string
+              example: Cannot close a Virtual Account with active PayIDs registered.
+            code:
+              type: string
+              example: has_active_payids
+            pay_ids:
+              type: array
+              items:
+                type: string
+                example: f7aa99c9-4556-48da-aab1-39470fd933ab
+          required:
+          - error
+          - code
+    virtual_account_account_name:
+      type: string
+      maxLength: 140
+      description: A name given for a _Virtual Account_. This is used in CoP lookups.
+      example: Real Estate Agency X
+    aka_name:
+      type: string
+      maxLength: 140
+      description: An alias for a _Virtual Account_. This is used in CoP lookups.
+      example: Realestate Agency X
+    wallet_account_not_found:
+      properties:
+        errors:
+          type: string
+          example: Wallet Account does not exist.
+    virtual_account:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        routing_number:
+          type: string
+          format: numeric
+          minLength: 6
+          maxLength: 6
+          example: 123456
+        account_number:
+          type: string
+          format: numeric
+          minLength: 9
+          maxLength: 9
+          example: 100000017
+        currency:
+          type: string
+          format: alphabets
+          example: AUD
+        user_external_id:
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        wallet_account_id:
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        status:
+          type: string
+          enum:
+          - active
+          - pending_activation
+          - activation_failed
+          - disabled
+          - closed
+          example: active
+        created_at:
+          type: string
+          format: date-time
+          example: '2020-04-27T20:28:22.378Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2020-04-27T20:28:22.378Z'
+        account_type:
+          type: string
+          enum:
+          - NIND
+          maxLength: 4
+          example: NIND
+        full_legal_account_name:
+          type: string
+          maxLength: 140
+          example: Prop Tech Marketplace
+        account_name:
+          $ref: '#/components/schemas/virtual_account_account_name'
+        aka_names:
+          $ref: '#/components/schemas/aka_names'
+        merchant_id:
+          $ref: '#/components/schemas/merchant_id'
+    update_va_status_resp:
+      type: object
+      properties:
+        id:
+          description: Identifies the _Virtual Account_.
+          type: string
+          format: uuid
+          example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+        message:
+          type: string
+          example: Virtual Account update has been accepted for processing
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /virtual_accounts/46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+    inline_response_409:
+      properties:
+        wallet_account_id:
+          type: string
+          example: Provided wallet_account_id is already associated with an active or pending activation virtual account
+    aka_names:
+      type: array
+      items:
+        $ref: '#/components/schemas/aka_name'
+      maximum: 3
+      minimum: 0
+      description: A list of AKA Names.
+      example:
+      - Realestate Agency X
+      - Realestate Agency X of PropTech Marketplace
+    inline_response_400_1:
+      properties:
+        errors:
+          type: object
+    inline_response_403_inactive:
+      properties:
+        errors:
+          type: string
+          example: Cannot update a Virtual Account that isn't active.
+    merchant_id:
+      type: string
+      maxLength: 35
+      description: An identifier that links a _Virtual Account_ to a merchant. This is used in CoP lookups.
+      example: 46deb476c1a641eb8eb726a695bbe5bc
+    inline_response_403_va:
+      properties:
+        errors:
+          type: object
+          properties:
+            virtual_accounts:
+              type: array
+              items:
+                type: string
+                example: Feature not available
+    update_virtual_account_aka_names_request:
+      type: object
+      required:
+      - aka_names
+      properties:
+        aka_names:
+          $ref: '#/components/schemas/aka_names'
+    update_virtual_account_account_name_request:
+      type: object
+      required:
+      - account_name
+      properties:
+        account_name:
+          $ref: '#/components/schemas/virtual_account_account_name'
+    virtual_accounts_list:
+      type: object
+      properties:
+        virtual_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/virtual_account'
+        meta:
+          type: object
+          properties:
+            total:
+              type: number
+              example: 2
+    inline_response_409_patch:
+      properties:
+        errors:
+          type: string
+          example: An update for this Virtual Account is already in progress. Please try again later.
+    inline_response_500:
+      properties:
+        errors:
+          type: string
+          example: An error occurred processing your request. Please try again.
+    create_virtual_account_request:
+      type: object
+      properties:
+        account_name:
+          $ref: '#/components/schemas/virtual_account_account_name'
+        aka_names:
+          $ref: '#/components/schemas/aka_names'
+    inline_response_400_deprecated:
+      properties:
+        errors:
+          type: string
+          example: 'invalid format for url param: id'
+    inline_response_401:
+      properties:
+        errors:
+          type: string
+          example: Invalid or missing authorisation token
+    virtual_account_not_found:
+      properties:
+        errors:
+          type: string
+          example: Virtual Account does not exist.
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- c#
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/createvirtualaccount.md
+  - https://developer.hellozai.com/reference/getpayid.md
+  - https://developer.hellozai.com/reference/listvirtualaccountbywalletaccount.md
+  - https://developer.hellozai.com/reference/registerpayid.md
+  - https://developer.hellozai.com/reference/showvirtualaccount.md
+  - https://developer.hellozai.com/reference/updatepayidstatus.md
+  - https://developer.hellozai.com/reference/updatevirtualaccount.md
+  - https://developer.hellozai.com/reference/updatevirtualaccountaccountname.md
+  - https://developer.hellozai.com/reference/updatevirtualaccountakaname.md
+  merge:
+    pages: 9
+    deduped: 48
+    conflicts_kept_first: 0

@@ -1,0 +1,26 @@
+generated: '2026-10-22'
+method: none
+source: openapi/assembly-payments-api-openapi.yml, openapi/assembly-payments-asynchronous-api-openapi.yml,
+  openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml
+schemes:
+- name: oAuth2ClientCredentials
+  source: openapi/assembly-payments-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+  description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+- name: oAuth2ClientCredentials
+  source: openapi/assembly-payments-asynchronous-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+  description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+- name: oAuth2ClientCredentials
+  source: openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+  description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+scopes: []
+note: The OAuth2 security scheme(s) in the OpenAPI declare no scopes, and no security requirement
+  references one.

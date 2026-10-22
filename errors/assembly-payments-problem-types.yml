@@ -1,0 +1,79 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/error-codes
+format: http-status
+envelope: Provider JSON error body (not RFC 9457); the docs say to see the API response for guidance on 403/422.
+problems:
+- status: 400
+  title: Bad Request
+  type: null
+  description: Some invalid information is passed in the request. Example - URL is malformed (missing the needed path params)
+  remediation: Some invalid information is passed in the request. Example - URL is malformed (missing the needed path params)
+- status: 401
+  title: Unauthorized
+  type: null
+  description: The request could not be processed due to missing or invalid authentication credentials
+  remediation: The request could not be processed due to missing or invalid authentication credentials
+- status: 403
+  title: Forbidden
+  type: null
+  description: The request could not be granted due to access restrictions. See the API response for guidance.
+  remediation: The request could not be granted due to access restrictions. See the API response for guidance.
+- status: 404
+  title: Not Found
+  type: null
+  description: The information requested was not found. Ensure that you have entered the correct details for your request.
+  remediation: The information requested was not found. Ensure that you have entered the correct details for your request.
+- status: 408
+  title: Request Timeout
+  type: null
+  description: The request took too long to be sent from your client to our servers. Please check your internet connection before you try again.
+  remediation: The request took too long to be sent from your client to our servers. Please check your internet connection before you try again.
+- status: 409
+  title: Conflict
+  type: null
+  description: The request cannot be processed as it conflicts with the current state of entity (example - virtual account already exists for a wallet and an attempt is made to create a new one again for
+    the same wallet).
+  remediation: The request cannot be processed as it conflicts with the current state of entity (example - virtual account already exists for a wallet and an attempt is made to create a new one again for
+    the same wallet).
+- status: 422
+  title: Unprocessable Entity
+  type: null
+  description: The request could not be processed because some fields require your input or correction. See the API response for guidance.
+  remediation: The request could not be processed because some fields require your input or correction. See the API response for guidance.
+- status: 424
+  title: Failed Dependency
+  type: null
+  description: 'An error occurred processing your request. Please contact support providing this reference: {correlation ID}'
+  remediation: 'An error occurred processing your request. Please contact support providing this reference: {correlation ID}'
+- status: 500
+  title: Internal Server Error
+  type: null
+  description: An unexpected error was encountered.
+  remediation: An unexpected error was encountered.
+- status: 502
+  title: Bad Gateway
+  type: null
+  description: There is a problem communicating between servers. Please try again after a few minutes.
+  remediation: There is a problem communicating between servers. Please try again after a few minutes.
+- status: 503
+  title: Service Unavailable
+  type: null
+  description: Our servers are currently down or unable to process your request. See our Status page for updates.
+  remediation: Our servers are currently down or unable to process your request. See our Status page for updates.
+- status: 504
+  title: Gateway Timeout
+  type: null
+  description: The request took too long to be sent between servers. Please try again after a few minutes or see our Status page for updates.
+  remediation: The request took too long to be sent between servers. Please try again after a few minutes or see our Status page for updates.
+- status: 515
+  title: Service Temporarily Unavailable
+  type: null
+  description: We are unable to process your request at the moment, please try again later.
+  remediation: We are unable to process your request at the moment, please try again later.
+- status: 516
+  title: Service Unavailable
+  type: null
+  description: We encountered an error with our provider. Please contact our support team.
+  remediation: We encountered an error with our provider. Please contact our support team.
+see_also: https://developer.hellozai.com/docs/common-error-messages

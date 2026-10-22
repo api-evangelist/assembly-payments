@@ -1,0 +1,414 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json",
+  "title": "npp_last_domestic_leg_disbursement",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml#/components/schemas/npp_last_domestic_leg_disbursement",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/$defs/disbursement"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "end_to_end_id": {
+          "type": "string"
+        },
+        "ifti_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/ifti_information_response"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "disbursement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reference_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "batch_id": {
+          "type": "string"
+        },
+        "cuscal_payment_transaction_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "bank_name": {
+          "type": "string"
+        },
+        "bank_account_name": {
+          "type": "string"
+        },
+        "bank_account_number": {
+          "type": "string"
+        },
+        "bank_routing_number": {
+          "type": "string"
+        },
+        "npp_payout_state": {
+          "type": "string"
+        },
+        "account_name": {
+          "type": "string"
+        },
+        "biller_name": {
+          "type": "string"
+        },
+        "biller_code": {
+          "type": "string"
+        },
+        "crn": {
+          "type": "string"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "transactions": {
+              "type": "string"
+            },
+            "wallet_accounts": {
+              "type": "string"
+            },
+            "paypal_accounts": {
+              "type": "string"
+            },
+            "bank_accounts": {
+              "type": "string"
+            },
+            "bpay_accounts": {
+              "type": "string"
+            },
+            "items": {
+              "type": "string"
+            },
+            "users": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ifti_information_response": {
+      "type": "object",
+      "properties": {
+        "instruction_identification": {
+          "type": "string"
+        },
+        "charge_bearer": {
+          "type": "string"
+        },
+        "uetr": {
+          "type": "string"
+        },
+        "creditor_lei": {
+          "type": "string"
+        },
+        "debtor_lei": {
+          "type": "string"
+        },
+        "service_level": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "previous_instructing_agent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "agent_bic": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "creditor_agent_instruction": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instruction_information": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "initiating_party_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification_sample_v4_initiating"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "debtor": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification_sample_v4"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "debtor_account": {
+          "type": "object",
+          "properties": {
+            "iban": {
+              "type": "string"
+            }
+          }
+        },
+        "debtor_agent_information": {
+          "type": "object",
+          "properties": {
+            "bic": {
+              "type": "string"
+            }
+          }
+        },
+        "creditor_address": {
+          "type": "object",
+          "properties": {
+            "country_code": {
+              "type": "string"
+            },
+            "address_line": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "next_agent_instruction": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "instructed_amount": {
+          "type": "object",
+          "properties": {
+            "currency": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string"
+            }
+          }
+        },
+        "ultimate_creditor_information": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/party_identification_sample_v4"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "exchange_rate": {
+          "type": "string"
+        },
+        "payment_purpose_proprietary": {
+          "type": "string"
+        },
+        "payment_information": {
+          "type": "object",
+          "properties": {
+            "uetr": {
+              "type": "string"
+            },
+            "country_of_origin": {
+              "type": "string"
+            },
+            "remittance_information_unstructured": {
+              "type": "string"
+            },
+            "payment_purpose_code": {
+              "type": "string"
+            }
+          }
+        },
+        "regulatory_reporting": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "authority_name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "remittance_information_structured": {
+          "type": "object",
+          "properties": {
+            "referred_document_information": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "proprietary": {
+                    "type": "string"
+                  },
+                  "issuer": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "string"
+                  },
+                  "related_date": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "related_remittance_information": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "identification": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "party_identification_sample_v4": {
+      "description": "Simplified response sample for party blocks where organisation_identification is a single object.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country_of_residence": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "country_code": {
+              "type": "string"
+            },
+            "address_line": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "organisation_identification": {
+          "type": "object",
+          "properties": {
+            "lei": {
+              "type": "string"
+            },
+            "other": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "identification": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "party_identification_sample_v4_initiating": {
+      "description": "Simplified response sample for initiating_party_information, where organisation_identification is an array of objects.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "country_of_residence": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "country_code": {
+              "type": "string"
+            },
+            "address_line": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "organisation_identification": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lei": {
+                "type": "string"
+              },
+              "other": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "identification": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,828 @@
+openapi: 3.2.0
+info:
+  title: Assembly Bank Accounts API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Bank Accounts
+paths:
+  /bank_accounts:
+    post:
+      tags:
+      - Bank Accounts
+      summary: Create Bank Account
+      description: Create a **Bank Account** to be used as either a funding source or a Disbursement destination. Store the returned `:id` and use it for a `make_payment` **Item Action** call. The `:id` is also referred to as a `token` when involving **Bank Accounts**.
+      operationId: createBankAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/bank_account_requestBody_au'
+            examples:
+              au_request:
+                summary: bank account request body for AU
+                value:
+                  user_id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                  bank_name: Bank of Australia
+                  account_name: Samuel Seller
+                  routing_number: '111123'
+                  account_number: '111234'
+                  account_type: savings
+                  holder_type: personal
+                  country: AUS
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/bank_account_au'
+              examples:
+                response_AU:
+                  value:
+                    bank_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      verification_status: in_progress
+                      currency: AUD
+                      bank:
+                        bank_name: Bank of Australia
+                        country: AUS
+                        account_name: Samuel Seller
+                        routing_number: XXXXX3
+                        account_number: XXX234
+                        iban: null,
+                        swift_code: null,
+                        holder_type: personal
+                        account_type: checking
+                        direct_debit_authority_status: approved
+                      links:
+                        self: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+                        direct_debit_authorities: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/direct_debit_authorities
+  /bank_accounts/{id}:
+    get:
+      tags:
+      - Bank Accounts
+      summary: Show Bank Account
+      description: Show details of a specific **Bank Account** using a given `:id`.
+      operationId: showBankAccount
+      parameters:
+      - name: id
+        in: path
+        description: Bank account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      - name: include_decrypted_fields
+        in: query
+        description: If true, the API will decrypt and return sensitive bank account fields (for example, the full account number). Defaults to false
+        required: false
+        schema:
+          type: boolean
+          default: false
+          example: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bank_account_au'
+              examples:
+                response_AU:
+                  value:
+                    bank_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      created_at: '2020-04-27T20:28:22.378Z'
+                      updated_at: '2020-04-27T20:28:22.378Z'
+                      verification_status: processed
+                      verification:
+                        verified_at: '2020-04-28T15:00:00.000Z'
+                        verification_method: COP
+                        result:
+                          match_result: MTCH
+                      currency: AUD
+                      bank:
+                        bank_name: Bank of Australia
+                        country: AUS
+                        account_name: Samuel Seller
+                        routing_number: XXXXX3
+                        account_number: XXX234
+                        iban: null
+                        swift_code: null
+                        holder_type: personal
+                        account_type: checking
+                        direct_debit_authority_status: approved
+                      links:
+                        self: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+                        direct_debit_authorities: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/direct_debit_authorities
+    delete:
+      tags:
+      - Bank Accounts
+      summary: Redact Bank Account
+      description: Redact a **Bank Account** using a given `:id`. Redacted **Bank Accounts** can no longer be used as a funding source or a Disbursement destination.
+      operationId: redactBankAccount
+      parameters:
+      - name: id
+        in: path
+        description: Bank account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bank_account_deletion'
+              examples:
+                response:
+                  value:
+                    bank_account: Successfully redacted
+  /bank_accounts/{id}/penny_send:
+    patch:
+      tags:
+      - Bank Accounts
+      summary: Send Penny Amount
+      description: 'When penny verification is enabled, this API call sends two penny transactions to the specified bank account for verification. **Note**: This API call is not required when your platform has automatic penny verification enabled, as this is instead done by the system. Penny credit verification is only supported for US platforms.'
+      operationId: sendPennyAmount
+      parameters:
+      - name: id
+        in: path
+        description: Bank account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bank_account_au'
+              examples:
+                response:
+                  value:
+                    bank_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      created_at: '2020-04-27T20:28:22.378Z'
+                      updated_at: '2020-04-27T20:28:22.378Z'
+                      verification_status: verifying
+                      currency: AUD
+                      bank:
+                        bank_name: Bank of Australia
+                        country: AUS
+                        account_name: Samuel Seller
+                        routing_number: XXXXX3
+                        account_number: XXX234
+                        holder_type: personal
+                        account_type: checking
+                        direct_debit_authority_status: approved
+                      links:
+                        self: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+                        direct_debit_authorities: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/direct_debit_authorities
+  /bank_accounts/{id}/penny_verify:
+    patch:
+      tags:
+      - Bank Accounts
+      summary: Verify Penny Amount
+      description: 'When penny verification is enabled, this API call verifies the two penny transactions that were sent to a specified bank account using **Send Penny Amount**. **Note**: This API call requires you to provide a front-end interface to your end-users into which they can input the penny amounts required for a successful verification. Your front-end interface should then pass the information into this API call. Penny credit verification is only supported for US platforms.'
+      operationId: verifyPennyAmount
+      parameters:
+      - name: id
+        in: path
+        description: Bank account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/penny_verify_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/bank_account_au'
+              examples:
+                response:
+                  value:
+                    bank_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      verification_status: verified
+                      currency: AUD
+                      bank:
+                        bank_name: Bank of Australia
+                        country: AUS
+                        account_name: Samuel Seller
+                        routing_number: XXXXX3
+                        account_number: XXX234
+                        holder_type: personal
+                        account_type: checking
+                        direct_debit_authority_status: approved
+                      links:
+                        self: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+                        direct_debit_authorities: /bank_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/direct_debit_authorities
+  /bank_accounts/{id}/users:
+    get:
+      tags:
+      - Bank Accounts
+      summary: Show Bank Account User
+      description: Show the **User** the **Bank Account** is associated with using a given `:id`.
+      operationId: showBankAccountUser
+      parameters:
+      - name: id
+        in: path
+        description: Bank account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 901d8cd0-6af3-0138-967d-0a58a9feac04
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03T07:59:00.379Z'
+                      updated_at: '2020-04-03T07:59:00.379Z'
+                      id: Seller_1234
+                      full_name: Samuel Seller
+                      email: sam@example.com
+                      mobile: 69543131
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Samuel
+                      last_name: Seller
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /bank_accounts/901d8cd0-6af3-0138-967d-0a58a9feac04/users
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+  /tools/routing_number:
+    get:
+      tags:
+      - Bank Accounts
+      summary: Validate Routing Number
+      description: Validate a US bank routing number before creating an account. This can be used to provide on-demand verification, and further information of the bank information a User is providing.
+      operationId: validateRoutingNumber
+      parameters:
+      - name: routing_number
+        in: query
+        description: Bank account routing number
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: '122235821'
+        example: '122235821'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_routing_number'
+              examples:
+                response:
+                  value:
+                    routing_number:
+                      routing_number: '122235821'
+                      customer_name: US BANK NA
+                      address: EP-MN-WN1A
+                      city: ST. PAUL
+                      state_code: MN
+                      zip: '55107'
+                      zip_extension: '1419'
+                      phone_area_code: '800'
+                      phone_prefix: '937'
+                      phone_suffix: '631'
+components:
+  schemas:
+    bank_account_deletion:
+      properties:
+        bank_account:
+          type: string
+          example: Successfully redacted
+    bank_account_requestBody_au:
+      type: object
+      required:
+      - user_id
+      - bank_name
+      - account_name
+      - routing_number
+      - account_number
+      - account_type
+      - holder_type
+      - country
+      properties:
+        user_id:
+          description: User ID
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+          example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        bank_name:
+          description: Bank name
+          type: string
+          default: Bank of Australia
+          example: Bank of Australia
+        account_name:
+          description: Account name
+          type: string
+          default: Samuel Seller
+          example: Samuel Seller
+        routing_number:
+          description: '*Required conditionally* - Routing number / BSB number. See [Bank account formats by country](https://developer.assemblypayments.com/docs/input-formats).
+
+            '
+          type: string
+          default: '111123'
+          example: '111123'
+        account_number:
+          description: 'Account number. See [Bank account formats by country](https://developer.assemblypayments.com/docs/input-formats).
+
+            '
+          type: string
+          default: '111234'
+          example: '111234'
+        account_type:
+          description: Bank account type (savings or checking)
+          type: string
+          enum:
+          - savings
+          - checking
+          default: checking
+          example: checking
+        holder_type:
+          description: Holder type (personal or business)
+          type: string
+          enum:
+          - personal
+          - business
+          default: personal
+          example: personal
+        country:
+          description: '[ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Officially_assigned_code_elements) country code (3 char)'
+          type: string
+          maxLength: 3
+          default: AUS
+          example: AUS
+        payout_currency:
+          description: '[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This parameter determines the currency with which funds are paid out.'
+          type: string
+          example: AUD
+        currency:
+          description: '[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This is an optional field and if not provided, the item will be created with the default currency of the marketplace.'
+          type: string
+          example: AUD
+    single_routing_number:
+      type: object
+      properties:
+        routing_number:
+          type: object
+          properties:
+            routing_number:
+              type: string
+              example: 122235821
+            customer_name:
+              type: string
+              example: US BANK NA
+            address:
+              type: string
+              example: EP-MN-WN1A
+            city:
+              type: string
+              example: ST. PAUL
+            state_code:
+              type: string
+              example: MN
+            zip:
+              type: string
+              example: 55107
+            zip_extension:
+              type: string
+              example: 1419
+            phone_area_code:
+              type: string
+              example: 800
+            phone_prefix:
+              type: string
+              example: 937
+            phone_suffix:
+              type: string
+              example: 6310
+    penny_verify_requestBody:
+      type: object
+      required:
+      - amount_1
+      - amount_2
+      properties:
+        amount_1:
+          description: First penny amount in cents. Can range from 1 to 30 cents.
+          type: integer
+          default: 10
+        amount_2:
+          description: Second penny amount in cents. Can range from 1 to 30 cents.
+          type: integer
+          default: 20
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    bank_account_au:
+      type: object
+      properties:
+        bank_accounts:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            id:
+              type: string
+              format: uuid
+              example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+            currency:
+              type: string
+              example: AUD
+            verification_status:
+              type: string
+              enum:
+              - not_verified
+              - in_progress
+              - processed
+              example: not_verified
+            verification:
+              type: object
+              properties:
+                verified_at:
+                  type: string
+                  format: date-time
+                verification_method:
+                  type: string
+                  enum:
+                  - COP
+                result:
+                  type: object
+                  properties:
+                    match_result:
+                      type: string
+                      enum:
+                      - MTCH
+                      - MTCO
+                      - CMTC
+                      - WMTC
+                      - NMTC
+                      - NMTO
+                      - NINF
+                      - NFND
+                      - CLSD
+            bank:
+              type: object
+              properties:
+                bank_name:
+                  type: string
+                  example: Bank of Australia
+                country:
+                  type: string
+                  example: AUS
+                account_name:
+                  type: string
+                  example: Samuel Seller
+                routing_number:
+                  type: string
+                  example: XXXXX3
+                account_number:
+                  type: string
+                  example: XXX234
+                holder_type:
+                  type: string
+                  enum:
+                  - personal
+                  - business
+                  example: personal
+                account_type:
+                  type: string
+                  enum:
+                  - savings
+                  - checking
+                  example: checking
+                direct_debit_authority_status:
+                  type: string
+                  readOnly: true
+                  enum:
+                  - 'null'
+                  - approved
+                  example: approved
+            links:
+              type: object
+              properties:
+                self:
+                  type: string
+                users:
+                  type: string
+                direct_debit_authorities:
+                  type: string
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

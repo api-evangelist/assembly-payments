@@ -1,0 +1,1 @@
+{"$schema":"https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json","name":"com.readme/assembly-payments","version":"2.1","title":"Zai","description":"MCP server for Zai. Lets AI agents explore this project's API reference and documentation.","remotes":[{"type":"streamable-http","url":"https://developer.hellozai.com/mcp"}]}

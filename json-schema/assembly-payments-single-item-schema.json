@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-single-item-schema.json",
+  "title": "single_item",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-asynchronous-api-openapi.yml#/components/schemas/single_item",
+  "type": "object",
+  "properties": {
+    "items": {
+      "$ref": "#/$defs/item"
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "payment_required",
+            "wire_pending",
+            "payment_pending",
+            "payment_held",
+            "payment_authorized",
+            "voided",
+            "fraud_hold",
+            "payment_deposited",
+            "work_completed",
+            "problem_flagged",
+            "problem_resolve_requested",
+            "problem_escalated",
+            "completed",
+            "cancelled",
+            "refunded",
+            "refund_pending",
+            "refund_flagged",
+            "off_platform_refunded",
+            "partial_completed",
+            "partial_paid",
+            "off_platform_chargedback"
+          ]
+        },
+        "status": {
+          "type": "integer",
+          "enum": [
+            22000,
+            22100,
+            22110,
+            22150,
+            22175,
+            22180,
+            22195,
+            22190,
+            22200,
+            22300,
+            22400,
+            22410,
+            22420,
+            22500,
+            22575,
+            22600,
+            22610,
+            22650,
+            22670,
+            22700,
+            22800,
+            22680
+          ]
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "payment_type_id": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "buyer_name": {
+          "type": "string"
+        },
+        "buyer_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "buyer_country": {
+          "type": "string"
+        },
+        "seller_name": {
+          "type": "string"
+        },
+        "seller_email": {
+          "type": "string",
+          "format": "email"
+        },
+        "seller_country": {
+          "type": "string",
+          "format": "email"
+        },
+        "tds_check_state": {
+          "type": "string",
+          "format": "email"
+        },
+        "batch_state": {
+          "type": "string"
+        },
+        "invoice_url": {
+          "type": "string"
+        },
+        "payout_descriptor": {
+          "type": "string"
+        },
+        "remaining_amount": {
+          "type": "integer"
+        },
+        "requested_release_amount": {
+          "type": "integer"
+        },
+        "custom_descriptor": {
+          "type": "string"
+        },
+        "net_amount": {
+          "type": "integer"
+        },
+        "chargedback_amount": {
+          "type": "integer"
+        },
+        "refunded_amount": {
+          "type": "integer"
+        },
+        "released_amount": {
+          "type": "integer"
+        },
+        "buyer_fees": {
+          "type": "integer"
+        },
+        "seller_fees": {
+          "type": "integer"
+        },
+        "credit_card_fee": {
+          "type": "integer"
+        },
+        "paypal_fee": {
+          "type": "integer"
+        },
+        "seller_url": {
+          "type": "string"
+        },
+        "buyer_url": {
+          "type": "string"
+        },
+        "direct_debit_fee": {
+          "type": "integer"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "pending_release_amount": {
+          "type": "integer"
+        },
+        "dynamic_descriptor": {
+          "type": "string"
+        },
+        "deposit_reference": {
+          "type": "string"
+        },
+        "promisepay_fee": {
+          "type": "integer"
+        },
+        "total_outstanding": {
+          "type": "integer"
+        },
+        "total_amount": {
+          "type": "integer"
+        },
+        "payment_method": {
+          "type": "string"
+        },
+        "payment_credit_card_enabled": {
+          "type": "boolean"
+        },
+        "payment_direct_debit_enabled": {
+          "type": "boolean"
+        },
+        "related": {
+          "type": "object",
+          "properties": {
+            "buyers": {
+              "type": "string"
+            },
+            "sellers": {
+              "type": "string"
+            }
+          }
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string"
+            },
+            "buyers": {
+              "type": "string"
+            },
+            "sellers": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "fees": {
+              "type": "string"
+            },
+            "transactions": {
+              "type": "string"
+            },
+            "batch_transactions": {
+              "type": "string"
+            },
+            "wire_details": {
+              "type": "string"
+            },
+            "bpay_details": {
+              "type": "string"
+            },
+            "tds_checks": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

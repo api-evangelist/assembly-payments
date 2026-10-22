@@ -1,0 +1,38 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/common-error-messages
+envelope: error message string returned by Make Payment / Authorize Payment / Refund calls
+note: Zai publishes card failures as message strings, not numeric codes; the action is embedded in each description. One malformed row on the page ("Transaction amount ... exceeded limit") was skipped.
+  Masking to buyers is not documented.
+decline_codes:
+- code: 'Credit card payment failed: Invalid billing descriptor'
+  meaning: A credit card payment could not be processed due to how your platform is configured to display Soft Descriptors. This error may appear on US-based platforms.
+  action: A credit card payment could not be processed due to how your platform is configured to display Soft Descriptors. This error may appear on US-based platforms.
+- code: 'Credit card authorization failed: MW - 068:Card Not Accepted'
+  meaning: The card is a credit card account.
+  action: The card is a credit card account.
+- code: 'Credit card payment failed: Do Not Honor'
+  meaning: The credit card used for this transaction could have temporary or permanent restrictions placed on it by the issuing bank, have been blocked due to suspected fraudulent activity, or have insufficient
+    funds. Please refer the buyer to their issuing bank.
+  action: The credit card used for this transaction could have temporary or permanent restrictions placed on it by the issuing bank, have been blocked due to suspected fraudulent activity, or have insufficient
+    funds. Please refer the buyer to their issuing bank.
+- code: 'Credit card payment failed: Refer to Card Issuer'
+  meaning: The credit card used for this transaction is either expired or flagged as lost or stolen by the issuing bank. Please refer the buyer to their issuing bank.
+  action: The credit card used for this transaction is either expired or flagged as lost or stolen by the issuing bank. Please refer the buyer to their issuing bank.
+- code: 'Credit card authorization failed: Unable to communicate with the payment system'
+  meaning: There is a problem communicating with the payment gateway used for this transaction. The transaction may be attempted again after a few minutes.
+  action: There is a problem communicating with the payment gateway used for this transaction. The transaction may be attempted again after a few minutes.
+- code: 'Credit card authorization failed: The payment gateway is currently unavailable.'
+  meaning: The payment gateway used for this transaction is out of service or inaccessible at this time. The transaction may be attempted again after a few minutes.
+  action: The payment gateway used for this transaction is out of service or inaccessible at this time. The transaction may be attempted again after a few minutes.
+- code: 'Credit card authorization failed: Refer to card issuer'
+  meaning: The credit card used for this transaction could have been blocked due to suspected fraudulent activity or be expired or flagged as lost or stolen by the issuing bank. Please refer the buyer back
+    to their issuing bank.
+  action: The credit card used for this transaction could have been blocked due to suspected fraudulent activity or be expired or flagged as lost or stolen by the issuing bank. Please refer the buyer back
+    to their issuing bank.
+- code: 'Credit card authorization failed: Unable to process the purchase transaction'
+  meaning: The credit card used to fund this transaction has been denied. Please refer the buyer to their issuing bank.
+  action: The credit card used to fund this transaction has been denied. Please refer the buyer to their issuing bank.
+- code: 'Credit card refund failed: Stolen card, pick up'
+  meaning: The credit card refund failed because the card was reported stolen. Please reach out to the cardholder and coordinate with Zai to make the refund.
+  action: The credit card refund failed because the card was reported stolen. Please reach out to the cardholder and coordinate with Zai to make the refund.

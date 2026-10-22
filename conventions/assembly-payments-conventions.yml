@@ -1,0 +1,72 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/reference/overview
+auth:
+  style: OAuth2 client credentials; 60-minute bearer tokens from an issuing server, passed in the Authorization header
+  docs: https://developer.hellozai.com/reference/overview
+  see: authentication/assembly-payments-authentication.yml
+idempotency:
+  coverage: none
+  note: No Idempotency-Key header or replay protection is documented or declared in the OpenAPI. The Developer Checklist recommends passing your own User/Item IDs on creation (duplicate IDs are rejected
+    with "ID has already been taken"), which de-duplicates object creation but is not a request-replay mechanism.
+  docs: https://developer.hellozai.com/docs/developer-checklist
+pagination:
+  style: offset
+  params:
+  - limit
+  - offset
+  response_fields:
+  - meta.limit
+  - meta.offset
+  - meta.total
+  - links.self
+  source: openapi/assembly-payments-api-openapi.yml (components.parameters.limitParam / offsetParam)
+object_ids: Client may supply its own User/Item IDs (existing ID, UUID, combined item+buyer ID) or opt for Zai-generated UUIDs.
+environments:
+  prelive: https://test.api.promisepay.com
+  live: https://secure.api.promisepay.com
+async_notifications:
+  callbacks: https://developer.hellozai.com/docs/callbacks
+  webhooks: https://developer.hellozai.com/docs/webhooks
+  retries: 'Webhook jobs retried for up to 24 hours with exponential backoff (5 attempts: 5 min, 25 min, 1h45, 7h05, 28h25 estimated)'
+  retry_docs: https://developer.hellozai.com/docs/best-practices-for-webhooks
+  signature_verification: https://developer.hellozai.com/docs/verify-webhook-signatures
+errors:
+  see: errors/assembly-payments-problem-types.yml
+  messages: https://developer.hellozai.com/docs/common-error-messages
+rate_limit_signaling:
+  see: rate-limits/assembly-payments-rate-limits.yml
+  note: No rate-limit headers documented.
+reversibility:
+  surfaces:
+  - surface: item payment (card / funded)
+    operation: refund
+    method: PATCH /items/{id}/refund
+    description: A partial amount can be specified otherwise the full amount will be refunded.
+    window: null
+    grade: documented
+    docs: https://developer.hellozai.com/reference/refund
+  - surface: authorized card payment
+    operation: voidPayment
+    method: PATCH /items/{id}/void_payment
+    window: A payment authorisation expires after 3 to 6 days if not captured.
+    grade: verified
+    docs: https://developer.hellozai.com/reference/voidpayment
+    note: Not all payment gateways support Void Payment.
+  - surface: item
+    operation: cancelItem
+    method: PATCH /items/{id}/cancel
+    window: Items can only be cancelled if they haven't been actioned in any other way.
+    grade: verified
+    docs: https://developer.hellozai.com/reference/cancelitem
+  - surface: PayTo agreement authorisation request
+    operation: recallAgreementAction
+    method: PATCH /agreements/{agreement_uuid}/recall
+    window: before it is approved by debtor. By default, all debtor authorization requests expire after 5 days post creation.
+    grade: verified
+    docs: https://developer.hellozai.com/reference/recallagreementaction
+  - surface: webhook / callback subscriptions
+    operation: deleteWebhookById / deleteCallback
+    grade: documented
+    window: null
+  note: No window is stated for refunds, so none is asserted.

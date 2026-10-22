@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: Supplementary Data APIs enhancements (API Evangelist)
+  version: 1.0.0
+extends: openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-description: Adds provider/docs metadata and per-operation agent-safety hints (derived from HTTP method only) without mutating the original
+  contract.
+actions:
+- target: $.info
+  update:
+    x-provider: Assembly Payments (now Zai)
+    x-api-evangelist-profiled: '2026-10-22'
+    x-docs: https://developer.hellozai.com/docs/introduction
+    x-llms-txt: https://developer.hellozai.com/llms.txt
+- target: $.paths['/payment_details/failed/{instructionId}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/supplementary_data'].get
+  update:
+    x-agent-safety: read-only

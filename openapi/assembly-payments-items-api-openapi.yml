@@ -1,0 +1,2001 @@
+openapi: 3.2.0
+info:
+  title: Assembly Items API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Items
+paths:
+  /items:
+    get:
+      tags:
+      - Items
+      summary: List Items
+      description: OK
+      operationId: listItems
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: search
+        in: query
+        description: A text value to be used for searching within the item description
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: created_before
+        in: query
+        description: Date and time in ISO 8601 format the item(s) were created before (e.g. 2020-02-27T23:54:59Z)
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: created_after
+        in: query
+        description: Date and time in ISO 8601 format the item(s) were created after (e.g. 2020-02-27T23:54:59Z)
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/items'
+              examples:
+                response:
+                  value:
+                    items:
+                    - id: 7172300-1-8447
+                      name: Item 7172300-1-8447
+                      description: Test Item 7172300-1-8447
+                      created_at: '2020-05-09T07:08:24.727Z'
+                      updated_at: '2020-05-09T07:08:49.111Z'
+                      state: completed
+                      payment_type_id: 2
+                      status: 22500
+                      amount: 173
+                      deposit_reference: '100014012518964'
+                      buyer_name: Buyer Last Name
+                      buyer_country: AUS
+                      buyer_email: assemblybuyer71718542@assemblypayments.com
+                      seller_name: Assembly seller71718579
+                      seller_country: AUS
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      tds_check_state: NA
+                      currency: AUD
+                      links:
+                        self: /items/7172300-1-8447
+                        buyers: /items/7172300-1-8447/buyers
+                        sellers: /items/7172300-1-8447/sellers
+                        status: /items/7172300-1-8447/status
+                        fees: /items/7172300-1-8447/fees
+                        transactions: /items/7172300-1-8447/transactions
+                        batch_transactions: /items/7172300-1-8447/batch_transactions
+                        wire_details: /items/7172300-1-8447/wire_details
+                        bpay_details: /items/7172300-1-8447/bpay_details
+                    - id: 7172240-1-1578
+                      name: Item 7172240-1-1578 Escrow
+                      description: Test Item 7172240-1-1578
+                      created_at: '2020-05-09T06:58:21.280Z'
+                      updated_at: '2020-05-09T06:58:57.855Z'
+                      state: completed
+                      payment_type_id: 2
+                      status: 22500
+                      amount: 110
+                      deposit_reference: '100014012518900'
+                      buyer_name: Buyer Last Name
+                      buyer_country: AUS
+                      buyer_email: assemblybuyer71717945@assemblypayments.com
+                      seller_name: Assembly seller71717976
+                      seller_country: AUS
+                      seller_email: neol_seller71717976@assemblypayments.com
+                      tds_check_state: NA
+                      currency: AUD
+                      links:
+                        self: /items/7172240-1-1578
+                        buyers: /items/7172240-1-1578/buyers
+                        sellers: /items/7172240-1-1578/sellers
+                        status: /items/7172240-1-1578/status
+                        fees: /items/7172240-1-1578/fees
+                        transactions: /items/7172240-1-1578/transactions
+                        batch_transactions: /items/7172240-1-1578/batch_transactions
+                        wire_details: /items/7172240-1-1578/wire_details
+                        bpay_details: /items/7172240-1-1578/bpay_details
+                    links:
+                      self: /items
+                    meta:
+                      limit: 2
+                      offset: 0
+                      total: 55
+    post:
+      tags:
+      - Items
+      summary: Create Item
+      description: Create an **Item**. Items require two **Users**, a buyer and a seller. The `buyer_id` and `seller_id` are your unique user identifiers.
+      operationId: createItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/item_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items?id=7190770-1-2908&name=Item%207190770-1-2908&amount=102&payment_type=2&buyer_id=buyer-719013950014&seller_id=seller-71718579&fee_ids=&description=Test%20Item%207190770-1-2908
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}:
+    get:
+      tags:
+      - Items
+      summary: Show Item
+      description: Show details of a specific **Item** using a given `:id`.
+      operationId: showItem
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items?id=7190770-1-2908
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+    delete:
+      tags:
+      - Items
+      summary: Delete Item
+      description: Delete an existing **Item** using a given `:id`.
+      operationId: deleteItem
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: cancelled
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items?id=7190770-1-2908
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+    patch:
+      tags:
+      - Items
+      summary: Update Item
+      description: 'Update an existing **Items** attributes using a given `:id`. Note: An item can only be updated if it''s in `pending` state. Once an item has begun a payment process, you cannot update it.'
+      operationId: updateItem
+      parameters:
+      - name: id
+        in: path
+        description: Item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_item_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items?id=7190770-1-2908&name=Item%207190770-1-2908&amount=102&payment_type=2&buyer_id=buyer-719013950014&seller_id=seller-71718579&fee_ids=&description=Test%20Item%207190770-1-2908
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/batch_transactions:
+    get:
+      tags:
+      - Items
+      summary: List Item Batch Transactions
+      description: Retrieve an ordered and paginated list of **Batch Transactions** associated with the `Item` using a given `:id`. This will include both direct debits coming in, and the disbursements going out.
+      operationId: listItemBatchTransactions
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7139651-1-2046
+        example: 7139651-1-2046
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list_batch_transactions'
+              examples:
+                response:
+                  value:
+                    batch_transactions:
+                    - created_at: '2020-05-05T12:26:59.112Z'
+                      updated_at: '2020-05-05T12:31:03.389Z'
+                      status: 12000
+                      id: 90c1418b-f4f4-413e-a4ba-f29c334e7f55
+                      reference_id: 7190770-1-2908
+                      disbursement_bank: null
+                      processing_bank: null
+                      type: payment
+                      type_method: direct_debit
+                      batch_id: 245
+                      cuscal_payment_transaction_id: null
+                      reference: platform1556505750
+                      state: successful
+                      user_id: buyer-71391895
+                      account_id: 26065be0-70f9-0138-9abc-0a58a9feac06
+                      from_user_name: Buyer Last Name
+                      from_user_id: buyer-71391895
+                      refund_state: null
+                      account_type: bank_account
+                      amount: 109
+                      currency: AUD
+                      country: null
+                      debit_credit: debit
+                      item:
+                        id: edf4e4ef-0d78-48db-85e0-0af04c5dc2d6
+                        item_number: 7139651-1-2046
+                      description: Debit of $1.09 from Bank Account for Credit of $1.09 to Item
+                      related:
+                        account_to:
+                          id: 7139651-1-2046
+                          account_type: item
+                          user_id: 76cf57db94d9e1f07a60c009be2adec0
+                    meta:
+                      limit: 2
+                      offset: 0
+                      total: 1
+                    links:
+                      self: /items/7190985-1-9382/batch_transactions
+  /items/{id}/buyers:
+    get:
+      tags:
+      - Items
+      summary: Show Item Buyer
+      description: Show the buyer **User** associated with the **Item** using a given `:id`.
+      operationId: showItemBuyer
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190973-1-3780
+        example: 7190973-1-3780
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03T07:59:00.379Z'
+                      updated_at: '2020-04-03T07:59:00.379Z'
+                      id: Buyer_1234
+                      full_name: Samuel Buyer
+                      email: sam@example.com
+                      mobile: 69543131
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Samuel
+                      last_name: Buyer
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /items/7190973-1-3780/buyers
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+  /items/{id}/fees:
+    get:
+      tags:
+      - Items
+      summary: Show Item Fees
+      description: Show the **Fees** associated with the **Item** using a given `:id`.
+      operationId: showItemFees
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190973-1-3780
+        example: 7190973-1-3780
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fees'
+              examples:
+                response:
+                  value:
+                    fees:
+                    - id: 59826643-35d7-441f-bf44-978df61a80ae
+                      created_at: '2020-05-03T11:32:01.092Z'
+                      updated_at: '2020-05-03T11:32:01.092Z'
+                      name: marketplace-bpay
+                      fee_type_id: 1
+                      amount: 150
+                      cap: null
+                      min: null
+                      max: null
+                      to: buyer
+                      links:
+                        self: /fees/59826643-35d7-441f-bf44-978df61a80ae
+                    meta:
+                      limit: 10
+                      offset: 0
+                      total: 1
+                    links:
+                      self: /fees
+  /items/{id}/sellers:
+    get:
+      tags:
+      - Items
+      summary: Show Item Seller
+      description: Show the seller **User** associated with the **Item** using a given `:id`.
+      operationId: showItemSeller
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190973-1-3780
+        example: 7190973-1-3780
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03T07:59:00.379Z'
+                      updated_at: '2020-04-03T07:59:00.379Z'
+                      id: Seller_1234
+                      full_name: Samuel Seller
+                      email: sam@example.com
+                      mobile: 69543131
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Samuel
+                      last_name: Seller
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /items/7190973-1-3780/sellers
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+  /items/{id}/status:
+    get:
+      tags:
+      - Items
+      summary: Show Item Status
+      description: Show the status of an **Item** using a given `:id`.
+      operationId: showItemStatus
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7139651-1-2046
+        example: 7139651-1-2046
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_status'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7efa449a-29b6-4ab3-83d6-03e7eaa4bf7b
+                      status: 22000
+                      state: pending
+  /items/{id}/transactions:
+    get:
+      tags:
+      - Items
+      summary: List Item Transactions
+      description: Retrieve an ordered and paginated list of **Transactions** associated with the **Item** using a given `:id`.
+      operationId: listItemTransactions
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190985-1-9382
+        example: 7190985-1-9382
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactions'
+              examples:
+                response:
+                  value:
+                    transactions:
+                    - id: 35b60310-75a9-0138-0beb-0a58a9feac05
+                      reference_id: null
+                      created_at: '2020-05-11T11:33:50.704Z'
+                      updated_at: '2020-05-11T11:33:50.707Z'
+                      description: Credit of $1.02 to Item by Debit of $1.02 from Credit Card
+                      type: payment
+                      type_method: credit_card
+                      state: successful
+                      user_id: 76cf57db94d9e1f07a60c009be2adec0
+                      user_name: First1556505750 LastName
+                      account_id: 7190985-1-9382
+                      account_type: item
+                      item_name: Item 7190985-1-9382
+                      dynamic_descriptor: '100014012533407'
+                      amount: 102
+                      currency: AUD
+                      debit_credit: credit
+                      marketplace:
+                        group_name: null
+                        name: platform1556505750
+                        short_name: null
+                        uuid: 041e8015-5101-44f1-9b7d-6a206603f29f
+                      related:
+                        transactions:
+                        - id: 35b5e450-75a9-0138-41d5-0a58a9feac05
+                          account_id: 725cc8c0-759b-0138-5d6d-0a58a9feac05
+                          account_type: card_account
+                          user_id: buyer-719013950014
+                          user_name: Neol Buyer
+                    meta:
+                      limit: 10
+                      offset: 0
+                      total: 1
+                    links:
+                      self: /items/7190985-1-9382/transactions
+  /items/{id}/wire_details:
+    get:
+      tags:
+      - Items
+      summary: Show Item Wire Details
+      description: Show the **Item** wire payment details using a given `:id`.
+      operationId: showItemWireDetails
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190985-1-9382
+        example: 7190985-1-9382
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_wire_details_with_id'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190985-1-9382
+                      wire_details:
+                        beneficiary: platform1556505750
+                        address_line1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+                        routing_number: 83001
+                        account_number: '844144573'
+                        bank_name: National Australia Bank
+                        swift: NATAAU3303M
+                        reference: '100014012533407'
+                        amount: $1.02
+                        currency: AUD
+                        country: Australia
+components:
+  schemas:
+    batch_transaction:
+      type: object
+      required:
+      - id
+      - amount
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: string
+        reference_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          example: 12200
+        uuid:
+          type: string
+        disbursement_bank:
+          type: string
+          example: Bank A
+        processing_bank:
+          type: string
+          example: Bank A
+        external_reference:
+          type: string
+          example: null
+        reference_amount:
+          type: string
+          example: null
+        internal_state:
+          type: string
+          example: null
+        internal_status:
+          type: string
+          example: null
+        account_external:
+          type: object
+          properties:
+            account_type_id:
+              type: string
+              example: 9100
+            currency:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: AUD
+        external_account_details:
+          type: string
+        external_account_details_encrypted:
+          type: boolean
+        marketplace:
+          type: object
+          properties:
+            group_name:
+              type: string
+            name:
+              type: string
+            short_name:
+              type: string
+            uuid:
+              type: string
+              format: uuid
+            account_details:
+              type: string
+            account_details_encrypted:
+              type: boolean
+        first_name:
+          type: string
+          example: first name
+        last_name:
+          type: string
+          example: last name
+        user_email:
+          type: string
+          example: email@email.com
+        user_external_id:
+          type: string
+          example: buyer-71391895
+        legal_entity_id:
+          type: string
+          example: 49fac28b-5628-4cec-854f-58a9b87dd58d
+        phone:
+          type: string
+          example: 1588681395
+        payout_currency:
+          type: string
+        type:
+          type: string
+          example: disbursement
+        type_method:
+          type: string
+          example: direct_credit
+        batch_id:
+          type: integer
+          example: 302
+        cuscal_payment_transaction_id:
+          type: string
+        reference:
+          type: string
+        state:
+          type: string
+          example: batched
+        user_id:
+          type: string
+          example: 064d6800-fff3-11e5-86aa-5e5517507c66
+        account_id:
+          type: string
+          example: e57120ea-053d-11e6-b512-3e1d05defe78
+        account_type:
+          type: string
+          example: item
+        from_user_name:
+          type: string
+          example: payer
+        from_user_id:
+          type: string
+          example: 064d6800-fff3-11e5-86aa-5e5517507c66
+        refund_state:
+          type: string
+        amount:
+          type: integer
+          example: 9800
+        currency:
+          type: string
+          example: AUD
+        company:
+          type: string
+          example: ABC Pty Ltd
+        address_line1:
+          type: string
+          example: Courtland Ave.
+        address_line2:
+          type: string
+          example: Building 1
+        address_city:
+          type: string
+          example: Melbourne
+        address_state:
+          type: string
+          example: VIC
+        address_postcode:
+          type: string
+          example: 3000
+        address_country:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            three_code:
+              type: string
+            two_code:
+              type: string
+            currency_id:
+              type: string
+            numeric_code:
+              type: string
+        country:
+          type: string
+          example: AUD
+        debit_credit:
+          type: string
+          example: credit
+        description:
+          type: string
+          example: Credit of $98.00 to Item by Debit of $98.00 from Wallet Account
+        item:
+          type: object
+          properties:
+            id:
+              type: string
+            item_number:
+              type: string
+        deposit_reference:
+          type: string
+          example: AUD
+        related:
+          type: object
+          properties:
+            account_to:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 385b50bb-237a-42cb-9382-22953e191ae6
+                account_type:
+                  type: string
+                  example: wallet_account
+                user_id:
+                  type: string
+                  example: 5830def0-ffe8-11e5-86aa-5e5517507c66
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            users:
+              type: string
+            fees:
+              type: string
+            wallet_accounts:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            items:
+              type: string
+            marketplace:
+              type: string
+    item_requestBody:
+      type: object
+      required:
+      - id
+      - name
+      - amount
+      - payment_type
+      - buyer_id
+      - seller_id
+      properties:
+        id:
+          description: Unique ID that can be generated by the platform. Cannot contain '.' or '/' characters. Contact Assembly support if you want item IDs to be generated automatically.
+          type: string
+          example: 7190770-1-2908
+          default: 7190770-1-2908
+        name:
+          description: A name for the item
+          type: string
+          example: Item 7190770-1-2908
+          default: Item 7190770-1-2908
+        amount:
+          description: The cost in cents
+          type: integer
+          example: '102'
+          default: '102'
+        currency:
+          description: '[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This is an optional field and if not provided, the item will be created with the default currency of the marketplace.'
+          type: string
+          example: AUD
+        payment_type:
+          description: 'Payment type: 2. Express'
+          type: integer
+          example: '2'
+          default: '2'
+        buyer_id:
+          description: Marketplace / Pltform buyer ID
+          type: string
+          example: buyer-719013950014
+          default: buyer-719013950014
+        seller_id:
+          description: Marketplace / Platform Seller ID
+          type: string
+          example: seller-71718579
+          default: seller-71718579
+        fee_ids:
+          description: A comma separated list of fee IDs to apply
+          type: string
+          example: ''
+        description:
+          description: A description of the item
+          type: string
+          example: Test Item 7190770-1-2908
+        buyer_url:
+          description: Link for the buyer CTA (Call To Action)
+          type: string
+          example: ''
+        seller_url:
+          description: Link for the seller CTA (Call To Action)
+          type: string
+          example: ''
+        tax_invoice:
+          description: Toggle to generate tax invoice once Item is complete
+          type: boolean
+          example: ''
+        custom_descriptor:
+          description: When `custom_descriptors` are enabled, this is the information to appear on credit card and direct debit statements.
+          type: string
+          example: ''
+    fees:
+      properties:
+        fees:
+          type: array
+          items:
+            $ref: '#/components/schemas/fee'
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+            total:
+              type: integer
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+    update_item_requestBody:
+      type: object
+      properties:
+        amount:
+          description: The cost in cents
+          type: integer
+          example: '102'
+        name:
+          description: A name for the item
+          type: string
+          example: Item 7190770-1-2908
+        buyer_id:
+          description: Marketplace / Pltform buyer ID
+          type: string
+          example: buyer-719013950014
+        seller_id:
+          description: Marketplace / Platform Seller ID
+          type: string
+          example: seller-71718579
+        description:
+          description: A description of the item
+          type: string
+          example: Test Item 7190770-1-2908
+        custom_descriptor:
+          description: When `custom_descriptors` are enabled, this is the information to appear on credit card and direct debit statements.
+          type: string
+          example: ''
+    single_item:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/item'
+    wire_details_with_id:
+      properties:
+        id:
+          type: string
+          example: 100fd4a0-0538-11e6-b512-3e1d05defe78
+        wire_details:
+          $ref: '#/components/schemas/wire_details'
+    transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 7a138862-f821-412d-a91e-367ed7391fe7
+        reference_id:
+          type: string
+          example: 7190770-1-2908
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        description:
+          type: string
+          example: Debit of $250.00 from Credit Card for Credit of $250.00 to Item
+        payee_name:
+          type: string
+          example: Test payee
+        type:
+          type: string
+          example: payment
+        type_method:
+          type: string
+          example: credit_card
+        state:
+          type: string
+          example: successful
+        user_id:
+          type: string
+          example: 064d6800-fff3-11e5-86aa-5e5517507c66
+        user_name:
+          type: string
+          example: First1556505750 LastName
+        item_name:
+          type: string
+          example: Item 7190985-1-9382
+        dynamic_descriptor:
+          type: string
+          example: 100014012533407
+        account_id:
+          type: string
+          example: 930a7f78-6bf6-4f33-8cfc-b82c787b5f83
+        account_type:
+          type: string
+          example: card_account
+        amount:
+          type: string
+          example: 25000
+        currency:
+          type: string
+          example: AUD
+        debit_credit:
+          type: string
+          example: debit
+        marketplace:
+          type: object
+          properties:
+            group_name:
+              type: string
+            name:
+              type: string
+            short_name:
+              type: string
+            uuid:
+              type: string
+              format: uuid
+        related:
+          type: object
+          properties:
+            transactions:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 6b68f5dc-b8a8-44cf-a7e8-80f350178152
+                  account_id:
+                    type: string
+                    example: 100fd4a0-0538-11e6-b512-3e1d05defe78
+                  account_type:
+                    type: string
+                    example: item
+                  user_id:
+                    type: string
+                    example: 064d6800-fff3-11e5-86aa-5e5517507c66
+                  user_name:
+                    type: string
+                  item_name:
+                    type: string
+        payee_details:
+          type: object
+          description: payee details. only filled for specific payment types (fast payments - npp)
+          properties:
+            debtor_name:
+              type: string
+              example: Test debtor name
+            debtor_legal_name:
+              type: string
+              example: Test debtor legal name
+            debtor_bsb:
+              type: string
+              example: 123456
+            debtor_account:
+              type: string
+              example: 123456789
+            clearing_system_transaction_id:
+              type: string
+              example: INGBAU2SXXXN20181213009149405094650
+            remittance_information:
+              type: string
+              example: 100014013068940
+            pay_id:
+              type: string
+              example: npp@assemblypayments.com
+            pay_id_type:
+              type: string
+              example: /EMAL
+            end_to_end_id:
+              type: string
+              example: NOTPROVIDED
+            npp_payin_internal_id:
+              type: string
+              example: 3a768370-8ebd-11ea-a8ab-af8225e7132d
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b
+            users:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/users
+            fees:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/fees
+            wallet_accounts:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/wallet_accounts
+            card_accounts:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/card_accounts
+            paypal_accounts:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/paypal_accounts
+            bank_accounts:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bank_accounts
+            items:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/items
+            marketplaces:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/marketplaces
+            npp_payin_transaction_detail:
+              type: string
+              example: null
+            supplementary_data:
+              type: string
+              example: /transactions/ea36e48a-4638-4d1a-a345-e1a0a584df8b/supplementary_data
+    items:
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/item'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+            total:
+              type: integer
+    transactions:
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/transaction'
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+            total:
+              type: integer
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+    fee:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 36020976-f345-4d0f-b860-9c025ccce668
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        name:
+          type: string
+          example: Seller Success Fee
+        fee_type_id:
+          type: string
+          example: 2
+        amount:
+          type: string
+          example: 200
+        cap:
+          type: string
+          example: null
+        min:
+          type: string
+          example: null
+        max:
+          type: string
+          example: null
+        to:
+          type: string
+          example: seller
+        calculated_fee:
+          type: integer
+          description: This field is only shown in case an item amount is passed
+          readOnly: true
+          example: 400
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+    wire_details:
+      properties:
+        beneficiary:
+          type: string
+          example: Assembly Payments
+        address_line1:
+          type: string
+          example: 500 Bourke Street
+        city:
+          type: string
+          example: Melbourne
+        state:
+          type: string
+          example: VIC
+        zip:
+          type: string
+          example: 3000
+        routing_number:
+          type: string
+          example: 83001
+        account_number:
+          type: string
+          example: 844144573
+        bank_name:
+          type: string
+          example: National Australia Bank
+        swift:
+          type: string
+          example: NATAAU3303M
+        reference:
+          type: string
+          example: 100014013961629
+        amount:
+          type: string
+          example: $250.00
+        currency:
+          type: string
+          example: AUD
+        country:
+          type: string
+          example: Australia
+    single_status:
+      properties:
+        items:
+          $ref: '#/components/schemas/status'
+    status:
+      properties:
+        id:
+          type: string
+          example: 100fd4a0-0538-11e6-b512-3e1d05defe78
+        status:
+          type: string
+          example: 22000
+        state:
+          type: string
+          example: pending
+    list_batch_transactions:
+      properties:
+        batch_transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/batch_transaction'
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+            total:
+              type: integer
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+    single_wire_details_with_id:
+      properties:
+        items:
+          $ref: '#/components/schemas/wire_details_with_id'
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    item:
+      type: object
+      required:
+      - id
+      - name
+      - amount
+      - payment_type
+      - buyer_id
+      - seller_id
+      properties:
+        id:
+          type: string
+          example: 7190770-1-2908
+        name:
+          type: string
+          example: 'Item #001'
+        description:
+          type: string
+          example: My first Item.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+          enum:
+          - pending
+          - payment_required
+          - wire_pending
+          - payment_pending
+          - payment_held
+          - payment_authorized
+          - void_pending
+          - voided
+          - fraud_hold
+          - payment_deposited
+          - work_completed
+          - problem_flagged
+          - problem_resolve_requested
+          - problem_escalated
+          - completed
+          - cancelled
+          - refunded
+          - refund_pending
+          - refund_flagged
+          - off_platform_refunded
+          - partial_completed
+          - partial_paid
+          - off_platform_chargedback
+          example: pending
+        status:
+          type: integer
+          enum:
+          - 22000
+          - 22100
+          - 22110
+          - 22150
+          - 22175
+          - 22180
+          - 22185
+          - 22195
+          - 22190
+          - 22200
+          - 22300
+          - 22400
+          - 22410
+          - 22420
+          - 22500
+          - 22575
+          - 22600
+          - 22610
+          - 22650
+          - 22670
+          - 22700
+          - 22800
+          - 22680
+          example: 22000
+        amount:
+          type: integer
+          example: 20000
+        payment_type_id:
+          type: integer
+          example: 2
+        currency:
+          type: string
+          example: AUD
+        buyer_name:
+          type: string
+          example: Sample Buyer
+        buyer_email:
+          type: string
+          format: email
+          example: sample.buyer@assemblypayments.com
+        buyer_country:
+          type: string
+          example: AUS
+        seller_name:
+          type: string
+          example: Sample Seller
+        seller_email:
+          type: string
+          format: email
+          example: sample.seller@assemblypayments.com
+        seller_country:
+          type: string
+          format: email
+          example: AUS
+        tds_check_state:
+          type: string
+          format: email
+          example: NA
+        batch_state:
+          type: string
+          example: null
+        invoice_url:
+          type: string
+          example: null
+        payout_descriptor:
+          type: string
+          example: null
+        remaining_amount:
+          type: integer
+          example: 0
+        requested_release_amount:
+          type: integer
+          example: 0
+        custom_descriptor:
+          type: string
+          example: null
+        net_amount:
+          type: integer
+          example: 20000
+        chargedback_amount:
+          type: integer
+          example: 0
+        refunded_amount:
+          type: integer
+          example: 0
+        released_amount:
+          type: integer
+          example: 0
+        buyer_fees:
+          type: integer
+          example: 0
+        seller_fees:
+          type: integer
+          example: 400
+        credit_card_fee:
+          type: integer
+          example: 0
+        paypal_fee:
+          type: integer
+          example: 0
+        seller_url:
+          type: string
+        buyer_url:
+          type: string
+        direct_debit_fee:
+          type: integer
+          example: 0
+        due_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        pending_release_amount:
+          type: integer
+          example: 0
+        dynamic_descriptor:
+          type: string
+          example: null
+        deposit_reference:
+          type: string
+          example: 100014013961629
+        promisepay_fee:
+          type: integer
+          example: 350
+        total_outstanding:
+          type: integer
+          example: 20000
+        total_amount:
+          type: integer
+          example: 20000
+        payment_method:
+          type: string
+          example: pending
+        payment_credit_card_enabled:
+          type: boolean
+          example: true
+        payment_direct_debit_enabled:
+          type: boolean
+          example: true
+        related:
+          type: object
+          properties:
+            buyers:
+              type: string
+              example: 064d6800-fff3-11e5-86aa-5e5517507c66
+            sellers:
+              type: string
+              example: 5830def0-ffe8-11e5-86aa-5e5517507c66
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            buyers:
+              type: string
+            sellers:
+              type: string
+            status:
+              type: string
+            fees:
+              type: string
+            transactions:
+              type: string
+            batch_transactions:
+              type: string
+            wire_details:
+              type: string
+            bpay_details:
+              type: string
+            tds_checks:
+              type: string
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Number of records to offset. Required for pagination.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Number of records to retrieve. Up to 200.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

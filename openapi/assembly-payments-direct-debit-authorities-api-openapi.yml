@@ -1,0 +1,360 @@
+openapi: 3.2.0
+info:
+  title: Assembly Direct Debit Authorities API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Direct Debit Authorities
+paths:
+  /direct_debit_authorities:
+    get:
+      tags:
+      - Direct Debit Authorities
+      summary: List Direct Debit Authorities
+      description: Retrieve an ordered and paginated list of existing **Direct Debit Authorities**.
+      operationId: listDirectDebitAuthorities
+      parameters:
+      - name: account_id
+        in: query
+        description: Bank account ID
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: a2463ce3-229b-4da1-8a07-93366c1092c9
+        example: a2463ce3-229b-4da1-8a07-93366c1092c9
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list_direct_debit_authorities'
+              examples:
+                response:
+                  value:
+                    direct_debit_authorities:
+                    - id: a2463ce3-229b-4da1-8a07-93366c1092c9
+                      created_at: '2020-05-03T11:03:30.833Z'
+                      updated_at: '2020-05-03T11:03:30.833Z'
+                      amount: 100
+                      bank_bsb: 083001,803320
+                      debit_user_id: 481561,342203
+                      state: approved
+                      related:
+                        bank_accounts: 7fac6c60-6f5b-0138-eb9a-0a58a9feac03
+                      links:
+                        self: /direct_debit_authorities/a2463ce3-229b-4da1-8a07-93366c1092c9
+    post:
+      tags:
+      - Direct Debit Authorities
+      summary: Create Direct Debit Authority
+      description: Create a **Direct Debit Authority** associated with a **Bank Account**. The **Direct Debit Authority** is required to use a **Bank Account** as a funding source (Direct Debit/ACH).
+      operationId: createDirectDebitAuthority
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/direct_debit_authority_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_direct_debit_authority'
+              examples:
+                response:
+                  value:
+                    direct_debit_authorities:
+                      id: a2463ce3-229b-4da1-8a07-93366c1092c9
+                      created_at: '2020-05-03T11:03:30.833Z'
+                      updated_at: '2020-05-03T11:03:30.833Z'
+                      amount: 100
+                      bank_bsb: 083001,803320
+                      debit_user_id: 481561,342203
+                      state: approved
+                      related:
+                        bank_accounts: 7fac6c60-6f5b-0138-eb9a-0a58a9feac03
+                      links:
+                        self: /direct_debit_authorities/a2463ce3-229b-4da1-8a07-93366c1092c9
+  /direct_debit_authorities/{id}:
+    get:
+      tags:
+      - Direct Debit Authorities
+      summary: Show Direct Debit Authority
+      description: Show details of a specific **Direct Debit Authority** using a given `:id`.
+      operationId: showDirectDebitAuthority
+      parameters:
+      - name: id
+        in: path
+        description: Direct debit authority ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 57abfd04-2ccb-4d55-8bd3-6f1a24a6ea47
+        example: 57abfd04-2ccb-4d55-8bd3-6f1a24a6ea47
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_direct_debit_authority'
+              examples:
+                response:
+                  value:
+                    direct_debit_authorities:
+                      id: 57abfd04-2ccb-4d55-8bd3-6f1a24a6ea47
+                      created_at: '2016-04-18T05:21:27.339Z'
+                      updated_at: '2016-04-18T05:21:27.339Z'
+                      amount: 12345
+                      bank_bsb: '123456'
+                      debit_user_id: '481561'
+                      state: approved
+                      related:
+                        bank_accounts: ffe73bc7-0577-4e8c-8591-05b1583da5d1
+                      links:
+                        self: /direct_debit_authorities/57abfd04-2ccb-4d55-8bd3-6f1a24a6ea47
+components:
+  schemas:
+    direct_debit_authority:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8f233e04-ffaa-4c9d-adf9-244853848e21
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        amount:
+          type: string
+          example: 100000
+        bank_bsb:
+          type: string
+          example: 83001
+        debit_user_id:
+          type: string
+          example: 481561
+        state:
+          type: string
+          example: approved
+        related:
+          type: object
+          properties:
+            bank_accounts:
+              type: string
+              example: 9fda18e7-b1d3-4a83-830d-0cef0f62cd25
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /direct_debit_authorities/9fda18e7-b1d3-4a83-830d-0cef0f62cd25
+    single_direct_debit_authority:
+      properties:
+        direct_debit_authorities:
+          $ref: '#/components/schemas/direct_debit_authority'
+    list_direct_debit_authorities:
+      properties:
+        direct_debit_authorities:
+          type: array
+          items:
+            $ref: '#/components/schemas/direct_debit_authority'
+    direct_debit_authority_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      properties:
+        account_id:
+          description: Bank account ID
+          type: string
+          example: 7fac6c60-6f5b-0138-eb9a-0a58a9feac03
+          default: 7fac6c60-6f5b-0138-eb9a-0a58a9feac03
+        amount:
+          description: Amount for direct debit in cents
+          type: integer
+          example: 100
+          default: 100
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Number of records to offset. Required for pagination.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Number of records to retrieve. Up to 200.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

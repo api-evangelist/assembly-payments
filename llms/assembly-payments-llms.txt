@@ -1,0 +1,199 @@
+# Zai Documentation
+
+> Documentation for Zai
+
+## Guides: Get Started
+- [Developer Checklist](https://developer.hellozai.com/docs/developer-checklist.md)
+- [Build a Platform](https://developer.hellozai.com/docs/build-a-platform.md)
+
+## Guides: Guides
+- [Wallet Accounts](https://developer.hellozai.com/docs/wallet-accounts-1.md): Learn about user wallet accounts with Zai.
+- [Onboarding a Payin User](https://developer.hellozai.com/docs/onboarding-a-pay-in-user.md)
+- [CoP](https://developer.hellozai.com/docs/cop.md): Confirmation of Payee
+
+## Guides: Australia: Guides
+- [BPAY Payin Workflow](https://developer.hellozai.com/docs/bpay-payins-workflow.md)
+- [PayTo](https://developer.hellozai.com/docs/payto.md): A smarter, digital alternative to direct debit payment rails.
+- [WooCommerce](https://developer.hellozai.com/docs/woocommerce.md)
+- [3DS2 ](https://developer.hellozai.com/docs/3ds2.md)
+- [NPP Last Domestic Leg](https://developer.hellozai.com/docs/npp-last-domestic-leg.md)
+
+## Guides: API
+- [Webhooks](https://developer.hellozai.com/docs/webhooks.md): Use webhooks to enable Zai to push real-time notifications to your application.
+  - [Verify Webhook Signatures](https://developer.hellozai.com/docs/verify-webhook-signatures.md): Use webhook signature verification for protection from a variety of attacks.
+
+## Guides: General
+- [Statuses](https://developer.hellozai.com/docs/statuses.md)
+
+## Guides: Testing
+- [Test Data](https://developer.hellozai.com/docs/test-data.md)
+
+## API Reference: Assembly API
+- Authentication
+  - [Token](https://developer.hellozai.com/reference/token.md): Exchange client application credentials for a bearer token. Please ensure to call the auth issuing server as described at https://developer.assemblypayments.com/reference#authentication
+- Addresses
+  - [Show Address](https://developer.hellozai.com/reference/showaddress.md): Show details of a specific Address using a given address `:id`.
+- [Overview](https://developer.hellozai.com/reference/overview.md)
+- Bank Accounts
+  - [Show Bank Account](https://developer.hellozai.com/reference/showbankaccount.md): Show details of a specific **Bank Account** using a given `:id`.
+  - [Redact Bank Account](https://developer.hellozai.com/reference/redactbankaccount.md): Redact a **Bank Account** using a given `:id`. Redacted **Bank Accounts** can no longer be used as a funding source or a Disbursement destination.
+  - [Send Penny Amount](https://developer.hellozai.com/reference/sendpennyamount.md): When penny verification is enabled, this API call sends two penny transactions to the specified bank account for verification. **Note**: This API call is not required when your platform has automatic…
+  - [Create Bank Account](https://developer.hellozai.com/reference/createbankaccount.md): Create a **Bank Account** to be used as either a funding source or a Disbursement destination. Store the returned `:id` and use it for a `make_payment` **Item Action** call. The `:id` is also…
+  - [Verify Penny Amount](https://developer.hellozai.com/reference/verifypennyamount.md): When penny verification is enabled, this API call verifies the two penny transactions that were sent to a specified bank account using **Send Penny Amount**. **Note**: This API call requires you to…
+  - [Show Bank Account User](https://developer.hellozai.com/reference/showbankaccountuser.md): Show the **User** the **Bank Account** is associated with using a given `:id`.
+  - [Validate Routing Number](https://developer.hellozai.com/reference/validateroutingnumber.md): Validate a US bank routing number before creating an account. This can be used to provide on-demand verification, and further information of the bank information a User is providing.
+- BPay Accounts
+  - [Show BPay Account](https://developer.hellozai.com/reference/showbpayaccount.md): Show details of a specific **BPay Account** using a given `:id`.
+  - [Create BPay Account](https://developer.hellozai.com/reference/createbpayaccount.md): Create a **BPay Account** to be used as a Disbursement destination.
+  - [Show BPay Account User](https://developer.hellozai.com/reference/showbpayaccountuser.md): Show the **User** the **BPay Account** is associated with using a given `:id`.
+- Wallet Accounts
+  - [Pay a Bill](https://developer.hellozai.com/reference/billpayment.md): Pay a bill by withdrawing funds from a **Wallet Account** to a specified bpay account.
+  - [Show Wallet Account User](https://developer.hellozai.com/reference/showwalletaccountuser.md): Show the **User** the **Wallet Account** is associated with using a given `:id`.
+  - [Withdraw Funds](https://developer.hellozai.com/reference/withdrawfunds.md): Withdraw funds from a **Wallet Account** to a specified disbursement account.
+  - [Show Wallet Account](https://developer.hellozai.com/reference/showwalletaccount.md): Show details of a specific **Wallet Account** using a given `:id.`
+  - [Show Wallet Account NPP Details](https://developer.hellozai.com/reference/showwalletaccountnppdetails.md): Show NPP details of a specific **Wallet Account** using a given `:id.`
+  - [Show Wallet Account BPAY Details](https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md): Show BPAY details of a specific **Wallet Account** using a given `:id.`
+  - [Initiate Last Domestic Leg Payout](https://developer.hellozai.com/reference/npplastdomesticleg.md): Facilitate the real-time settlement of the last domestic leg payout for International Funds Transfer Instructions (IFTI) through NPP rails.
+- Sub-wallets
+  - [List Sub-wallets](https://developer.hellozai.com/reference/listsubwallets.md): List all the sub-wallets that belong to a user's wallet account. These are specified by the wallet `account_id`.
+  - [Create Sub-wallet](https://developer.hellozai.com/reference/createsubwallet.md): Create a sub-wallet for a user's wallet account.This is specified by the wallet `account_id`. Use sub-wallets as a part of building your own scheduling and workflow.  Create as many as you want to…
+  - [Show Sub-wallet](https://developer.hellozai.com/reference/showsubwallet.md): Show details of a specific sub-wallet using the given`:id`.
+  - [Redact Sub-wallet](https://developer.hellozai.com/reference/deletesubwallet.md): Redact a sub-wallet using the given `:id`. Only sub-wallets with zero balance can be redacted. Once this is done, the sub-wallet can no longer be used as a funding source.
+  - [Update Sub-wallet](https://developer.hellozai.com/reference/updatesubwallet.md): Update an existing sub-wallet using the given `:id`. You can change the `name` of an enabled sub-wallet. You can change the  `active` status of a `redacted` sub-wallet.
+  - [Fund transfers](https://developer.hellozai.com/reference/transfersubwallet.md): Fund transfers between a wallet account and its sub-wallet as well as between any sub-wallets that belong to the same wallet account. The `source` and `destination` accounts must be `active` and use…
+  - [List Sub-wallet transactions](https://developer.hellozai.com/reference/showsubwallettransactions.md): List all transactions of a sub-wallet using the given `:id`.
+  - [Pay a Bill](https://developer.hellozai.com/reference/billpaymentsubwallet.md): Pay a bill to a specified BPAY account that's associated with its `account_id` by withdrawing funds from a sub-wallet using the given `id`.
+  - [Withdraw Funds](https://developer.hellozai.com/reference/withdrawfundssubwallet.md): Withdraw funds from a sub-wallet using the given `id` and move the specified amount to a disbursement account associated with the `account_id`.
+  - [Show Sub-wallet User](https://developer.hellozai.com/reference/showsubwalletuser.md): Show the user that a sub-wallet is associated with using the given `:id`.
+  - [Show the Wallet Account of a Sub-wallet](https://developer.hellozai.com/reference/showsubwalletwalletaccount.md): Show the details of the wallet account that a sub-wallet is associated with using the given `:id`.
+- Users
+  - [List User's BPay Accounts](https://developer.hellozai.com/reference/listuserbpayaccounts.md): List the **BPay Accounts** the **User** is associated with using a given `:id`.
+  - [Show User Card Account](https://developer.hellozai.com/reference/showusercardaccount.md): Show the user's active card account using a given `:id`.
+  - [Show User](https://developer.hellozai.com/reference/showuser.md): Show details of a specific User using a given `:id`.
+  - [Update User](https://developer.hellozai.com/reference/updateuser.md): Update an existing **User's** attributes using a given `:id`.
+  - [Verify User (Prelive Only)](https://developer.hellozai.com/reference/verifyuser.md): Sets a user's verification state to `approved` on pre-live given the **User** `:id`. Ensure that a **User** has the required user verification information before using this call, otherwise the call…
+  - [Show User Bank Account](https://developer.hellozai.com/reference/showuserbankaccount.md): Shows the user's active bank account using a given `:id`.
+  - [Set User Disbursement Account](https://developer.hellozai.com/reference/setuserdisbursementaccount.md): Set the **User's Disbursement Account** using a given **User** `:id` and a **Bank Account** `:account_id`.
+  - [List Users](https://developer.hellozai.com/reference/listusers.md): Retrieve an ordered and paginated list of existing **Users**.
+  - [Create User](https://developer.hellozai.com/reference/createuser.md): Create a **User** that can be associated with **Items** as either a buyer or a seller. **Users** can't be both the buyer and seller for the same **Item**. You can also use this endpoint to create a…
+  - [List User Items](https://developer.hellozai.com/reference/listuseritems.md): Retrieve an ordered and paginated list of existing **Items** the **User** is associated with using a given `:id`.
+  - [Show User Wallet Account](https://developer.hellozai.com/reference/showuserwalletaccounts.md): Show the **User's Wallet Account** using a given `:id`.
+- Callbacks
+  - [Show Callback](https://developer.hellozai.com/reference/showcallback.md): Show details of a specific **Callback** using a given `:id`.
+  - [Delete Callback](https://developer.hellozai.com/reference/deletecallback.md): Delete an existing Callback using a given `:id`.
+  - [Update Callback](https://developer.hellozai.com/reference/updatecallback.md): Update an existing **Callback** using a given `:id`. You can change the `URL`, the `object_type` and whether the **Callback** is `enabled` or `disabled`.
+  - [List Callback Responses](https://developer.hellozai.com/reference/listcallbackresponse.md): Retrieve an ordered and paginated list of the responses garnered from a callback using a given `:id`.
+  - [Show Callback Response](https://developer.hellozai.com/reference/showcallbackresponse.md): Show details of a specific **Callback** response using a given `:id`.
+  - [List Callbacks](https://developer.hellozai.com/reference/listcallbacks.md): Retrieve an ordered and paginated list of all created **Callbacks**.
+  - [Create Callback](https://developer.hellozai.com/reference/createcallback.md): Create a **Callback** to notify you at the `URL` when the `object_type` changes
+- Card Accounts
+  - [Create Card Account](https://developer.hellozai.com/reference/createcardaccount.md): Create a Credit **Card Account** to be used as a funding source. Store the returned `:id` and use it for a `make_payment` **Item Action** call. The `:id` is also referred to as a **token** when…
+  - [Show Card Account User](https://developer.hellozai.com/reference/showcardaccountuser.md): Show the **User** the Credit **Card Account** is associated with using a given `:id`.
+  - [Verify Card](https://developer.hellozai.com/reference/verifycard.md): Where pre-authorization is enabled on a platform, verifies a **Card Account** when a **Card Account** is successfully verified, its verification status is `verified`.
+  - [Show Card Account](https://developer.hellozai.com/reference/showcardaccount.md): Show details of a specific Credit **Card Account** using a given `:id`. You can toggle the card account number display to show the first 6 digits in addition to the last 4 digits. Contact Assembly if…
+  - [Redact Card Account](https://developer.hellozai.com/reference/redactcardaccount.md): Redact a Credit **Card Account** using a given `:id`. Redacted Credit **Card Accounts** can no longer be used as a funding source.
+- Companies
+  - [List Companies](https://developer.hellozai.com/reference/listcompanies.md): Retrieve an ordered and paginated list of existing **Companies**.
+  - [Create Company](https://developer.hellozai.com/reference/createcompany.md): Create a **Company** associated with the **User** using a given `user_id`. **Note**: Some parameters are required for user verification. See our guide on [Onboarding a Payout…
+  - [Show Company](https://developer.hellozai.com/reference/showcompany.md): Show details of a specific **Company** using a given `:id`.
+  - [Update Company](https://developer.hellozai.com/reference/updatecompany.md): Update an existing **Company** attributes using a given `:id`.
+- Direct Debit Authorities
+  - [List Direct Debit Authorities](https://developer.hellozai.com/reference/listdirectdebitauthorities.md): Retrieve an ordered and paginated list of existing **Direct Debit Authorities**.
+  - [Create Direct Debit Authority](https://developer.hellozai.com/reference/createdirectdebitauthority.md): Create a **Direct Debit Authority** associated with a **Bank Account**. The **Direct Debit Authority** is required to use a **Bank Account** as a funding source (Direct Debit/ACH).
+  - [Show Direct Debit Authority](https://developer.hellozai.com/reference/showdirectdebitauthority.md): Show details of a specific **Direct Debit Authority** using a given `:id`.
+- Fees
+  - [List Fees](https://developer.hellozai.com/reference/listfees.md): Retrieve an ordered and paginated list of existing **Fees**.
+  - [Create fee](https://developer.hellozai.com/reference/createfee.md): Create a **Fee** to be associated with an **Item**. **Fees** will add or subtract from the **Item** amount based on the **User**, payment type or Disbursement account type. **Fees** can be `Fixed` or…
+  - [Show Fee](https://developer.hellozai.com/reference/showfee.md): Show details of a specific **Fee** using a given `:id`. If the `item_amount` is specified, the response also shows the `calculated_fee` based on a percentage of the `item_amount`.
+- Charges
+  - [List Charges](https://developer.hellozai.com/reference/listcharges.md): Retrieve an ordered and paginated list of **Charges**.
+  - [Create Charge](https://developer.hellozai.com/reference/createcharge.md): Create a **Charge**. **Charges** require a specified **Card Account** or **Bank Account**. You may pass through an existing **User**, or define the `user_id` of the new user that will be associated…
+  - [Show Charge](https://developer.hellozai.com/reference/showcharge.md): Show details of a specific **Charge** using a given `:id`.
+  - [Show Charge Status](https://developer.hellozai.com/reference/showchargestatus.md): Show status of a specific **Charge** using a given `:id`.
+  - [Show Charge Buyer](https://developer.hellozai.com/reference/showchargebuyer.md): Show the buyer **User** associated with the **Charge** using a given `:id`.
+- Marketplaces
+  - [Show Marketplace](https://developer.hellozai.com/reference/showmarketplace.md): Show details of your **Platform**, providing access to your configuration and related **User** and **Company**.
+- Token Auth
+  - [Generate Token](https://developer.hellozai.com/reference/generatetoken.md): Create a token, either for a bank or a card account, that can be used with the **PromisePay.js** package to securely send Assembly credit card details.
+- Tools
+  - [Health check](https://developer.hellozai.com/reference/healthcheck.md): Displays a health check of the Assembly service.
+- Transactions
+  - [List Transactions](https://developer.hellozai.com/reference/listtransactions.md): Retrieve an ordered and paginated list of **Transactions**. Note: `created_before` and `created_after` range can not be greater than 31 days
+  - [Show Transaction Bank Account](https://developer.hellozai.com/reference/showtransactionbankaccount.md): Show the **Bank Account** associated with the **Transaction** using a given `:id`.
+  - [Show Transaction](https://developer.hellozai.com/reference/showtransaction.md): Show details of a specific **Transaction** using a given `:id`.
+  - [Show Transaction Card Account](https://developer.hellozai.com/reference/showtransactioncardaccount.md): Show the **Card Account** associated with the **Transaction** using a given `:id`.
+  - [Show Transaction Fees](https://developer.hellozai.com/reference/showtransactionfees.md): Show the **Fees** associated with the **Transaction** using a given `:id`.
+  - [Show Transaction Wallet Account](https://developer.hellozai.com/reference/showtransactionwalletaccount.md): Show the **Wallet Account** associated with the **Transaction** using a given `:id`.
+  - [Show Transaction User](https://developer.hellozai.com/reference/showtransactionuser.md): Show the **User** associated with the **Transaction** using a given `:id`.
+- Batch Transactions
+  - [List Batch Transactions](https://developer.hellozai.com/reference/listbatchtransactions.md): Retrieve an ordered and paginated list of existing **Batch Transactions**. The list can be filtered by **Account**, **Batch ID**, **Item**, and **Transaction Type**.
+  - [Show Batch Transaction](https://developer.hellozai.com/reference/showbatchtransaction.md): Get a batch transaction using its ID
+- Disbursements
+  - [List Disbursements](https://developer.hellozai.com/reference/listdisbursement.md): Retrieve an ordered and paginated list of existing **Disbursements**. The list can be filtered by **Batch ID**.
+  - [Show Disbursement](https://developer.hellozai.com/reference/showdisbursement.md): Get a disbursment using its ID
+  - [Show Disbursement Transactions](https://developer.hellozai.com/reference/showdisbursementtransactions.md): Get all the transactions relating to a disbursment ID
+  - [Show Disbursement Wallet Accounts](https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md): Get all the wallet accounts relating to a disbursment ID
+  - [Show Disbursement Bank Accounts](https://developer.hellozai.com/reference/showdisbursementbankaccounts.md): Get all the bank accounts relating to disbursement ID
+  - [Show Disbursement Users](https://developer.hellozai.com/reference/showdisbursementusers.md): Get all the users relating to disbursement ID
+  - [Show Disbursement Items](https://developer.hellozai.com/reference/showdisbursementitems.md): Get all the items relating to a disbursement ID
+- Items
+  - [List Items](https://developer.hellozai.com/reference/listitems.md): OK
+  - [Create Item](https://developer.hellozai.com/reference/createitem.md): Create an **Item**. Items require two **Users**, a buyer and a seller. The `buyer_id` and `seller_id` are your unique user identifiers.
+  - [Show Item](https://developer.hellozai.com/reference/showitem.md): Show details of a specific **Item** using a given `:id`.
+  - [Delete Item](https://developer.hellozai.com/reference/deleteitem.md): Delete an existing **Item** using a given `:id`.
+  - [Update Item](https://developer.hellozai.com/reference/updateitem.md): Update an existing **Items** attributes using a given `:id`. Note: An item can only be updated if it's in `pending` state. Once an item has begun a payment process, you cannot update it.
+  - [Show Item Seller](https://developer.hellozai.com/reference/showitemseller.md): Show the seller **User** associated with the **Item** using a given `:id`.
+  - [Show Item Buyer](https://developer.hellozai.com/reference/showitembuyer.md): Show the buyer **User** associated with the **Item** using a given `:id`.
+  - [Show Item Fees](https://developer.hellozai.com/reference/showitemfees.md): Show the **Fees** associated with the **Item** using a given `:id`.
+  - [Show Item Wire Details](https://developer.hellozai.com/reference/showitemwiredetails.md): Show the **Item** wire payment details using a given `:id`.
+  - [List Item Transactions](https://developer.hellozai.com/reference/listitemtransactions.md): Retrieve an ordered and paginated list of **Transactions** associated with the **Item** using a given `:id`.
+  - [List Item Batch Transactions](https://developer.hellozai.com/reference/listitembatchtransactions.md): Retrieve an ordered and paginated list of **Batch Transactions** associated with the `Item` using a given `:id`. This will include both direct debits coming in, and the disbursements going out.
+  - [Show Item Status](https://developer.hellozai.com/reference/showitemstatus.md): Show the status of an **Item** using a given `:id`.
+- Item Actions
+  - [Make Payment](https://developer.hellozai.com/reference/makepayment.md): Make a payment for an **Item**. Pass the `:account_id` of a **Bank Account** or a **Card Account** associated with the **Item's** buyer. The **Item** state will transition to one of `payment_held`,…
+  - [Cancel](https://developer.hellozai.com/reference/cancelitem.md): Cancel an **Item**. This will transition the **Item** state to `cancelled`. **Items** can only be cancelled if they haven't been actioned in any other way.
+  - [Refund](https://developer.hellozai.com/reference/refund.md): Refund an **Item**'s funds. A partial `amount` can be specified otherwise the full amount will be refunded. This will transition the **Item** state to 'refunded' if the full amount is refunded, or to…
+  - [Authorize Payment](https://developer.hellozai.com/reference/authorizepayment.md): Where pre-authentication is enabled on a platform, initiates a credit card payment authorization for an item. When an authorization is successful, your platform holds the item amount for capture, but…
+  - [Capture Payment](https://developer.hellozai.com/reference/capturepayment.md): Where pre-authentication is enabled on a platform, completes a credit card payment for an item whose payment is authorized. This call is used with the Authorize Payment call.
+  - [Void Payment](https://developer.hellozai.com/reference/voidpayment.md): Where pre-authentication is enabled on a platform, voids the `payment_authorized` status for an item. This call is used with the Authorize Payment call. **Note**: Not all payment gateways support the…
+  - [Release Payment (Deprecated - Do Not Use)](https://developer.hellozai.com/reference/releasepayment.md): Included for legacy purposes for existing customers that use Escrow payments which are no longer supported for new flows/customers. Release funds held in escrow from an **Item** with an **Escrow** or…
+  - [Make an async Payment](https://developer.hellozai.com/reference/makepaymentasync.md): Initiate a card payment with 3D Secure 2.0 authentication support. This endpoint initiates the payment process and returns a `payment_token` required for 3DS2 component initialisation.
+
+## API Reference: Virtual Accounts and PayIDs
+- [Overview](https://developer.hellozai.com/reference/overview-va.md)
+- Virtual Accounts
+  - [Create Virtual Account](https://developer.hellozai.com/reference/createvirtualaccount.md): Create a _Virtual Account_ for a given _Wallet Account_.
+  - [List Virtual Accounts](https://developer.hellozai.com/reference/listvirtualaccountbywalletaccount.md): List _Virtual Accounts_ for a given _Wallet Account_.
+  - [Show Virtual Account](https://developer.hellozai.com/reference/showvirtualaccount.md): Show details of a specific _Virtual Account_ using the given `id`.
+  - [Update AKA Names](https://developer.hellozai.com/reference/updatevirtualaccountakaname.md): Replace the list of AKA Names for a _Virtual Account_.
+  - [Update Account Name](https://developer.hellozai.com/reference/updatevirtualaccountaccountname.md): Change the name of a _Virtual Account_.
+  - [Update Virtual Account Status](https://developer.hellozai.com/reference/updatevirtualaccount.md): Update the status of a _Virtual Account_.
+- PayIDs
+  - [Register PayID](https://developer.hellozai.com/reference/registerpayid.md): Register a _PayID_ for a given _Virtual Account_.
+  - [Update PayID Status](https://developer.hellozai.com/reference/updatepayidstatus.md): Update the status of the _PayID_.
+  - [Retrieve a PayID](https://developer.hellozai.com/reference/getpayid.md): Retrieve the details of a specific _PayID_ using the unique id parameter `id`. Only one _PayID_ record is returned.
+
+## API Reference: PayTo
+- [Overview](https://developer.hellozai.com/reference/overview-1.md)
+- PayTo Payments
+  - [Initiate PayTo Payment](https://developer.hellozai.com/reference/initiatepaymentrequest.md): This endpoint is to initiate a payment to collect funds from the debtor's account or to retry if the previous payment collection request was rejected due to valid business reasons. This API should be…
+  - [Get PayTo Payment Initiation Request Details](https://developer.hellozai.com/reference/getinitiatepaymentstatus.md): This operation is to retrieve details of an initiated payment request. This API should be invoked to know the latest status of the payment initiation request if needed.   Payment initiation request…
+  - [Get All PayTo Payment Initiation Requests for an Agreement](https://developer.hellozai.com/reference/getinitiatepaymentstatuslist.md): This operation is to retrieve all payment requests initiated for an agreement in the provided period (date range). Payment requests for a period of maximum one year or less than it can be retrieved…
+- PayTo Agreements
+  - [Create PayTo Agreement](https://developer.hellozai.com/reference/createagreement.md): This operation creates the agreement with NPPA and hence must be invoked only after validating the agreement via the “Validate PayTo Agreement” operation.   It should be invoked immediately once the…
+  - [Validate PayTo Agreement](https://developer.hellozai.com/reference/validateagreement.md): Validate PayTo agreement details before creation. This operation must be invoked first, followed by the “Create PayTo Agreement” operation.   This operation validates the details of the agreements…
+  - [Amend PayTo Agreement Status](https://developer.hellozai.com/reference/amendagreementstatus.md): Amend Status of a particular agreement via its UUID. Below status amends are possible via this API: - ACTIVE -> SUSPENDED - ACTIVE -> CANCELLED - SUSPENDED -> ACTIVE (only if suspended via Zai) -…
+  - [Recall PayTo Agreement](https://developer.hellozai.com/reference/recallagreementaction.md): This operation is to recall a pending agreement creation/bilateral amendment authorisation request before it is approved by debtor. By default, all debtor authorization requests expire after 5 days…
+  - [Amend PayTo Agreement Details](https://developer.hellozai.com/reference/amendagreementdetails.md): Amend details of a particular agreement via its UUID. There are two types of amendments possible via this operation: - Unilateral amendments - which does not need debtor approval and will be…
+  - [Get PayTo Agreement Details](https://developer.hellozai.com/reference/getagreementdetails.md): Retrieve details of a PayTo agreement by UUID which uniquely identifies the agreement.  This UUID is returned as part of the “Validate PayTo Agreement” operation.   It provides complete details of a…
+  - [Get All PayTo Agreements for a User](https://developer.hellozai.com/reference/getagreementsbyuser.md): This operation is to retrieve all PayTo agreements associated with a particular user in the provided period (date range). Agreements can be retrieved for a maximum period of one year or less at a…
+
+## API Reference: Webhooks API
+- [Overview](https://developer.hellozai.com/reference/webhooks-overview.md)
+
+## API Reference: Asynchronous API
+- [Overview](https://developer.hellozai.com/reference/async-overview.md)
+
+## API Reference: [Upcoming] Initiate Last Domestic Leg Payout
+- Wallet Accounts
+  - [Initiate Last Domestic Leg Payout (Upcoming 2027)](https://developer.hellozai.com/reference/npplastdomesticleg-1.md): Facilitate the real-time settlement of the last domestic leg payout for International Funds Transfer Instructions (IFTI) through NPP rails. This updated `ifti_information` payload shape goes live in…

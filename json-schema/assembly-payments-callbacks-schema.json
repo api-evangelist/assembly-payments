@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-callbacks-schema.json",
+  "title": "callbacks",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-asynchronous-api-openapi.yml#/components/schemas/callbacks",
+  "type": "object",
+  "properties": {
+    "callbacks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/callback"
+      }
+    },
+    "links": {
+      "$ref": "#/$defs/links"
+    }
+  },
+  "$defs": {
+    "callback": {
+      "type": "object",
+      "properties": {
+        "executed_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "http_response": {
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "format": "URL",
+          "description": "Call this end point to retrieve the internal business response if received, or a status update otherwise."
+        },
+        "callbacks": {
+          "type": "string",
+          "format": "URL",
+          "description": "Call this end point to retrieve callback tracking information. This property is only present if a callback was supplied with the original API invocation."
+        }
+      }
+    }
+  }
+}

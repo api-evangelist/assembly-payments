@@ -1,0 +1,35 @@
+name: Assembly Payments pricing
+generated: '2026-10-22'
+method: searched
+source: https://www.hellozai.com/pricing
+audience: business-product
+pricing_basis: ad-valorem
+published: true
+delivery:
+  delivery: managed
+currency: AUD
+region: Australia
+note: Fees exclude GST. Assembly Payments now trades as Zai.
+plans:
+- name: Standard
+  description: Access Zai's platform and pay for each card transaction as you go.
+  price: 1.5% + A$0.30
+  price_text: 1.5% + A$0.30
+  features:
+  - for domestic cards *
+  - 2.8% + A$0.16 for international cards
+  - Dedicated support
+  - A single integration
+  - Optimised checkout flows
+  limits: []
+  extra_price_text: 2.8% + A$0.16
+- name: Customised
+  description: Design a custom package that works for your business.
+  price: Contact Sales
+  price_text: Contact Sales
+  features:
+  - Volume discounts
+  - Multi-product discounts
+  - Country-specific rates
+  - Interchange pricing
+  limits: []

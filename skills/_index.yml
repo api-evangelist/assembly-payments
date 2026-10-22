@@ -1,0 +1,25 @@
+name: Assembly Payments agent skills
+generated: '2026-10-22'
+method: generated
+description: Agent skills grounded in operationIds from the saved Assembly/Zai OpenAPI contracts. No provider-published skills or AGENTS.md were found.
+skills:
+- name: assembly-payments-marketplace-payment
+  file: assembly-payments-marketplace-payment.md
+  description: 'Take a marketplace payment end to end: onboard buyer and seller, attach a funding account, create an item, pay it, and track its status.'
+  api: Assembly API
+- name: assembly-payments-refund-or-cancel
+  file: assembly-payments-refund-or-cancel.md
+  description: 'Reverse a marketplace item: cancel an unpaid item, void an authorization, or refund a paid one.'
+  api: Assembly API
+- name: assembly-payments-wallet-payout
+  file: assembly-payments-wallet-payout.md
+  description: Pay out funds from a wallet account to a user bank account and verify the disbursement.
+  api: Assembly API
+- name: assembly-payments-payto-agreement
+  file: assembly-payments-payto-agreement.md
+  description: Set up a PayTo agreement and initiate payments against it.
+  api: PayTo
+- name: assembly-payments-webhook-setup
+  file: assembly-payments-webhook-setup.md
+  description: Subscribe to Zai webhooks, set the signing secret, and inspect delivery jobs.
+  api: Webhooks API

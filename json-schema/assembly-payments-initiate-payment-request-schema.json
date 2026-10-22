@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-initiate-payment-request-schema.json",
+  "title": "InitiatePaymentRequest",
+  "description": "Definition of the Initiate Payment request data.\n \n **Property descriptions**: \n \n- **priority** - Indicates payment processing priority.\n Supported values: \n\n   - Attended: Payment marked as attended will be processed immediately and will be rejected if the responding participant is not available\n   - Unattended: Payments marked as unattended may not be processed immediately. In cases where the responding participant is not available, the payment will be stored for later processing and hence won’t be rejected\n- **payment_info** - Payment info for payment request.\n- **retry_info** - Retry information should be provided only if the payment request was rejected previously due to business reasons and a retry for the same is being attempted.<br><br>*Note - Rejected and retry eligible payment request can be retried 5 times within 24 hours.*",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-payto-api-openapi.yml#/components/schemas/InitiatePaymentRequest",
+  "required": [
+    "payment_info",
+    "priority"
+  ],
+  "type": "object",
+  "properties": {
+    "priority": {
+      "title": "Priority",
+      "type": "string",
+      "description": "<p>Indicates payment processing priority. Supported values</p> \n<table><tr><td>Code</td><td>Description</td></tr><tr><td>ATTENDED</td><td>Payment marked as attended will be processed immediately and will be rejected if the responding participant is not available</td></tr><tr><td>UNATTENDED</td><td>Payments marked as unattended may not be processed immediately. In cases where the responding participant is not available, the payment will be stored for later processing and hence won’t be rejected</td></tr></table>",
+      "enum": [
+        "ATTENDED",
+        "UNATTENDED"
+      ]
+    },
+    "payment_info": {
+      "$ref": "#/$defs/PaymentInformation"
+    },
+    "retry_info": {
+      "$ref": "#/$defs/RetryInformation"
+    }
+  },
+  "$defs": {
+    "PaymentInformation": {
+      "required": [
+        "instructed_amount",
+        "last_payment"
+      ],
+      "type": "object",
+      "properties": {
+        "instructed_amount": {
+          "maxLength": 19,
+          "minLength": 1,
+          "pattern": "^(?=.{1,19}$)[1-9]{1}[0-9]{0,18}$",
+          "type": "string",
+          "description": "Specifies an amount in cents.\n\nSpecifies the amount to be debited the from debtor's bank account before deduction of charges."
+        },
+        "last_payment": {
+          "type": "boolean",
+          "description": "Indicates a \"Yes\" or \"No\" type of answer for an element.\n\nIndicates that it is the last payment associated with the agreement. Post this, the agreement will be marked as CANCELLED automatically and no further payments can be requested on this agreement.",
+          "default": false
+        },
+        "end_to_end_id": {
+          "maxLength": 35,
+          "minLength": 1,
+          "pattern": "^([a-zA-Z0-9_-]){1,35}$",
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 characters.\n\nUnique identification to unambiguously identify the payment. This identification is passed on, unchanged, throughout the entire end-to-end chain. It is recommended to provide this identifier which can be passed between entities to identify the payment during queries/investigations if any. If not provided, debtor reference (if available) from the agreement will be populated. If none available, default value \"NOTPROVIDED\" will be populated in the payment initiation request."
+        },
+        "remittance_info": {
+          "maxLength": 280,
+          "minLength": 1,
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 280 characters.\n\nFree text field to provide any narrative for the payment."
+        },
+        "unique_superannuation_id": {
+          "maxLength": 35,
+          "minLength": 1,
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters.\n\nFor agreements created with PURPOSE_CODE = PENS (pension payments), this should be the USI number for the superannuation fund."
+        },
+        "unique_superannuation_code": {
+          "maxLength": 35,
+          "minLength": 1,
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters.\n\nFor agreements created with PURPOSE_CODE = PENS (pension payments), this should be the USI - code indicating the identifier to whom the superannuation fund will be provided."
+        }
+      },
+      "description": "Payment request details.\n \n **Property descriptions**: \n \n - **instructed_amount** - Specifies the amount to be debited the from debtor's bank account before deduction of charges.\n- **last_payment** - Indicates that it is the last payment associated with the agreement. Post this, the agreement will be marked as CANCELLED automatically and no further payments can be requested on this agreement.\n- **end_to_end_id** - Unique identification to unambiguously identify the payment. This identification is passed on, unchanged, throughout the entire end-to-end chain. It is recommended to provide this identifier which can be passed between entities to identify the payment during queries/investigations if any. If not provided, debtor reference (if available) from the agreement will be populated. If none available, default value \"NOTPROVIDED\" will be populated in the payment initiation request.\n- **remittance_info** - Free text field to provide any narrative for the payment. \n\n- **unique_superannuation_code** - For agreements created with PURPOSE_CODE = PENS (pension payments), this should be the USI number for the superannuation fund.\n- **unique_superannuation_id** - For agreements created with PURPOSE_CODE = PENS (pension payments), this should be the USI - code indicating the identifier to whom the superannuation fund will be provided. \n\n **The following rules apply to this structure**: \n\n - **UniqueSuperannuationRule** Both unique_superannuation_code and unique_superannuation_id must be present or both fields must be absent. "
+    },
+    "RetryInformation": {
+      "type": "object",
+      "properties": {
+        "payment_request_uuid": {
+          "maxLength": 36,
+          "minLength": 36,
+          "pattern": "^([a-zA-Z0-9_-]){36}$",
+          "type": "string",
+          "description": "Unique identifier for the payment request (in UUID format) for which the retry is being attempted."
+        }
+      },
+      "description": "Retry information should be provided only if the payment request was rejected previously due to business reasons and a retry for the same is being attempted.<br><br>*Note - Rejected and retry eligible payment request can be retried 5 times within 24 hours.*\n\n **Property descriptions**: \n \n- **payment_request_uuid** - Unique identifier for the payment request (in UUID format) for which the retry is being attempted."
+    }
+  }
+}

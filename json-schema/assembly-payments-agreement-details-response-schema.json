@@ -1,0 +1,507 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-agreement-details-response-schema.json",
+  "title": "AgreementDetailsResponse",
+  "description": "Definition of the agreement details response. \n\n **Property descriptions**: \n\n - **agreement_uuid** - Unique ID, used to unambiguously identify the agreement.\n - **user_external_id** - User External Id is the unique identifier of the user with whom the agreement should be associated.\n - **status** - Current status of the agreement.\n - **status_description** - Detailed description of the associated status.\n - **status_reason_code** - Reason code for the current status.\n - **status_reason_description** - Reason description if any, provided by the debtor while suspending or cancelling the agreement via banking portal.\n - **created_at** - Date representation of the initial creation of the agreement.\n - **updated_at** - Date representation of the last update of the agreement.\n - **agreement_info** - Details (creditor, debtor, payment terms) which should be agreed between debtor and creditor.",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-payto-api-openapi.yml#/components/schemas/AgreementDetailsResponse",
+  "type": "object",
+  "properties": {
+    "agreement_uuid": {
+      "type": "string",
+      "description": "Zai generated Universally Unique Identifier (UUID)."
+    },
+    "user_external_id": {
+      "type": "string",
+      "description": "Specifies a character string."
+    },
+    "status": {
+      "type": "string",
+      "description": "<p>Current status of the agreement:</p> \n<table><tr><td>Status</td><td>Description</td></tr><tr><td>PENDING_VALIDATION</td><td>Agreement validation is pending.</td></tr><tr><td>VALIDATED</td><td>Agreement is validated.</td></tr><tr><td>VALIDATION_FAILED</td><td>Agreement validation failed.</td></tr><tr><td>PENDING_CREATION</td><td>Agreement creation is pending.</td></tr><tr><td>CREATED</td><td>Agreement is created.</td></tr><tr><td>CREATION_FAILED</td><td>Agreement creation failed.</td></tr><tr><td>ACTIVE</td><td>Agreement is active.</td></tr><tr><td>SUSPENDED</td><td>Agreement is suspended.</td></tr><tr><td>CANCELLED</td><td>Agreement is cancelled.</td></tr></table>"
+    },
+    "status_description": {
+      "type": "string",
+      "description": "Description of the associated status."
+    },
+    "status_reason_code": {
+      "type": "string",
+      "description": "<p>Reason code of the associated status:\n<table><tr><td>Reason Code</td><td>Description</td></tr><tr><td>PayerAccountNumberInvalid</td><td>Payer account details or PayID provided is invalid or does not exist within NPP.</td></tr><tr><td>ClosedAccount<td>Account provided is closed.</td></tr><tr><td>PayerAccountClosed</td><td>Payer account provided is closed.</td></tr><tr><td>BlockedAccount</td><td>Account provided is temporarily blocked.</td></tr><tr><td>PayerAccountTypeInvalid</td><td>Payer account type is invalid - unable to debit funds within NPP.</td></tr><tr><td>TransactionForbiddenOnPayerAccount</td><td>Transaction forbidden on the provided Payer account - either agreement to debit this account does not exist/inactive or the account does not support debits within NPP.</td></tr><tr><td>NPPTransactionNotSupported</td><td>Transaction not supported on the provided Payer account - does not support NPP payments.</td></tr><tr><td>UnsupportedCurrency</td><td>Unable to debit funds in AUD from the provided Payer account.</td></tr><tr><td>AmountInvalidOrMissing</td><td>Amount and/or maximum amount are either invalid or not specified in the agreement.</td></tr><tr><td>AmountExceedsAgreedLimitsForPayerAccount</td><td>Amount specified in the agreement exceeds the allowed transaction amount for the Payer account.</td></tr><tr><td>PayerDeceased</td><td>Payer is deceased.</td></tr><tr><td>PayToServiceNotSupportedByPayerBank</td><td>PayTo service is not supported by the Payer institution.</td></tr><tr><td>PayToServiceNotPermittedForPayer</td><td>This agreement type is not supported for the provided Payer customer/account OR the Payer customer account no longer supports PayTo services.</td></tr><tr><td>RequestedByPayer</td><td>Suspension/Cancellation is requested by Payer.</td></tr><tr><td>RequestedByInitiatingParty</td><td>Suspension/Cancellation is requested by Creditor or by the Initiating Party.</td></tr><tr><td>ActiveAgreementValidityExpired</td><td>Validity of the agreement has expired & is no longer active.</td></tr><tr><td>UndisclosedReason</td><td>Suspended/Cancelled due to undisclosed reasons.</td></tr><tr><td>RequestedByPayer-UnspecifiedReason</td><td>Suspended/Cancelled without any reason specified by the Payer.</td></tr><tr><td>RequestedByPayerBank-UnspecifiedReason</td><td>Suspended/Cancelled without any reason specified by the Payer institution.</td></tr><tr><td>UnspecifiedReason</td><td>Suspended/Cancelled without any specified reason.</td></tr><tr><td>Prohibited</td><td>Suspended/Cancelled as it is considered prohibited.</td></tr><tr><td>PayeeNotOnAllowlistOfPayer</td><td>Payee not on the allowlist/trusted list of the Payer.</td></tr><tr><td>PayeeOnBlocklistOfPayer</td><td>Payee is blocked/blacklisted by the Payer.</td></tr><tr><td>ContractAmended</td><td>External arrangement (or contract) between the Payer and the Initiating Party has been amended.</td></tr><tr><td>ContractCancellationInitiatedByDebtor</td><td>External arrangement (or contract) cancellation has been initiated by Payer.</td></tr><tr><td>ContractExpired</td><td>External arrangement (or contract) between the Payer and the Initiating Party has expired.</td></tr><tr><td>FinalPaymentCompleted</td><td>Suspended/Cancelled as final payment has been completed successfully.</td></tr><tr><td>OneOffPaymentCompleted</td><td>Suspended/Cancelled as one-off payment has been completed successfully</td></tr><tr><td>TooManyConsecutiveUnsuccessfulPayments</td><td>Suspended/Cancelled due to multiple consecutive unsuccessful payment attempts.</td></tr><tr><td>NoResponseFromPayer</td><td>Payer did not respond within the expected timeframe.</td></tr><tr><td>UnapprovedAgreementValidityExpired</td><td>Validity of the agreement has expired before Payer authorisation.</td></tr><tr><td>UnknownReason</td><td>Suspended/Cancelled due to unknown reason.</td></tr><tr><td>UnknownPayer</td><td>The payment has been rejected by the Payer institution as the Payer is not known as per records. Please try again or contact the Payer.</td></tr><tr><td>UnrecognisedInitiatingParty</td><td>The Payer has requested the payment rejection as the Initiating party is not recognised by them. Please try again or contact the Payer.</td></tr></table>"
+    },
+    "status_reason_description": {
+      "type": "string",
+      "description": "Description of the reason code of the associated status."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "creation date."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "modification date."
+    },
+    "agreement_info": {
+      "$ref": "#/$defs/AgreementInfo"
+    }
+  },
+  "$defs": {
+    "AgreementInfo": {
+      "type": "object",
+      "properties": {
+        "agreement_id": {
+          "type": "string",
+          "description": "Unique agreement identifier generated by NPPA."
+        },
+        "description": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 characters."
+        },
+        "short_description": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 characters."
+        },
+        "purpose_code": {
+          "title": "PurposeCode",
+          "type": "string",
+          "description": "<p>Specifies the high-level purpose of the mandate based on a set of pre-defined categories.</p> \n<table> <tr><td>Code</td><td>Description</td></tr> <tr><td>MORT</td><td>Mortgage payments, including payments for a home/business loan</td></tr> <tr><td>UTIL</td><td>Utility payments such as gas, electricity, water etc</td></tr> <tr><td>LOAN</td><td>Loan payments, other than mortgage payments</td></tr> <tr><td>DEPD</td><td>Dependant support payments (e.g. child support)</td></tr> <tr><td>RETL</td><td>Retail payments, including e-commerce and online shopping (payments are for provision of goods or services)</td></tr> <tr><td>SALA</td><td>Salary payments</td></tr> <tr><td>PERS</td><td>Personal payments (payments to an individual which excludes any payments for salary and superannuation purposes)</td></tr> <tr><td>GOVT</td><td>Government payments</td></tr> <tr><td>PENS</td><td>Pension payments (superannuation payments)</td></tr> <tr><td>TAXS</td><td>Tax payments (tax payments to Australian Taxation Office (ATO) and Australian Commonwealth, State, Territory, or other local government body)</td></tr> <tr><td>OTHR</td><td>Other service related payments (when there is no other appropriate purpose code)</td></tr> </table>",
+          "enum": [
+            "MORT",
+            "UTIL",
+            "LOAN",
+            "DEPD",
+            "RETL",
+            "SALA",
+            "PERS",
+            "GOVT",
+            "PENS",
+            "TAXS",
+            "OTHR"
+          ]
+        },
+        "agreement_type": {
+          "title": "AgreementType",
+          "type": "string",
+          "description": "<p></p> \n<table><tr><td>Code</td><td>Name</td><td>Description</td></tr><tr><td>AUPM</td><td>AuthorisedPaymentMandate</td><td>Established bilaterally as Authorised Payment Mandate.</td></tr><tr><td>MGCR</td><td>MigratedByCreditor</td><td>Established by migration from legacy service by Creditor.</td></tr></table>",
+          "enum": [
+            "AUPM",
+            "MGCR"
+          ]
+        },
+        "automatic_renewal": {
+          "type": "boolean",
+          "description": "Indicates a \"Yes\" or \"No\" type of answer for an element."
+        },
+        "validity_start_date": {
+          "pattern": "^(?:[1-9]\\d{3}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[1-9]\\d(?:0[48]|[2468][048]|[13579][26])|(?:[2468][048]|[13579][26])00)-02-29)$",
+          "type": "string",
+          "description": "A date expressed in the YYYY-MM-DD format. ",
+          "format": "yyyy-MM-dd"
+        },
+        "validity_end_date": {
+          "pattern": "^(?:[1-9]\\d{3}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[1-9]\\d(?:0[48]|[2468][048]|[13579][26])|(?:[2468][048]|[13579][26])00)-02-29)$",
+          "type": "string",
+          "description": "A date expressed in the YYYY-MM-DD format. ",
+          "format": "yyyy-MM-dd"
+        },
+        "transfer_arrangement": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 characters."
+        },
+        "debtor_info": {
+          "$ref": "#/$defs/DebtorInfo"
+        },
+        "creditor_info": {
+          "$ref": "#/$defs/CreditorInfo"
+        },
+        "payment_initiator_info": {
+          "$ref": "#/$defs/PaymentInitiatorInfo"
+        },
+        "payment_terms": {
+          "$ref": "#/$defs/PaymentTerms"
+        }
+      },
+      "description": "Details (creditor, debtor, payment terms) which should be agreed between debtor and creditor.\n \n **Property descriptions**: \n \n - **agreement_id** - Unique agreement identifier generated by NPPA.\n \n - **description** - Describes what the agreement is being established for. Examples include a product, particular service offering, etc. \n If the description is less than 35 characters, then the Short Description should be used instead of the Description field.\n - **short_description** - Describes what the agreement is being established for. Examples include a product, particular service offering, etc. \n If the description is less than 35 characters, then the Short Description should be used instead of the Description field. \n- **purpose_code** - Most appropriate code that represents the purpose for which this agreement is being established. \n\n   Supported values: \n \n   - MORT - Mortgage payments, including payments for a home/business loan\n   - UTIL - Utility payments such as gas, electricity, water etc\n   - LOAN - Loan payments, other than mortgage payments\n   - DEPD - Dependant support payments (e.g. child support)\n   - RETL - Retail payments, including e-commerce and online shopping (payments are for provision of goods or services)\n   - SALA - Salary payments\n   - PERS - Personal payments (payments to an individual which excludes any payments for salary and superannuation purposes)\n   - GOVT - Government payments\n   - PENS - Pension payments (superannuation payments)\n   - TAXS - Tax payments (tax payments to Australian Taxation Office (ATO) and Australian Commonwealth, State, Territory, or other local government body)\n   - OTHR - Other service related payments (when there is no other appropriate purpose code)\n - **agreement_type** - Agreement type to be created. \n\n   Supported values: \n \n     - AUPM (Authorised Payment Mandate)  - This type of agreement must be authorised by the payer/debtor i.e. agreement will be Active only post debtor/payer authorisation. Payment requests can be initiated immediately once the agreement is \"Active\". \n \n   - MGCR (Migrated by Creditor/Migrated DDR) - This type of agreement is created in order to migrate existing Direct Debit arrangement to be processed via the NPP using the PayTo rails. The agreement will be Active immediately (does not need debtor/payer authorisation as it was already pre-authorised in the existing BECS systems) post migration however payment requests can be initiated after 5 calendar days of creating the agreement. \n- **automatic_renewal** - Automatic renewal of an agreement at the end of the defined period. An example of an automatically renewing agreement might be a gym membership that automatically rolls over, or a phone contract. \n- **validity_start_date** - Validity start date of the agreement. The agreement is valid as of 00:00:00.000 Australia Sydney time on this date. \n- **validity_end_date** - Validity end date of the agreement. If specified, the agreement is valid until 23:59:59.999 Australia Sydney time on this date. \n- **transfer_arrangement** - Additional details about the agreement terms with consideration to the transfer of items/goods/services. Examples might include payment of shares,transfer of property, or fulfilment of a purchase order. \n- **debtor_info** - Debtor and Debtor Account Details. \n- **creditor_info** - Creditor and Creditor Account Details. \n- **payment_initiator_info** - Initiating party details. \n- **payment_terms** - Set of characteristics detailing agreement payment information. \n"
+    },
+    "CreditorAccountDetails": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 34 ASCII printable characters."
+        },
+        "account_id_type": {
+          "title": "AccountIdType",
+          "type": "string",
+          "description": "<p>Specifies the type of account identification:</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>BBAN</td><td>Basic Bank Account Number</td></tr><tr><td>PAYID</td><td>Payid Identification</td></tr></table>",
+          "enum": [
+            "BBAN",
+            "PAYID"
+          ]
+        }
+      },
+      "description": "Creditor Account Details. \n\n**Property descriptions**: \n - **account_id** - Creditor's actual bank account number (BSB + Account Number).\n - **account_id_type** - Specifies the account id type.\n   Supported values: \n\n   - BBAN (bsb/account)\n   - PAYID"
+    },
+    "CreditorDetails": {
+      "type": "object",
+      "properties": {
+        "creditor_id": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters."
+        },
+        "creditor_id_type": {
+          "title": "CreditorIdTypeCode",
+          "type": "string",
+          "description": "<p>Specifies an alphanumeric string with a length of 4 characters. Specifies the code indicating the identification type of the creditor.</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>ARNU</td><td>Alien Registration Number</td></tr><tr><td>CCPT</td><td>Passport Number</td></tr><tr><td>CUST</td><td>Customer Identification Number</td></tr><tr><td>DRLC</td><td>Drivers License Number</td></tr><tr><td>EMPL</td><td>Employee Identification Number</td></tr><tr><td>NIDN</td><td>National Identity Number</td></tr><tr><td>SOSE</td><td>Social Security Number</td></tr><tr><td>TXID</td><td>Tax Identification Number</td></tr><tr><td>BANK</td><td>Bank Party Identification</td></tr><tr><td>CBID</td><td>Central Bank Identification Number</td></tr><tr><td>CHID</td><td>Clearing Identification Number</td></tr><tr><td>CINC</td><td>Certificate Of Incorporation Number</td></tr><tr><td>COID</td><td>Country Identification Code</td></tr><tr><td>DUNS</td><td>Data Universal Numbering System</td></tr><tr><td>GS1G</td><td>GS1GLN Identifier</td></tr><tr><td>SREN</td><td>SIREN</td></tr><tr><td>SRET</td><td>SIRET</td></tr><tr><td>AUBN</td><td>Australian Business Number (ABN)</td></tr><tr><td>AUCN</td><td>Australian Company Number (ACN)</td></tr><tr><td>LEIN</td><td>Legal Entity Identification (LEI)</td></tr></table>",
+          "enum": [
+            "ARNU",
+            "CCPT",
+            "CUST",
+            "DRLC",
+            "EMPL",
+            "NIDN",
+            "SOSE",
+            "TXID",
+            "BANK",
+            "CBID",
+            "CHID",
+            "CINC",
+            "COID",
+            "DUNS",
+            "GS1G",
+            "SREN",
+            "SRET",
+            "AUBN",
+            "AUCN",
+            "LEIN"
+          ]
+        },
+        "creditor_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        },
+        "creditor_type": {
+          "title": "PartyType",
+          "type": "string",
+          "description": "Specifies the type of creditor involved in the transaction.\n<table><tr><td>Code</td><td>Name</td><td>Description</td></tr><tr><td>ORGN</td><td>Organisation</td><td>Debtor is an organisation.</td></tr><tr><td>PERS</td><td>Person</td><td>Debtor is a private individual.</td></tr></table>",
+          "enum": [
+            "ORGN",
+            "PERS"
+          ]
+        },
+        "ultimate_creditor_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        },
+        "creditor_reference": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters."
+        }
+      },
+      "description": "Information concerning the creditor party identified in the agreement. \n\n**Property descriptions**: \n - **creditor_id** - Unique and unambiguous identification of the creditor.\n - **creditor_id_type** - Code indicating the identification type of the creditor, for example in the case of a private individual; passport, driver licence, or 100-point check, or in the case of an organisation; LEI, ACN, ABN.\n - **creditor_name** - Name by which the creditor is known and which is usually used to identify that creditor.\n - **creditor_type** - Identifies the type of a creditor.\n   Supported values based on creditor type field: \n\n   If Creditor Type is PERS: \n\n   - CCPT = Passport Number \n   - CUST = Customer Identification Number\n   - DRLC = Driver’s License Number\n   - EMPL = Employee Identification Number\n   - TXID = Tax Identification Number \n\n   If Creditor Type is ORGN: \n\n     - BANK = Bank Party Identification\n     - CHID = Clearing Identification Number\n     - CINC = Certificate Of Incorporation Number\n     - EMPL = Employer Identification Number\n     - TXID = Tax Identification Number\n - **ultimate_creditor_name** - This field can indicate trading the name or common name of the marketplace/platform which is receives the funds via Zai OR  could be the actual seller user's name to which the funds will be transferred eventually.\n - **creditor_reference** - Reference relevant to the Creditor. Example - Invoice number."
+    },
+    "CreditorInfo": {
+      "type": "object",
+      "properties": {
+        "creditor_account_details": {
+          "$ref": "#/$defs/CreditorAccountDetails"
+        },
+        "creditor_details": {
+          "$ref": "#/$defs/CreditorDetails"
+        }
+      },
+      "description": "Information concerning the creditor party identified in the agreement. \n\n**Property descriptions**: \n - **creditor_account_details** - Information containing creditor account details.\n - **creditor_details** - Information containing debtor details."
+    },
+    "DebtorAccountDetails": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 34 ASCII printable characters."
+        },
+        "account_id_type": {
+          "title": "DebtorAccountIdTypeCode",
+          "type": "string",
+          "description": "<p>Specifies the type of account identification:</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>BBAN</td><td>Basic Bank Account Number</td></tr><tr><td>PAYID</td><td>Payid Identification</td></tr></table>",
+          "enum": [
+            "BBAN",
+            "PAYID"
+          ]
+        },
+        "payid_details": {
+          "$ref": "#/$defs/DebtorAccountPayidDetails"
+        }
+      },
+      "description": "Debtor Account Details.\n\n **Property descriptions**: \n\n - **account_id** - Debtor's actual bank account number (BSB + Account Number).\n - **account_id_type** - Debtor's bank account type.\n   Supported values: \n\n   - BBAN (bsb/account)\n   - PAYID\n - **payid_details** - Debtor account PayID Details. \n"
+    },
+    "DebtorAccountPayidDetails": {
+      "type": "object",
+      "properties": {
+        "payid_type": {
+          "title": "DebtorAccountPayidTypeCode",
+          "type": "string",
+          "description": " <p>PayID type associated with Debtor's bank account:</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>TELI</td><td>Telephone Number (Note that the ISO Code is TELE, but in AU-NPP context, TELI is used)</td></tr><tr><td>EMAL</td><td>Email Address</td></tr><tr><td>AUBN</td><td>Australian Business Number</td></tr><tr><td>ORGN</td><td>Organisation Identifier</td></tr></table>",
+          "enum": [
+            "TELI",
+            "EMAL",
+            "AUBN",
+            "ORGN"
+          ]
+        },
+        "payid": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 2048 characters."
+        },
+        "payid_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        }
+      },
+      "description": "Debtor account PayID Details.\n \n **Property descriptions**: \n\n - **payid_type** - PayID type associated with Debtor's bank account. \n\n   Supported values: \n\n   - EMAL - Email Address\n   - TELE - Telephone Number\n   - AUBN - Australian Business Number\n   - ORGN - Organisational Identifier\n - **payid** - PayID as provided by the debtor.\n - **payid_name** - Debtor user's name registered with the PayID."
+    },
+    "DebtorDetails": {
+      "type": "object",
+      "properties": {
+        "debtor_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        },
+        "debtor_type": {
+          "title": "DebtorType",
+          "type": "string",
+          "description": "Specifies the type of debtor involved in the transaction:\n<table><tr><td>Code</td><td>Name</td><td>Description</td></tr><tr><td>ORGN</td><td>Organisation</td><td>Debtor is an organisation.</td></tr><tr><td>PERS</td><td>Person</td><td>Debtor is a private individual.</td></tr></table>",
+          "enum": [
+            "ORGN",
+            "PERS"
+          ]
+        },
+        "ultimate_debtor_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        },
+        "debtor_id": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters."
+        },
+        "debtor_id_type": {
+          "title": "DebtorIdTypeCode",
+          "type": "string",
+          "description": "<p>Specifies an alphanumeric string with a length of 4 characters. Specifies the code indicating the identification type of the debtor:</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>ARNU</td><td>Alien Registration Number</td></tr><tr><td>CCPT</td><td>Passport Number</td></tr><tr><td>CUST</td><td>Customer Identification Number</td></tr><tr><td>DRLC</td><td>Drivers License Number</td></tr><tr><td>EMPL</td><td>Employee Identification Number</td></tr><tr><td>NIDN</td><td>National Identity Number</td></tr><tr><td>SOSE</td><td>Social Security Number</td></tr><tr><td>TXID</td><td>Tax Identification Number</td></tr><tr><td>BANK</td><td>Bank Party Identification</td></tr><tr><td>CBID</td><td>Central Bank Identification Number</td></tr><tr><td>CHID</td><td>Clearing Identification Number</td></tr><tr><td>CINC</td><td>Certificate Of Incorporation Number</td></tr><tr><td>COID</td><td>Country Identification Code</td></tr><tr><td>DUNS</td><td>Data Universal Numbering System</td></tr><tr><td>GS1G</td><td>GS1GLN Identifier</td></tr><tr><td>SREN</td><td>SIREN</td></tr><tr><td>SRET</td><td>SRET</td></tr><tr><td>AUBN</td><td>Australian Business Number (ABN)</td></tr><tr><td>AUCN</td><td>Australian Company Number (ACN)</td></tr><tr><td>LEIN</td><td>Legal Entity Identification (LEI)</td></tr></table>",
+          "enum": [
+            "ARNU",
+            "CCPT",
+            "CUST",
+            "DRLC",
+            "EMPL",
+            "NIDN",
+            "SOSE",
+            "TXID",
+            "BANK",
+            "CBID",
+            "CHID",
+            "CINC",
+            "COID",
+            "DUNS",
+            "GS1G",
+            "SREN",
+            "SRET",
+            "AUBN",
+            "AUCN",
+            "LEIN"
+          ]
+        },
+        "debtor_reference": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters."
+        }
+      },
+      "description": "Debtor Details. \n\n **Property descriptions**: \n\n - **debtor_name** - Specifies the name by which the debtor is known and which is usually used to identify that debtor.\n - **debtor_type** - Identifies debtor type. \n \n - **ultimate_debtor_name** - This field should be populated with the trading name of an organisation as would be identifiable to the creditor, or with the name of the receiver of goods or services as specified in the agreement for which this agreement is being established.\n - **debtor_id** - Unique and unambiguous ID of the debtor.\n - **debtor_id_type** - Indicates Debtor Id types. \n\n - **debtor_reference** - Reference relevant to the Payer/Debtor user. This reference could indicate information that may be useful to the creditor. Example - a purchase order. \nIf end to end Id is not provided in the payment initiation request, then the debtor reference (if available) will be populated as end to end id in the payment initiation request."
+    },
+    "DebtorInfo": {
+      "type": "object",
+      "properties": {
+        "debtor_account_details": {
+          "$ref": "#/$defs/DebtorAccountDetails"
+        },
+        "debtor_details": {
+          "$ref": "#/$defs/DebtorDetails"
+        }
+      },
+      "description": "Debtor and Debtor Account Details.\n\n **Property descriptions**: \n\n - **debtor_account_details** - Debtor Account Details.\n - **debtor_details** - Debtor Details."
+    },
+    "FirstPaymentInfo": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Specifies an amount in cents."
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3,3}$",
+          "type": "string",
+          "description": "A code allocated to a currency by a Maintenance Agency under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\"."
+        },
+        "date": {
+          "pattern": "^(?:[1-9]\\d{3}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[1-9]\\d(?:0[48]|[2468][048]|[13579][26])|(?:[2468][048]|[13579][26])00)-02-29)$",
+          "type": "string",
+          "description": "A particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format.",
+          "format": "yyyy-MM-dd"
+        }
+      },
+      "description": "If the payment arrangement is such that the initial payment amount differs from the expected \"regular\" or \"recurring\" payment, then the first payment info can be specified in this field. Examples: Establishment fees are part of the first payment only. \n\n **Property descriptions**: \n \n - **amount**\n   - For FIXE type of agreements, as the amount to be debited is fixed, this indicates the amount to be debited per payment.\n   - For BALN type of agreements, as the amount to be debited is fixed for all payments (except the last/final payment which can be for a larger amount), this field indicates the amount to be debited for all payments except the final/last.\n   - For USGB/VARI type of agreements, this indicates the minimum amount that can be debited from the account per payment.\n - **currency** - Currency of the payment to debit the account.\n - **date** - If the payment arrangement being established specifies the first date (until 23:59:59.999 Australia Sydney time, expressed in the YYYY-MM-DD format) on which payment is expected to be initiated, that date should be specified in this field."
+    },
+    "LastPaymentInfo": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Specifies an amount in cents."
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3,3}$",
+          "type": "string",
+          "description": "A code allocated to a currency by a Maintenance Agency under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\"."
+        },
+        "date": {
+          "pattern": "^(?:[1-9]\\d{3}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[1-9]\\d(?:0[48]|[2468][048]|[13579][26])|(?:[2468][048]|[13579][26])00)-02-29)$",
+          "type": "string",
+          "description": "A particular point in the progression of time in a calendar year expressed in the YYYY-MM-DD format. ",
+          "format": "yyyy-MM-dd"
+        }
+      },
+      "description": "If the payment arrangement is such that there is a known final payment amount that differs from the expected \"regular\" or \"recurring\" payment, then the last payment info can be specified in this field. \n\n **Property descriptions**: \n\n - **amount**\n   - For FIXE type of agreements, as the amount to be debited is fixed, this indicates the amount to be debited per payment.\n   - For BALN type of agreements, as the amount to be debited is fixed for all payments (except the last/final payment which can be for a larger amount), this field indicates the amount to be debited for all payments except the final/last.\n   - For USGB/VARI type of agreements, this indicates the minimum amount that can be debited from the account per payment.\n - **currency** - Currency of the payment to debit the account.\n - **date** - If the payment arrangement being established specifies the date (until 23:59:59.999 Australia Sydney time, expressed in the YYYY-MM-DD format) on which payment is expected to be initiated, that date should be specified in this field."
+    },
+    "MaximumAmountInfo": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Specifies an amount in cents."
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3,3}$",
+          "type": "string",
+          "description": "A code allocated to a currency by a Maintenance Agency under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\"."
+        }
+      },
+      "description": "Represents the maximum amount that may be debited in any single payment initiation. \n\n **Property descriptions**: \n\n - **amount**\n   - For FIXE type of agreements, as the amount to be debited is fixed, this indicates the amount to be debited per payment.\n   - For BALN type of agreements, as the amount to be debited is fixed for all payments (except the last/final payment which can be for a larger amount), this field indicates the amount to be debited for all payments except the final/last.\n   - For USGB/VARI type of agreements, this indicates the minimum amount that can be debited from the account per payment.\n - **currency** - Currency of the payment to debit the account."
+    },
+    "PaymentAmountInfo": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "Specifies an amount in cents."
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3,3}$",
+          "type": "string",
+          "description": "A code allocated to a currency by a Maintenance Agency under an international identification scheme as described in the latest edition of the international standard ISO 4217 \"Codes for the representation of currencies and funds\"."
+        },
+        "type": {
+          "title": "PaymentAmountType",
+          "type": "string",
+          "description": "<p>Specific type of payment amount.</p><p>Depending on the use-case for which the payment arrangement is being made, an appropriate amount type should be selected for the agreement as this defines the payments that can be initiated via the agreement.</p> <table><tr><td>Code</td><td>Name</td><td>Description</td></tr><tr><td>FIXE</td><td>Fixed</td><td>Payments should be initiated for fixed amounts i.e. amount specified in the payment instruction must match the “amount” stated in the agreement.</td></tr><tr><td>BALN</td><td>Balloon</td><td>Payments should be initiated for fixed amounts with large final payment amount i.e. for all the payments except the last, amount specified in the payment instruction must match the “amount” stated in the agreement. The last payment can be different and as per terms mentioned in the last payment amount fields (if specified).<br><i>Note - This type is currently not supported.</i></td></tr><tr><td>USGB</td><td>UsageBased</td><td>If the amount for the payment varies with usage (example - electricity bill), it is recommended to specify a max amount. If a value is specified in the “amount” field, this would be considered as base/min amount to be paid for each payment. Payments should be initiated as per agreement terms i.e. the amount specified in the payment instruction should be within the “amount” (min) and “maximum amount” stated in the agreement.</td></tr><tr><td>VARI</td><td>Variable</td><td>If the amount for the payment varies each time (example - grocery purchase billing), it is recommended to specify a max amount. If a value is specified in the “amount” field, this would be considered as base/min amount to be paid for each payment. Payments should be initiated as per agreement terms i.e. the amount specified in the payment instruction should be within the “amount” (min) and “maximum amount” stated in the agreement.</td></tr></table>",
+          "enum": [
+            "BALN",
+            "FIXE",
+            "USGB",
+            "VARI"
+          ]
+        }
+      },
+      "description": "Specifies info around the amount type for the agreement (example: Fixed or Usage based amounts etc), amount that can be debited from the account depending on the type, and the currency in which the payments can be initiated. \n \n **Property descriptions**: \n \n - **amount**\n   - For FIXE type of agreements, as the amount to be debited is fixed, this indicates the amount to be debited per payment.\n   - For BALN type of agreements, as the amount to be debited is fixed for all payments (except the last/final payment which can be for a larger amount), this field indicates the amount to be debited for all payments except the final/last.\n   - For USGB/VARI type of agreements, this indicates the minimum amount that can be debited from the account per payment.\n - **currency** - Currency of the payment to debit the account. \n - **type** - Depending on the use-case for which the payment arrangement is being made, an appropriate amount type should be selected for the agreement as this defines the payments that can be initiated via the agreement.\n \n   Supported values: \n   - FIXE - Payments should be initiated for fixed amounts i.e. amount specified in the payment instruction must match the “amount” stated in the agreement.\n   - BALN - Payments should be initiated for fixed amounts with large final payment amount i.e. for all the payments except the last, amount specified in the payment instruction must match the “amount” stated in the agreement. The last payment can be different and as per terms mentioned in the last payment amount fields (if specified).<br>*Note - This type is currently not supported.*\n   - USGB - If the amount for the payment varies with usage (example - electricity bill), it is recommended to specify a max amount. If a value is specified in the “amount” field, this would be considered as base/min amount to be paid for each payment. Payments should be initiated as per agreement terms i.e. the amount specified in the payment instruction should be within the “amount” (min) and “maximum amount” stated in the agreement.\n   - VARI - If the amount for the payment varies each time (example - grocery purchase billing), it is recommended to specify a max amount. If a value is specified in the “amount” field, this would be considered as base/min amount to be paid for each payment. Payments should be initiated as per agreement terms i.e. the amount specified in the payment instruction should be within the “amount” (min) and “maximum amount” stated in the agreement."
+    },
+    "PaymentInitiatorInfo": {
+      "type": "object",
+      "properties": {
+        "initiator_id": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 35 ASCII printable characters."
+        },
+        "initiator_id_type_code": {
+          "title": "PaymentInitiatorIdTypeCodeEnum",
+          "type": "string",
+          "description": "<p>Specifies an alphanumeric string with a length of 4 characters:</p><table><tr><td>Code</td><td>Description</td></tr><tr><td>ARNU</td><td>Alien Registration Number</td></tr><tr><td>CCPT</td><td>Passport Number</td></tr><tr><td>CUST</td><td>Customer Identification Number</td></tr><tr><td>DRLC</td><td>Drivers License Number</td></tr><tr><td>EMPL</td><td>Employee Identification Number</td></tr><tr><td>NIDN</td><td>National Identity Number</td></tr><tr><td>SOSE</td><td>Social Security Number</td></tr><tr><td>TXID</td><td>Tax Identification Number</td></tr><tr><td>BANK</td><td>Bank Party Identification</td></tr><tr><td>CBID</td><td>Central Bank Identification Number</td></tr><tr><td>CHID</td><td>Clearing Identification Number</td></tr><tr><td>CINC</td><td>Certificate Of Incorporation Number</td></tr><tr><td>COID</td><td>Country Identification Code</td></tr><tr><td>DUNS</td><td>Data Universal Numbering System</td></tr><tr><td>GS1G</td><td>GS1GLN Identifier</td></tr><tr><td>SREN</td><td>SIREN</td></tr><tr><td>SRET</td><td>SIRET</td></tr><tr><td>AUBN</td><td>Australian Business Number (ABN)</td></tr><tr><td>AUCN</td><td>Australian Company Number (ACN)</td></tr><tr><td>LEIN</td><td>Legal Entity Identification (LEI)</td></tr></table>",
+          "enum": [
+            "AUBN",
+            "CCPT",
+            "CUST",
+            "DRLC",
+            "EMPL",
+            "NIDN",
+            "SOSE",
+            "TXID",
+            "BANK",
+            "CBID",
+            "CHID",
+            "CINC",
+            "COID",
+            "DUNS",
+            "GS1G",
+            "SREN",
+            "SRET",
+            "AUBN",
+            "AUCN",
+            "LEIN"
+          ]
+        },
+        "initiator_legal_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        },
+        "initiator_name": {
+          "type": "string",
+          "description": "Specifies a character string with a maximum length of 140 ASCII printable characters."
+        }
+      },
+      "description": "Initiating party details. \n\n**Property descriptions**: \n - **initiator_id** - Unique and unambiguous identification of the initiator.\n - **initiator_id_type_code** - Code indicating the identification type of the initiator. For example in the case of a private individual; passport, driver licence, or 100 point check, or in the case of an organisation; LEI, ACN, ABN.\n - **initiator_legal_name** - Name by which the initiator is legally known.\n - **initiator_name** - Name by which the initiator is known and which is usually used to identify them."
+    },
+    "PaymentTerms": {
+      "type": "object",
+      "properties": {
+        "payment_amount_info": {
+          "$ref": "#/$defs/PaymentAmountInfo"
+        },
+        "first_payment_info": {
+          "$ref": "#/$defs/FirstPaymentInfo"
+        },
+        "last_payment_info": {
+          "$ref": "#/$defs/LastPaymentInfo"
+        },
+        "maximum_amount_info": {
+          "$ref": "#/$defs/MaximumAmountInfo"
+        },
+        "payment_executed_not_before_time": {
+          "type": "string",
+          "description": "Specifies a time in the format HH:mm:ssZ."
+        },
+        "point_in_time": {
+          "type": "string",
+          "description": "Specifies a number in string format upto two digit."
+        },
+        "count_per_period": {
+          "type": "string",
+          "description": "Specifies a valid non decimal numeric value."
+        },
+        "frequency": {
+          "title": "PaymentFrequency",
+          "type": "string",
+          "description": "<p>Represents the typical expected frequency with which payments will be initiated against the debtor for this arrangement:</p>\n\n *Note - Intraday, Quarterly, Half Yearly and Yearly payment frequencies are currently not supported.*\n<table><tr><td>Code</td><td>Name</td><td>Description</td></tr><tr><td>ADHOC</td><td>Adhoc</td><td>Event takes place on request or as necessary.</td></tr><tr><td>INTRDY</td><td>IntraDay</td><td>Event takes place several times a day.</td></tr><tr><td>DAILY</td><td>Daily</td><td>Event takes place every day.</td></tr><tr><td>WEEKLY</td><td>Weekly</td><td>Event takes place once a week.</td></tr><tr><td>FRTNLY</td><td>Fortnightly</td><td>Event takes place every two weeks.</td></tr><tr><td>MNTHLY</td><td>Monthly</td><td>Event takes place every month or once a month.</td></tr><tr><td>QURTLY</td><td>Quarterly</td><td>Event takes place every three months or four times a year.</td></tr><tr><td>HFYRLY</td><td>HalfYearly</td><td>Event takes place every six months or two times a year.</td></tr><tr><td>YEARLY</td><td>Annual</td><td>Event takes place every year or once a year.</td></tr></table>",
+          "enum": [
+            "ADHOC",
+            "INTRDY",
+            "DAILY",
+            "WEEKLY",
+            "FRTNLY",
+            "MNTHLY",
+            "QURTLY",
+            "HFYRLY",
+            "YEARLY"
+          ]
+        }
+      },
+      "description": "Specifies payment terms for the agreement i.e. amount that can be debited per payment, min/max amounts, first and last payment terms etc.\nAll the payments initiated should be as per agreement terms.\n\nIt is very important to ensure the payments initiated **DO NOT BREACH** the agreement terms and conditions - this could lead to:\nAgreement claims by debtor/payer for an amount greater than the actual payment amount\n\n **Property descriptions**: \n\n - **payment_amount_info** - Specifies info around the amount type for the agreement (example: Fixed or Usage based amounts etc), amount that can be debited from the account depending on the type, and the currency in which the payments can be initiated.\n - **first_payment_info** - If the payment arrangement is such that the initial payment amount differs from the expected \"regular\" or \"recurring\" payment, then the first payment info can be specified in this field. Examples: Establishment fees are part of the first payment only.\n - **last_payment_info** - If the payment arrangement is such that there is a known final payment amount that differs from the expected \"regular\" or \"recurring\" payment, then the last payment info can be specified in this field. \n - **maximum_amount** - Represents the maximum amount that may be debited in any single payment initiation.\n - **payment_executed_not_before_time** - Specifies the Australia Sydney time after which payments may be initiated on the execution day (according to the frequency and other payment terms).\n Example - Payroll scenario, where the employer requests to not initiate payrolls until a particular time to ensure funds are available for the payment to occur.<br><br> *Note - This parameter is currently not supported.*\n - **point_in_time** - Qualifies the frequency in terms of an exact point in time or moment within the specified period. The granularity of point in time is a subdivision of frequency. <br><br>Note - Specifying a point_in_time for payments is applicable only for \"Monthly\" frequency.\n   - Frequency = Adhoc -> point in time is not applicable\n   - Frequency = IntraDay -> Point In Time = hour within day (1-24)\n   - Frequency = Daily -> Point In Time = hour within day (1-24))\n   - Frequency = Weekly -> Point In Time = day of week (1-7)\n   - Frequency = Fortnightly -> Point In Time = day within fortnight (1-14)\n   - Frequency = Monthly -> Point In Time = day of month (1-28)\n   - Frequency = Quarterly -> Point In Time = which month within the quarter of year (1-4)\n   - Frequency = HalfYearly -> Point In Time = which month within the half of the year (1-6)\n   - Frequency = Yearly -> Point In Time = month within the year (1-12)\n - **count_per_period** - Defines the number of authorised expected payments that are to be initiated according to the frequency.\n Example - With Frequency = Adhoc, Count Per Period can be used to specify a total number of allowed initiations.\n - **frequency** - Represents the typical expected frequency with which payments will be initiated against the debtor for this arrangement. \n<br><br>*Note - Intraday, Quarterly, Half Yearly and Yearly payment frequencies are currently not supported.*\n\n   Must be one of following: \n \n   - Adhoc (Event takes place on request or as necessary)\n   - Intraday (Event takes place several times a day)\n   - Daily (Event takes place every day)\n   - Weekly (Event takes place once a week)\n   - Fortnightly (Event takes place every two weeks)\n   - Monthly (Event takes place every month)\n   - Quarterly (Event takes place every three months)\n   - HalfYearly (Event takes place every six months or two times a year)\n   - Yearly (Event takes place every year or once a year)"
+    }
+  }
+}

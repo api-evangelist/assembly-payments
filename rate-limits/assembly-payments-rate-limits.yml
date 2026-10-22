@@ -1,0 +1,11 @@
+name: Assembly Payments rate limits
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/environments
+limit_count: 1
+note: No production rate limits, rate-limit headers or 429 behaviour are documented. The only stated limit concerns the Pre-live environment and is ambiguous, so no window/max is set.
+limits:
+- name: Pre-live API call limit
+  limit_text: For your testing purposes, we limit API calls in Pre-live to 60 minutes.
+  scope: environment (Pre-live)
+headers: []

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-pay-id-request-schema.json",
+  "title": "pay_id_request",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml#/components/schemas/pay_id_request",
+  "required": [
+    "pay_id",
+    "type",
+    "details"
+  ],
+  "type": "object",
+  "properties": {
+    "pay_id": {
+      "type": "string",
+      "description": "The PayID that is being registered.",
+      "format": "email",
+      "maxLength": 256
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of PayID being registered.",
+      "enum": [
+        "EMAIL"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "pay_id_name": {
+          "type": "string",
+          "description": "Name that can be used to identify the entity registering the PayID.",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "owner_legal_name": {
+          "type": "string",
+          "description": "The full legal account name.",
+          "minLength": 1,
+          "maxLength": 140
+        }
+      }
+    }
+  }
+}

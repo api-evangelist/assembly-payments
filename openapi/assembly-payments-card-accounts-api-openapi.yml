@@ -1,0 +1,584 @@
+openapi: 3.2.0
+info:
+  title: Assembly Card Accounts API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Card Accounts
+paths:
+  /card_accounts:
+    post:
+      tags:
+      - Card Accounts
+      summary: Create Card Account
+      description: Create a Credit **Card Account** to be used as a funding source. Store the returned `:id` and use it for a `make_payment` **Item Action** call. The `:id` is also referred to as a **token** when involving Credit Cards.
+      operationId: createCardAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card_account_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card_account'
+              examples:
+                response:
+                  value:
+                    card_accounts:
+                      active: true
+                      created_at: '2020-04-29T23:00:01.369Z'
+                      updated_at: '2020-04-29T23:00:01.369Z'
+                      id: 14160da0-6c9b-0138-e2ca-0a58a9feac03
+                      cvv_verified: true
+                      currency: AUD
+                      links:
+                        self: /card_accounts/14160da0-6c9b-0138-e2ca-0a58a9feac03
+                        users: /card_accounts/14160da0-6c9b-0138-e2ca-0a58a9feac03/users
+  /card_accounts/{id}:
+    get:
+      tags:
+      - Card Accounts
+      summary: Show Card Account
+      description: Show details of a specific Credit **Card Account** using a given `:id`. You can toggle the card account number display to show the first 6 digits in addition to the last 4 digits. Contact Assembly if you want to toggle the card account display.
+      operationId: showCardAccount
+      parameters:
+      - name: id
+        in: path
+        description: Card account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card_account'
+              examples:
+                response:
+                  value:
+                    card_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      verification_status: verified
+                      currency: AUD
+                      cvv_verified: true
+                      created_at: '2019-04-08T01:40:15.038Z'
+                      updated_at: '2019-04-08T01:40:15.038Z'
+                      card:
+                        type: visa
+                        full_name: Jane Doe
+                        number: XXXX-XXXX-XXXX-1111
+                        expiry_month: '10'
+                        expiry_year: '2020'
+                      links:
+                        self: /card_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /card_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+    delete:
+      tags:
+      - Card Accounts
+      summary: Redact Card Account
+      description: Redact a Credit **Card Account** using a given `:id`. Redacted Credit **Card Accounts** can no longer be used as a funding source.
+      operationId: redactCardAccount
+      parameters:
+      - name: id
+        in: path
+        description: ID of the card account to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card_account_deletion'
+              examples:
+                response:
+                  value:
+                    card_account: Successfully redacted
+  /card_accounts/{id}/users:
+    get:
+      tags:
+      - Card Accounts
+      summary: Show Card Account User
+      description: Show the **User** the Credit **Card Account** is associated with using a given `:id`.
+      operationId: showCardAccountUser
+      parameters:
+      - name: id
+        in: path
+        description: Card account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 901d8cd0-6af3-0138-967d-0a58a9feac04
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03T07:59:00.379Z'
+                      updated_at: '2020-04-03T07:59:00.379Z'
+                      id: Seller_1234
+                      full_name: Samuel Seller
+                      email: sam@example.com
+                      mobile: 69543131
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Samuel
+                      last_name: Seller
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /card_accounts/901d8cd0-6af3-0138-967d-0a58a9feac04/users
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+  /card_accounts/{id}/verify:
+    patch:
+      tags:
+      - Card Accounts
+      summary: Verify Card
+      description: Where pre-authorization is enabled on a platform, verifies a **Card Account** when a **Card Account** is successfully verified, its verification status is `verified`.
+      operationId: verifyCard
+      parameters:
+      - name: id
+        in: path
+        description: Card account ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card_account_verify_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card_account'
+              examples:
+                response:
+                  value:
+                    card_accounts:
+                      id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      active: true
+                      verification_status: verified
+                      currency: AUD
+                      cvv_verified: true
+                      created_at: '2019-04-08T01:40:15.038Z'
+                      updated_at: '2019-04-08T01:40:15.038Z'
+                      card:
+                        type: visa
+                        full_name: Jane Doe
+                        number: XXXX-XXXX-XXXX-1111
+                        expiry_month: '10'
+                        expiry_year: '2020'
+                      links:
+                        self: /card_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                        users: /card_accounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/users
+components:
+  schemas:
+    card_account_requestBody:
+      type: object
+      required:
+      - full_name
+      - number
+      - expiry_month
+      - expiry_year
+      - cvv
+      - user_id
+      properties:
+        full_name:
+          description: User full name with at least a space
+          type: string
+          example: John Doe
+          default: John Doe
+        number:
+          description: Account number
+          type: string
+          example: '4444111122223333'
+          default: '4444111122223333'
+        expiry_month:
+          description: Expiry month (MM)
+          type: integer
+          maxLength: 2
+          example: '1'
+          default: '1'
+        expiry_year:
+          description: Expiry year (YYYY)
+          type: integer
+          maxLength: 4
+          example: '2025'
+          default: '2025'
+        cvv:
+          description: CVV / CVC
+          type: string
+          example: '123'
+          default: '123'
+        user_id:
+          description: User ID
+          type: string
+          example: 83f54680-9600-4bee-a6d1-84a5d0e10059
+          default: 83f54680-9600-4bee-a6d1-84a5d0e10059
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    card_account:
+      type: object
+      properties:
+        card_accounts:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            id:
+              type: string
+              format: uuid
+              example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+            currency:
+              type: string
+              example: AUD
+            cvv_verified:
+              type: boolean
+              example: true
+            verification_status:
+              type: string
+              enum:
+              - verified
+              - not_verified
+              example: not_verified
+            card:
+              type: object
+              readOnly: true
+              properties:
+                type:
+                  type: string
+                  example: visa
+                full_name:
+                  type: string
+                  example: Bella Buyer
+                number:
+                  type: string
+                  example: XXXX-XXXX-XXXX-1111
+                expiry_month:
+                  type: string
+                  example: 10
+                expiry_year:
+                  type: string
+                  example: 2020
+            links:
+              type: object
+              properties:
+                self:
+                  type: string
+                  example: /users/buyer-71439598/card_accounts
+                users:
+                  type: string
+                  example: /card_accounts/35977230-7168-0138-0a1d-0a58a9feac07/users
+    card_account_verify_requestBody:
+      type: object
+      properties:
+        cvv:
+          description: CVV / CVC
+          type: string
+          example: '123'
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+    card_account_deletion:
+      properties:
+        card_account:
+          type: string
+          example: Successfully redacted
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

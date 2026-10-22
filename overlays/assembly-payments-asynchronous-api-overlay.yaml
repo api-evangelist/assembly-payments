@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: Asynchronous API enhancements (API Evangelist)
+  version: 1.0.0
+extends: openapi/assembly-payments-asynchronous-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-description: Adds provider/docs metadata and per-operation agent-safety hints (derived from HTTP method only) without mutating the original
+  contract.
+actions:
+- target: $.info
+  update:
+    x-provider: Assembly Payments (now Zai)
+    x-api-evangelist-profiled: '2026-10-22'
+    x-docs: https://developer.hellozai.com/docs/introduction
+    x-llms-txt: https://developer.hellozai.com/llms.txt
+- target: $.paths['/items/{id}/make_payment'].patch
+  update:
+    x-agent-safety: mutating
+    x-operation-id-missing: true
+- target: $.paths['/request/{request_id}/callbacks'].get
+  update:
+    x-agent-safety: read-only
+    x-operation-id-missing: true
+- target: $.paths['/request/{request_id}/status'].get
+  update:
+    x-agent-safety: read-only
+    x-operation-id-missing: true

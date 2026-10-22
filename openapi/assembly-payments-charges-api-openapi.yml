@@ -1,0 +1,767 @@
+openapi: 3.2.0
+info:
+  title: Assembly Charges API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Charges
+paths:
+  /charges:
+    get:
+      tags:
+      - Charges
+      summary: List Charges
+      description: Retrieve an ordered and paginated list of **Charges**.
+      operationId: listCharges
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/charges'
+              examples:
+                response:
+                  value:
+                    charges:
+                    - id: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9
+                      name: Charge39221049
+                      created_at: '2019-04-29T02:49:09.855Z'
+                      updated_at: '2019-04-29T02:49:09.855Z'
+                      state: pending
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      status: 22000
+                      amount: 174200
+                      custom_descriptor: null
+                      custom_data: null
+                      account_id: null
+                      account_type: pending
+                      promisepay_fee: 3048
+                      currency: AUD
+                      payment_method: charge
+                      dynamic_descriptor: null
+                      buyer_name: Neol1556506027 Calangi
+                      buyer_email: neol.calangi+buyer1556506027@promisepay.com
+                      buyer_country: AUS
+                      seller_name: First1556505750 LastName
+                      seller_email: ausplatform1556505750@assemblypayments.com
+                      seller_country: AUS
+                      links:
+                        self: /charges?limit=2&offset
+                        buyers: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/buyers
+                        sellers: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/sellers
+                        status: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/status
+                    - id: a8fb1574-8976-4a56-84f4-ba2936c9c274
+                      name: Charge39221014
+                      created_at: '2019-04-29T02:48:34.879Z'
+                      updated_at: '2019-04-29T02:48:41.187Z'
+                      state: payment_held
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      status: 22175
+                      amount: 170700
+                      custom_descriptor: null
+                      custom_data: null
+                      account_id: 201b6450-4c57-0137-05c1-0242ac110002
+                      account_type: credit card
+                      promisepay_fee: 6004
+                      currency: AUD
+                      payment_method: charge
+                      dynamic_descriptor: '100014012193770'
+                      buyer_name: Neol1556506027 Calangi
+                      buyer_email: neol.calangi+buyer1556506027@promisepay.com
+                      buyer_country: AUS
+                      seller_name: First1556505750 LastName
+                      seller_email: ausplatform1556505750@assemblypayments.com
+                      seller_country: AUS
+                      links:
+                        self: /charges?limit=2&offset
+                        buyers: /charges/a8fb1574-8976-4a56-84f4-ba2936c9c274/buyers
+                        sellers: /charges/a8fb1574-8976-4a56-84f4-ba2936c9c274/sellers
+                        status: /charges/a8fb1574-8976-4a56-84f4-ba2936c9c274/status
+                    links:
+                      self: /charges
+                    meta:
+                      limit: 2
+                      offset: 0
+                      total: 9
+    post:
+      tags:
+      - Charges
+      summary: Create Charge
+      description: Create a **Charge**. **Charges** require a specified **Card Account** or **Bank Account**. You may pass through an existing **User**, or define the `user_id` of the new user that will be associated with the **Charge** and the provided Account. The `user_id` can be left blank if you wish for a new user to be created for the **Charge**, or specified if you wish for a new **User** to be created with the passed `user_id`.
+      operationId: createCharge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/charge_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_charge'
+              examples:
+                response:
+                  value:
+                    charges:
+                      id: 9a91972f-734c-474e-b8dd-5312d1ffd799
+                      name: Test Charge 001
+                      created_at: '2020-05-03T12:00:54.422Z'
+                      updated_at: '2020-05-03T12:01:02.340Z'
+                      state: completed
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      status: 22500
+                      amount: 1000
+                      custom_descriptor: null
+                      custom_data: null
+                      account_id: 5ef44050-4c56-0137-abdf-0242ac110002
+                      account_type: credit card
+                      promisepay_fee: 65
+                      currency: AUD
+                      payment_method: charge
+                      dynamic_descriptor: '100014012464153'
+                      buyer_name: Neol1556505753 Calangi
+                      buyer_email: neol.calangi+buyer1556505753@promisepay.com
+                      buyer_zip: '3000'
+                      buyer_country: AUS
+                      related:
+                        buyers: buyer-1556505753
+                        sellers: 76cf57db94d9e1f07a60c009be2adec0
+                      links:
+                        self: /charges/9a91972f-734c-474e-b8dd-5312d1ffd799
+                        buyers: /charges/9a91972f-734c-474e-b8dd-5312d1ffd799/buyers
+                        sellers: /charges/9a91972f-734c-474e-b8dd-5312d1ffd799/sellers
+                        status: /charges/9a91972f-734c-474e-b8dd-5312d1ffd799/status
+  /charges/{id}:
+    get:
+      tags:
+      - Charges
+      summary: Show Charge
+      description: Show details of a specific **Charge** using a given `:id`.
+      operationId: showCharge
+      parameters:
+      - name: id
+        in: path
+        description: Charge ID
+        required: true
+        schema:
+          type: string
+          default: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9
+        example: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_charge'
+              examples:
+                response:
+                  value:
+                    charges:
+                      id: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9
+                      name: Charge39221049
+                      created_at: '2019-04-29T02:49:09.855Z'
+                      updated_at: '2019-04-29T02:49:09.855Z'
+                      state: pending
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      status: 22000
+                      amount: 174200
+                      custom_descriptor: null
+                      custom_data: null
+                      account_id: null
+                      account_type: pending
+                      promisepay_fee: 3048
+                      currency: AUD
+                      payment_method: charge
+                      dynamic_descriptor: null
+                      buyer_name: Neol1556506027 Calangi
+                      buyer_email: neol.calangi+buyer1556506027@promisepay.com
+                      buyer_zip: '1634'
+                      buyer_country: AUS
+                      related:
+                        buyers: buyer-1556506027
+                        sellers: 76cf57db94d9e1f07a60c009be2adec0
+                      links:
+                        self: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9
+                        buyers: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/buyers
+                        sellers: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/sellers
+                        status: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/status
+  /charges/{id}/buyers:
+    get:
+      tags:
+      - Charges
+      summary: Show Charge Buyer
+      description: Show the buyer **User** associated with the **Charge** using a given `:id`.
+      operationId: showChargeBuyer
+      parameters:
+      - name: id
+        in: path
+        description: Charge ID
+        required: true
+        schema:
+          type: string
+          default: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/buyers
+        example: 4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/buyers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2019-04-29T02:47:08.348Z'
+                      updated_at: '2019-04-29T02:47:08.348Z'
+                      full_name: Neol1556506027 Calangi
+                      email: neol.calangi+buyer1556506027@promisepay.com
+                      mobile: '+21556506027'
+                      phone: null
+                      logo_url: null
+                      color_1: null
+                      color_2: null
+                      first_name: Neol1556506027
+                      last_name: Calangi
+                      id: buyer-1556506027
+                      custom_descriptor: null
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: null
+                      drivers_license: null
+                      flags: {}
+                      related:
+                        addresses: 00eb5be0-4c57-0137-ad3d-0242ac110002
+                      links:
+                        self: /charges/4d7d73f5-c7f0-477d-aff8-7570d2c7e7d9/buyers
+                        items: /users/buyer-1556506027/items
+                        card_accounts: /users/buyer-1556506027/card_accounts
+                        paypal_accounts: /users/buyer-1556506027/paypal_accounts
+                        payid_accounts: /users/buyer-1556506027/payid_accounts
+                        bank_accounts: /users/buyer-1556506027/bank_accounts
+                        wallet_accounts: /users/buyer-1556506027/wallet_accounts
+  /charges/{id}/status:
+    get:
+      tags:
+      - Charges
+      summary: Show Charge Status
+      description: Show status of a specific **Charge** using a given `:id`.
+      operationId: showChargeStatus
+      parameters:
+      - name: id
+        in: path
+        description: Charge ID
+        required: true
+        schema:
+          type: string
+          default: 1e5e372a-df3a-4f77-af2f-ec294b1715ce
+        example: 1e5e372a-df3a-4f77-af2f-ec294b1715ce
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_charge_status'
+              examples:
+                response:
+                  value:
+                    charges:
+                      id: 1e5e372a-df3a-4f77-af2f-ec294b1715ce
+                      state: completed
+                      status: 22500
+components:
+  schemas:
+    charge_status:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cb7eafc1-571c-425c-9adc-f56cb585cd68
+        state:
+          type: string
+          example: completed
+        status:
+          type: integer
+          example: 22500
+    charge_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      - email
+      - zip
+      - country
+      properties:
+        account_id:
+          description: Bank Account or Card Account ID
+          type: string
+          example: 5ef44050-4c56-0137-abdf-0242ac110002
+          default: 5ef44050-4c56-0137-abdf-0242ac110002
+        name:
+          description: Description of the Charge being created.
+          type: string
+          example: Test Charge 001
+        amount:
+          description: The cost being charged in cents.
+          type: integer
+          example: '1000'
+          default: '1000'
+        email:
+          description: Email of the user associated with the account being charged.
+          type: string
+          example: buyer-1556505753@promisepay.com
+          default: buyer-1556505753@promisepay.com
+        zip:
+          description: Postcode
+          type: integer
+          example: '3000'
+          default: '3000'
+        country:
+          description: '[ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Officially_assigned_code_elements) country code of the User being charged.'
+          type: string
+          example: AUS
+          default: AUS
+        user_id:
+          description: The ID of the User
+          type: string
+          example: buyer-1556505753
+        fee_ids:
+          description: A comma separated list of fee IDs to apply
+          type: string
+          example: ''
+        currency:
+          description: '[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This is an optional field and if not provided, the item will be created with the default currency of the marketplace.'
+          type: string
+          example: AUD
+        retain_account:
+          description: 'True - Enables the account to be charged in the future. False - Redacts the account after this charge.
+
+            '
+          type: boolean
+          example: ''
+        device_id:
+          description: Device Information for the device initiating the payment
+          type: string
+          example: ''
+        ip_address:
+          description: IP Information for the device initiating the payment
+          type: string
+          example: ''
+        custom_descriptor:
+          description: When `custom_descriptors` are enabled, this is the information to appear on credit card and direct debit statements.
+          type: string
+          example: ''
+        cvv:
+          description: CVV / CVC
+          type: string
+          example: ''
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    charge:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cb7eafc1-571c-425c-9adc-f56cb585cd68
+        name:
+          type: string
+          example: Charge for Delivery
+        custom_descriptor:
+          type: string
+          example: null
+        custom_data:
+          type: string
+          example: null
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+          example: completed
+        buyer_fees:
+          type: integer
+          example: 0
+        seller_fees:
+          type: integer
+          example: 400
+        credit_card_fee:
+          type: integer
+          example: 0
+        status:
+          type: integer
+          example: 22500
+        amount:
+          type: integer
+          example: 20000
+        dynamic_descriptor:
+          type: string
+          example: ASM*Samuel Seller
+        account_id:
+          type: string
+          format: uuid
+          example: b49d943f-add0-4d1c-b357-0f1a8fde677c
+        account_type:
+          type: string
+          example: credit card
+        promisepay_fee:
+          type: integer
+          example: 187
+        currency:
+          type: string
+          example: AUD
+        payment_method:
+          type: string
+          example: charge
+        buyer_name:
+          type: string
+          example: Anonymous Buyer
+        buyer_email:
+          type: string
+          format: email
+          example: anonymous+buyer+1@assemblypayments.com
+        buyer_zip:
+          type: string
+          example: 3000
+        buyer_country:
+          type: string
+          example: AUS
+        seller_name:
+          type: string
+          example: Anonymous Seller
+        seller_email:
+          type: string
+          format: email
+          example: anonymous+seller+1@assemblypayments.com
+        seller_zip:
+          type: string
+          example: 3000
+        seller_country:
+          type: string
+          example: AUS
+        related:
+          type: object
+          properties:
+            buyers:
+              type: string
+              example: 064d6800-fff3-11e5-86aa-5e5517507c66
+            sellers:
+              type: string
+              example: 5830def0-ffe8-11e5-86aa-5e5517507c66
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /charges?limit=2&offset
+            buyers:
+              type: string
+              example: /charges/cb7eafc1-571c-425c-9adc-f56cb585cd68/buyers
+            sellers:
+              type: string
+              example: /charges/cb7eafc1-571c-425c-9adc-f56cb585cd68/sellers
+            status:
+              type: string
+              example: /charges/cb7eafc1-571c-425c-9adc-f56cb585cd68/status
+    charges:
+      type: object
+      properties:
+        charges:
+          type: array
+          items:
+            $ref: '#/components/schemas/charge'
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+    single_charge:
+      type: object
+      properties:
+        charges:
+          $ref: '#/components/schemas/charge'
+    single_charge_status:
+      type: object
+      properties:
+        charges:
+          $ref: '#/components/schemas/charge_status'
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Number of records to offset. Required for pagination.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Number of records to retrieve. Up to 200.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

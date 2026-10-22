@@ -1,0 +1,19 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/pci-compliance-guide
+families:
+- family: Hosted Form
+  description: Serve all the card fields within a single iFrame.
+  loader: https://hosted.assemblypay.com/assembly.js
+  docs: https://developer.hellozai.com/docs/integrating-drop-in-ui-for-capturing-a-credit-card
+  pci: Generally eligible for SAQ-A
+- family: Hosted Fields
+  description: Serve card fields via multiple iFrames.
+  loader: https://hosted-fields.assemblypay.com/assembly.js
+  docs: https://developer.hellozai.com/docs/integrating-hosted-fields
+  pci: Generally eligible for SAQ-A
+- family: 3DS2 JavaScript SDK
+  description: Device data collection in a hidden iframe, challenge flows and payment status polling.
+  loader: https://hosted-fields.assemblypay.com/assembly-3ds2.js
+  docs: https://developer.hellozai.com/docs/3ds2
+auth: An expirable card token must be generated on the back-end (Generate Token) before using Hosted Form / Hosted Fields.

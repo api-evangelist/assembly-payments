@@ -1,0 +1,1239 @@
+{
+  "@context": {
+    "@vocab": "https://assemblypay.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "assembly": "https://assemblypay.com/schema#",
+    "error": "assembly:error",
+    "tokens_request_body": "assembly:tokens_request_body",
+    "grant_type": {
+      "@id": "assembly:grant_type",
+      "@type": "xsd:string"
+    },
+    "client_id": {
+      "@id": "assembly:client_id",
+      "@type": "xsd:string"
+    },
+    "client_secret": {
+      "@id": "assembly:client_secret",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "assembly:scope",
+      "@type": "xsd:string"
+    },
+    "tokens_response": "assembly:tokens_response",
+    "access_token": {
+      "@id": "assembly:access_token",
+      "@type": "xsd:string"
+    },
+    "expires_in": {
+      "@id": "assembly:expires_in",
+      "@type": "xsd:decimal"
+    },
+    "token_type": {
+      "@id": "assembly:token_type",
+      "@type": "xsd:string"
+    },
+    "address": "assembly:address",
+    "addresses": {
+      "@id": "assembly:addresses"
+    },
+    "bank_account_au": "assembly:bank_account_au",
+    "bank_accounts": {
+      "@id": "assembly:bank_accounts"
+    },
+    "bank_account_deletion": "assembly:bank_account_deletion",
+    "bank_account": {
+      "@id": "assembly:bank_account",
+      "@type": "xsd:string"
+    },
+    "bank_account_requestBody_au": "assembly:bank_account_requestBody_au",
+    "user_id": {
+      "@id": "assembly:user_id",
+      "@type": "xsd:string"
+    },
+    "bank_name": {
+      "@id": "assembly:bank_name",
+      "@type": "xsd:string"
+    },
+    "account_name": {
+      "@id": "assembly:account_name",
+      "@type": "xsd:string"
+    },
+    "routing_number": {
+      "@id": "assembly:routing_number",
+      "@type": "xsd:string"
+    },
+    "account_number": {
+      "@id": "assembly:account_number",
+      "@type": "xsd:string"
+    },
+    "account_type": {
+      "@id": "assembly:account_type",
+      "@type": "xsd:string"
+    },
+    "holder_type": {
+      "@id": "assembly:holder_type",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "assembly:country",
+      "@type": "xsd:string"
+    },
+    "payout_currency": {
+      "@id": "assembly:payout_currency",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "assembly:currency",
+      "@type": "xsd:string"
+    },
+    "penny_verify_requestBody": "assembly:penny_verify_requestBody",
+    "amount_1": {
+      "@id": "assembly:amount_1",
+      "@type": "xsd:integer"
+    },
+    "amount_2": {
+      "@id": "assembly:amount_2",
+      "@type": "xsd:integer"
+    },
+    "single_user": "assembly:single_user",
+    "users": {
+      "@id": "assembly:users",
+      "@type": "@id"
+    },
+    "user": "assembly:user",
+    "created_at": {
+      "@id": "assembly:created_at",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "assembly:updated_at",
+      "@type": "xsd:dateTime"
+    },
+    "full_name": {
+      "@id": "assembly:full_name",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "assembly:email",
+      "@type": "xsd:string"
+    },
+    "mobile": {
+      "@id": "assembly:mobile",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "assembly:phone",
+      "@type": "xsd:string"
+    },
+    "logo_url": {
+      "@id": "assembly:logo_url",
+      "@type": "xsd:string"
+    },
+    "color_1": {
+      "@id": "assembly:color_1",
+      "@type": "xsd:string"
+    },
+    "color_2": {
+      "@id": "assembly:color_2",
+      "@type": "xsd:string"
+    },
+    "first_name": {
+      "@id": "assembly:first_name",
+      "@type": "xsd:string"
+    },
+    "last_name": {
+      "@id": "assembly:last_name",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "assembly:id",
+      "@type": "xsd:string"
+    },
+    "custom_descriptor": {
+      "@id": "assembly:custom_descriptor",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "assembly:location",
+      "@type": "xsd:string"
+    },
+    "verification_status": {
+      "@id": "assembly:verification_status",
+      "@type": "xsd:string"
+    },
+    "held_state": {
+      "@id": "assembly:held_state",
+      "@type": "xsd:boolean"
+    },
+    "roles": {
+      "@id": "assembly:roles",
+      "@container": "@list"
+    },
+    "dob": {
+      "@id": "assembly:dob",
+      "@type": "xsd:string"
+    },
+    "government_number": {
+      "@id": "assembly:government_number",
+      "@type": "xsd:string"
+    },
+    "drivers_license": {
+      "@id": "assembly:drivers_license",
+      "@type": "xsd:string"
+    },
+    "flags": {
+      "@id": "assembly:flags"
+    },
+    "related": {
+      "@id": "assembly:related"
+    },
+    "links": {
+      "@id": "assembly:links"
+    },
+    "single_routing_number": "assembly:single_routing_number",
+    "bpay_account": "assembly:bpay_account",
+    "bpay_accounts": {
+      "@id": "assembly:bpay_accounts"
+    },
+    "bpay_account_requestBody": "assembly:bpay_account_requestBody",
+    "biller_code": {
+      "@id": "assembly:biller_code",
+      "@type": "xsd:integer"
+    },
+    "bpay_crn": {
+      "@id": "assembly:bpay_crn",
+      "@type": "xsd:string"
+    },
+    "single_disbursement": "assembly:single_disbursement",
+    "disbursements": {
+      "@id": "assembly:disbursements",
+      "@type": "@id"
+    },
+    "disbursement": "assembly:disbursement",
+    "reference_id": {
+      "@id": "assembly:reference_id",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "assembly:amount",
+      "@type": "xsd:integer"
+    },
+    "batch_id": {
+      "@id": "assembly:batch_id",
+      "@type": "xsd:string"
+    },
+    "cuscal_payment_transaction_id": {
+      "@id": "assembly:cuscal_payment_transaction_id",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "assembly:state",
+      "@type": "xsd:string"
+    },
+    "to": {
+      "@id": "assembly:to",
+      "@type": "xsd:string"
+    },
+    "bank_account_name": {
+      "@id": "assembly:bank_account_name",
+      "@type": "xsd:string"
+    },
+    "bank_account_number": {
+      "@id": "assembly:bank_account_number",
+      "@type": "xsd:string"
+    },
+    "bank_routing_number": {
+      "@id": "assembly:bank_routing_number",
+      "@type": "xsd:string"
+    },
+    "npp_payout_state": {
+      "@id": "assembly:npp_payout_state",
+      "@type": "xsd:string"
+    },
+    "biller_name": {
+      "@id": "assembly:biller_name",
+      "@type": "xsd:string"
+    },
+    "crn": {
+      "@id": "assembly:crn",
+      "@type": "xsd:string"
+    },
+    "bill_payment_requestBody": "assembly:bill_payment_requestBody",
+    "account_id": {
+      "@id": "assembly:account_id",
+      "@type": "xsd:string"
+    },
+    "withdraw_requestBody": "assembly:withdraw_requestBody",
+    "wallet_account": "assembly:wallet_account",
+    "wallet_accounts": {
+      "@id": "assembly:wallet_accounts"
+    },
+    "wallet_account_npp_details": "assembly:wallet_account_npp_details",
+    "npp_details": {
+      "@id": "assembly:npp_details"
+    },
+    "wallet_account_bpay_details": "assembly:wallet_account_bpay_details",
+    "bpay_details": {
+      "@id": "assembly:bpay_details"
+    },
+    "npp_last_domestic_leg_requestBody": "assembly:npp_last_domestic_leg_requestBody",
+    "end_to_end_id": {
+      "@id": "assembly:end_to_end_id",
+      "@type": "xsd:string"
+    },
+    "ifti_information": {
+      "@id": "assembly:ifti_information"
+    },
+    "party_identification": "assembly:party_identification",
+    "name": {
+      "@id": "assembly:name",
+      "@type": "xsd:string"
+    },
+    "organisation_identification": {
+      "@id": "assembly:organisation_identification",
+      "@container": "@list"
+    },
+    "organisation_bic": {
+      "@id": "assembly:organisation_bic",
+      "@type": "xsd:string"
+    },
+    "private_identification": {
+      "@id": "assembly:private_identification",
+      "@container": "@list"
+    },
+    "date_place_of_birth": {
+      "@id": "assembly:date_place_of_birth",
+      "@type": "@id"
+    },
+    "country_of_residence": {
+      "@id": "assembly:country_of_residence",
+      "@type": "xsd:string"
+    },
+    "contact_details": {
+      "@id": "assembly:contact_details",
+      "@type": "@id"
+    },
+    "ifti_address": "assembly:ifti_address",
+    "address_type": {
+      "@id": "assembly:address_type"
+    },
+    "department": {
+      "@id": "assembly:department",
+      "@type": "xsd:string"
+    },
+    "sub_department": {
+      "@id": "assembly:sub_department",
+      "@type": "xsd:string"
+    },
+    "street_name": {
+      "@id": "assembly:street_name",
+      "@type": "xsd:string"
+    },
+    "bldg_name": {
+      "@id": "assembly:bldg_name",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "assembly:postcode",
+      "@type": "xsd:string"
+    },
+    "town_name": {
+      "@id": "assembly:town_name",
+      "@type": "xsd:string"
+    },
+    "ctry_sub_division": {
+      "@id": "assembly:ctry_sub_division",
+      "@type": "xsd:string"
+    },
+    "country_code": {
+      "@id": "assembly:country_code",
+      "@type": "xsd:string"
+    },
+    "address_line": {
+      "@id": "assembly:address_line",
+      "@container": "@list"
+    },
+    "date_and_place_of_birth": "assembly:date_and_place_of_birth",
+    "birth_date": {
+      "@id": "assembly:birth_date",
+      "@type": "xsd:date"
+    },
+    "place_of_birth": {
+      "@id": "assembly:place_of_birth",
+      "@type": "xsd:string"
+    },
+    "city_of_birth": {
+      "@id": "assembly:city_of_birth",
+      "@type": "xsd:string"
+    },
+    "country_of_birth": {
+      "@id": "assembly:country_of_birth",
+      "@type": "xsd:string"
+    },
+    "generic_identification": "assembly:generic_identification",
+    "identification": {
+      "@id": "assembly:identification",
+      "@type": "xsd:string"
+    },
+    "identification_type_proprietary": {
+      "@id": "assembly:identification_type_proprietary",
+      "@type": "xsd:string"
+    },
+    "identification_type_code": {
+      "@id": "assembly:identification_type_code",
+      "@type": "xsd:string"
+    },
+    "identification_issuer": {
+      "@id": "assembly:identification_issuer",
+      "@type": "xsd:string"
+    },
+    "ifti_information_response": "assembly:ifti_information_response",
+    "instruction_identification": {
+      "@id": "assembly:instruction_identification",
+      "@type": "xsd:string"
+    },
+    "ultimate_debtor_information": {
+      "@id": "assembly:ultimate_debtor_information"
+    },
+    "charge_bearer": {
+      "@id": "assembly:charge_bearer",
+      "@type": "xsd:string"
+    },
+    "previous_instructing_agent": {
+      "@id": "assembly:previous_instructing_agent"
+    },
+    "creditor_agent_instruction": {
+      "@id": "assembly:creditor_agent_instruction"
+    },
+    "initiating_party_information": {
+      "@id": "assembly:initiating_party_information"
+    },
+    "instructed_amount": {
+      "@id": "assembly:instructed_amount"
+    },
+    "ultimate_creditor_information": {
+      "@id": "assembly:ultimate_creditor_information"
+    },
+    "exchange_rate": {
+      "@id": "assembly:exchange_rate",
+      "@type": "xsd:string"
+    },
+    "payment_purpose_proprietary": {
+      "@id": "assembly:payment_purpose_proprietary",
+      "@type": "xsd:string"
+    },
+    "payment_information": {
+      "@id": "assembly:payment_information"
+    },
+    "regulatory_reporting": {
+      "@id": "assembly:regulatory_reporting",
+      "@container": "@list"
+    },
+    "remittance_information_structured": {
+      "@id": "assembly:remittance_information_structured"
+    },
+    "related_remittance_information": {
+      "@id": "assembly:related_remittance_information",
+      "@container": "@list"
+    },
+    "party_identification_sample": "assembly:party_identification_sample",
+    "sub_wallet": "assembly:sub_wallet",
+    "sub_wallets": {
+      "@id": "assembly:sub_wallets",
+      "@type": "@id"
+    },
+    "sub_wallet_error_responseBody": "assembly:sub_wallet_error_responseBody",
+    "errors": {
+      "@id": "assembly:errors",
+      "@type": "@id"
+    },
+    "sub_wallet_sub_wallets_links": "assembly:sub_wallet_sub_wallets_links",
+    "self": {
+      "@id": "assembly:self"
+    },
+    "transactions": {
+      "@id": "assembly:transactions"
+    },
+    "sub_wallet_sub_wallets": "assembly:sub_wallet_sub_wallets",
+    "balance": {
+      "@id": "assembly:balance",
+      "@type": "xsd:integer"
+    },
+    "active": {
+      "@id": "assembly:active",
+      "@type": "xsd:boolean"
+    },
+    "sub_wallet_error_responseBody_errors": "assembly:sub_wallet_error_responseBody_errors",
+    "field": {
+      "@id": "assembly:field"
+    },
+    "sub_wallet_create_requestBody": "assembly:sub_wallet_create_requestBody",
+    "sub_wallet_create_responseBody": "assembly:sub_wallet_create_responseBody",
+    "sub_wallet_create_responseBody_sub_wallets_links": "assembly:sub_wallet_create_responseBody_sub_wallets_links",
+    "sub_wallet_create_responseBody_sub_wallets": "assembly:sub_wallet_create_responseBody_sub_wallets",
+    "sub_wallet_update_requestBody1": "assembly:sub_wallet_update_requestBody1",
+    "sub_wallet_update_requestBody2": "assembly:sub_wallet_update_requestBody2",
+    "sub_wallet_update_requestBody3": "assembly:sub_wallet_update_requestBody3",
+    "sub_wallet_transfer_requestBody": "assembly:sub_wallet_transfer_requestBody",
+    "source": {
+      "@id": "assembly:source",
+      "@type": "xsd:string"
+    },
+    "destination": {
+      "@id": "assembly:destination",
+      "@type": "xsd:string"
+    },
+    "sub_wallet_transfer_responseBody": "assembly:sub_wallet_transfer_responseBody",
+    "sub_wallet_transactions": "assembly:sub_wallet_transactions",
+    "description": {
+      "@id": "assembly:description",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "assembly:type",
+      "@type": "xsd:string"
+    },
+    "type_method": {
+      "@id": "assembly:type_method",
+      "@type": "xsd:string"
+    },
+    "user_name": {
+      "@id": "assembly:user_name",
+      "@type": "xsd:string"
+    },
+    "sub_wallets_id": {
+      "@id": "assembly:sub_wallets_id",
+      "@type": "xsd:string"
+    },
+    "sub_wallet_name": {
+      "@id": "assembly:sub_wallet_name",
+      "@type": "xsd:string"
+    },
+    "debit_credit": {
+      "@id": "assembly:debit_credit",
+      "@type": "xsd:string"
+    },
+    "marketplace": {
+      "@id": "assembly:marketplace",
+      "@type": "@id"
+    },
+    "sub_wallet_transactions_mp": "assembly:sub_wallet_transactions_mp",
+    "group_name": {
+      "@id": "assembly:group_name",
+      "@type": "xsd:string"
+    },
+    "short_name": {
+      "@id": "assembly:short_name",
+      "@type": "xsd:string"
+    },
+    "uuid": {
+      "@id": "assembly:uuid",
+      "@type": "xsd:string"
+    },
+    "sub_wallet_related": "assembly:sub_wallet_related",
+    "sub_wallet_tr": "assembly:sub_wallet_tr",
+    "sub_wallet_transaction_links": "assembly:sub_wallet_transaction_links",
+    "sub_wallet_transactions_index": "assembly:sub_wallet_transactions_index",
+    "meta": {
+      "@id": "assembly:meta",
+      "@type": "@id"
+    },
+    "sub_wallet_withdraw_requestBody": "assembly:sub_wallet_withdraw_requestBody",
+    "list_bpay_accounts": "assembly:list_bpay_accounts",
+    "card_account": "assembly:card_account",
+    "card_accounts": {
+      "@id": "assembly:card_accounts"
+    },
+    "update_user_requestBody": "assembly:update_user_requestBody",
+    "address_line1": {
+      "@id": "assembly:address_line1",
+      "@type": "xsd:string"
+    },
+    "address_line2": {
+      "@id": "assembly:address_line2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "assembly:city",
+      "@type": "xsd:string"
+    },
+    "zip": {
+      "@id": "assembly:zip",
+      "@type": "xsd:string"
+    },
+    "drivers_license_number": {
+      "@id": "assembly:drivers_license_number",
+      "@type": "xsd:string"
+    },
+    "drivers_license_state": {
+      "@id": "assembly:drivers_license_state",
+      "@type": "xsd:string"
+    },
+    "ip_address": {
+      "@id": "assembly:ip_address",
+      "@type": "xsd:string"
+    },
+    "authorized_signer_title": {
+      "@id": "assembly:authorized_signer_title",
+      "@type": "xsd:string"
+    },
+    "bank_account_id_requestBody": "assembly:bank_account_id_requestBody",
+    "user_requestBody": "assembly:user_requestBody",
+    "company": {
+      "@id": "assembly:company"
+    },
+    "items": "assembly:items",
+    "item": "assembly:item",
+    "status": {
+      "@id": "assembly:status",
+      "@type": "xsd:integer"
+    },
+    "payment_type_id": {
+      "@id": "assembly:payment_type_id",
+      "@type": "xsd:integer"
+    },
+    "buyer_name": {
+      "@id": "assembly:buyer_name",
+      "@type": "xsd:string"
+    },
+    "buyer_email": {
+      "@id": "assembly:buyer_email",
+      "@type": "xsd:string"
+    },
+    "buyer_country": {
+      "@id": "assembly:buyer_country",
+      "@type": "xsd:string"
+    },
+    "seller_name": {
+      "@id": "assembly:seller_name",
+      "@type": "xsd:string"
+    },
+    "seller_email": {
+      "@id": "assembly:seller_email",
+      "@type": "xsd:string"
+    },
+    "seller_country": {
+      "@id": "assembly:seller_country",
+      "@type": "xsd:string"
+    },
+    "tds_check_state": {
+      "@id": "assembly:tds_check_state",
+      "@type": "xsd:string"
+    },
+    "batch_state": {
+      "@id": "assembly:batch_state",
+      "@type": "xsd:string"
+    },
+    "invoice_url": {
+      "@id": "assembly:invoice_url",
+      "@type": "xsd:string"
+    },
+    "payout_descriptor": {
+      "@id": "assembly:payout_descriptor",
+      "@type": "xsd:string"
+    },
+    "remaining_amount": {
+      "@id": "assembly:remaining_amount",
+      "@type": "xsd:integer"
+    },
+    "requested_release_amount": {
+      "@id": "assembly:requested_release_amount",
+      "@type": "xsd:integer"
+    },
+    "net_amount": {
+      "@id": "assembly:net_amount",
+      "@type": "xsd:integer"
+    },
+    "chargedback_amount": {
+      "@id": "assembly:chargedback_amount",
+      "@type": "xsd:integer"
+    },
+    "refunded_amount": {
+      "@id": "assembly:refunded_amount",
+      "@type": "xsd:integer"
+    },
+    "released_amount": {
+      "@id": "assembly:released_amount",
+      "@type": "xsd:integer"
+    },
+    "buyer_fees": {
+      "@id": "assembly:buyer_fees",
+      "@type": "xsd:integer"
+    },
+    "seller_fees": {
+      "@id": "assembly:seller_fees",
+      "@type": "xsd:integer"
+    },
+    "credit_card_fee": {
+      "@id": "assembly:credit_card_fee",
+      "@type": "xsd:integer"
+    },
+    "paypal_fee": {
+      "@id": "assembly:paypal_fee",
+      "@type": "xsd:integer"
+    },
+    "seller_url": {
+      "@id": "assembly:seller_url",
+      "@type": "xsd:string"
+    },
+    "buyer_url": {
+      "@id": "assembly:buyer_url",
+      "@type": "xsd:string"
+    },
+    "direct_debit_fee": {
+      "@id": "assembly:direct_debit_fee",
+      "@type": "xsd:integer"
+    },
+    "due_date": {
+      "@id": "assembly:due_date",
+      "@type": "xsd:date"
+    },
+    "pending_release_amount": {
+      "@id": "assembly:pending_release_amount",
+      "@type": "xsd:integer"
+    },
+    "dynamic_descriptor": {
+      "@id": "assembly:dynamic_descriptor",
+      "@type": "xsd:string"
+    },
+    "deposit_reference": {
+      "@id": "assembly:deposit_reference",
+      "@type": "xsd:string"
+    },
+    "promisepay_fee": {
+      "@id": "assembly:promisepay_fee",
+      "@type": "xsd:integer"
+    },
+    "total_outstanding": {
+      "@id": "assembly:total_outstanding",
+      "@type": "xsd:integer"
+    },
+    "total_amount": {
+      "@id": "assembly:total_amount",
+      "@type": "xsd:integer"
+    },
+    "payment_method": {
+      "@id": "assembly:payment_method",
+      "@type": "xsd:string"
+    },
+    "payment_credit_card_enabled": {
+      "@id": "assembly:payment_credit_card_enabled",
+      "@type": "xsd:boolean"
+    },
+    "payment_direct_debit_enabled": {
+      "@id": "assembly:payment_direct_debit_enabled",
+      "@type": "xsd:boolean"
+    },
+    "single_callback": "assembly:single_callback",
+    "callbacks": {
+      "@id": "assembly:callbacks",
+      "@type": "@id"
+    },
+    "callback": "assembly:callback",
+    "url": {
+      "@id": "assembly:url",
+      "@type": "xsd:string"
+    },
+    "object_type": {
+      "@id": "assembly:object_type",
+      "@type": "xsd:string"
+    },
+    "enabled": {
+      "@id": "assembly:enabled",
+      "@type": "xsd:boolean"
+    },
+    "authorization_token": {
+      "@id": "assembly:authorization_token",
+      "@type": "xsd:string"
+    },
+    "marketplace_id": {
+      "@id": "assembly:marketplace_id",
+      "@type": "xsd:string"
+    },
+    "callback_deletion": "assembly:callback_deletion",
+    "callback_requestBody": "assembly:callback_requestBody",
+    "list_callback_responses": "assembly:list_callback_responses",
+    "callback_responses": {
+      "@id": "assembly:callback_responses",
+      "@container": "@list"
+    },
+    "callback_response": "assembly:callback_response",
+    "payload": {
+      "@id": "assembly:payload"
+    },
+    "response": {
+      "@id": "assembly:response"
+    },
+    "response_code": {
+      "@id": "assembly:response_code",
+      "@type": "xsd:integer"
+    },
+    "single_callback_response": "assembly:single_callback_response",
+    "call_responses": {
+      "@id": "assembly:call_responses",
+      "@type": "@id"
+    },
+    "card_account_requestBody": "assembly:card_account_requestBody",
+    "number": {
+      "@id": "assembly:number",
+      "@type": "xsd:string"
+    },
+    "expiry_month": {
+      "@id": "assembly:expiry_month",
+      "@type": "xsd:integer"
+    },
+    "expiry_year": {
+      "@id": "assembly:expiry_year",
+      "@type": "xsd:integer"
+    },
+    "cvv": {
+      "@id": "assembly:cvv",
+      "@type": "xsd:string"
+    },
+    "card_account_verify_requestBody": "assembly:card_account_verify_requestBody",
+    "card_account_deletion": "assembly:card_account_deletion",
+    "simple_company": "assembly:simple_company",
+    "legal_name": {
+      "@id": "assembly:legal_name",
+      "@type": "xsd:string"
+    },
+    "business_email": {
+      "@id": "assembly:business_email",
+      "@type": "xsd:string"
+    },
+    "simple_companies": "assembly:simple_companies",
+    "companies": {
+      "@id": "assembly:companies",
+      "@container": "@list"
+    },
+    "single_company": "assembly:single_company",
+    "company_requestBody": "assembly:company_requestBody",
+    "tax_number": {
+      "@id": "assembly:tax_number",
+      "@type": "xsd:string"
+    },
+    "charge_tax": {
+      "@id": "assembly:charge_tax",
+      "@type": "xsd:boolean"
+    },
+    "list_direct_debit_authorities": "assembly:list_direct_debit_authorities",
+    "direct_debit_authorities": {
+      "@id": "assembly:direct_debit_authorities",
+      "@container": "@list"
+    },
+    "direct_debit_authority": "assembly:direct_debit_authority",
+    "bank_bsb": {
+      "@id": "assembly:bank_bsb",
+      "@type": "xsd:string"
+    },
+    "debit_user_id": {
+      "@id": "assembly:debit_user_id",
+      "@type": "xsd:string"
+    },
+    "single_direct_debit_authority": "assembly:single_direct_debit_authority",
+    "direct_debit_authority_requestBody": "assembly:direct_debit_authority_requestBody",
+    "fees": "assembly:fees",
+    "fee": "assembly:fee",
+    "fee_type_id": {
+      "@id": "assembly:fee_type_id",
+      "@type": "xsd:string"
+    },
+    "cap": {
+      "@id": "assembly:cap",
+      "@type": "xsd:string"
+    },
+    "min": {
+      "@id": "assembly:min",
+      "@type": "xsd:string"
+    },
+    "max": {
+      "@id": "assembly:max",
+      "@type": "xsd:string"
+    },
+    "calculated_fee": {
+      "@id": "assembly:calculated_fee",
+      "@type": "xsd:integer"
+    },
+    "single_fee": "assembly:single_fee",
+    "fee_requestBody": "assembly:fee_requestBody",
+    "charges": "assembly:charges",
+    "charge": "assembly:charge",
+    "custom_data": {
+      "@id": "assembly:custom_data",
+      "@type": "xsd:string"
+    },
+    "buyer_zip": {
+      "@id": "assembly:buyer_zip",
+      "@type": "xsd:string"
+    },
+    "seller_zip": {
+      "@id": "assembly:seller_zip",
+      "@type": "xsd:string"
+    },
+    "single_charge": "assembly:single_charge",
+    "charge_requestBody": "assembly:charge_requestBody",
+    "fee_ids": {
+      "@id": "assembly:fee_ids",
+      "@type": "xsd:string"
+    },
+    "retain_account": {
+      "@id": "assembly:retain_account",
+      "@type": "xsd:boolean"
+    },
+    "device_id": {
+      "@id": "assembly:device_id",
+      "@type": "xsd:string"
+    },
+    "single_charge_status": "assembly:single_charge_status",
+    "charge_status": "assembly:charge_status",
+    "token_auth_requestBody": "assembly:token_auth_requestBody",
+    "tools_status": "assembly:tools_status",
+    "transaction": "assembly:transaction",
+    "payee_name": {
+      "@id": "assembly:payee_name",
+      "@type": "xsd:string"
+    },
+    "item_name": {
+      "@id": "assembly:item_name",
+      "@type": "xsd:string"
+    },
+    "payee_details": {
+      "@id": "assembly:payee_details"
+    },
+    "single_transaction": "assembly:single_transaction",
+    "list_batch_transactions": "assembly:list_batch_transactions",
+    "batch_transactions": {
+      "@id": "assembly:batch_transactions",
+      "@container": "@list"
+    },
+    "batch_transaction": "assembly:batch_transaction",
+    "disbursement_bank": {
+      "@id": "assembly:disbursement_bank",
+      "@type": "xsd:string"
+    },
+    "processing_bank": {
+      "@id": "assembly:processing_bank",
+      "@type": "xsd:string"
+    },
+    "external_reference": {
+      "@id": "assembly:external_reference",
+      "@type": "xsd:string"
+    },
+    "reference_amount": {
+      "@id": "assembly:reference_amount",
+      "@type": "xsd:string"
+    },
+    "internal_state": {
+      "@id": "assembly:internal_state",
+      "@type": "xsd:string"
+    },
+    "internal_status": {
+      "@id": "assembly:internal_status",
+      "@type": "xsd:string"
+    },
+    "account_external": {
+      "@id": "assembly:account_external"
+    },
+    "external_account_details": {
+      "@id": "assembly:external_account_details",
+      "@type": "xsd:string"
+    },
+    "external_account_details_encrypted": {
+      "@id": "assembly:external_account_details_encrypted",
+      "@type": "xsd:boolean"
+    },
+    "user_email": {
+      "@id": "assembly:user_email",
+      "@type": "xsd:string"
+    },
+    "user_external_id": {
+      "@id": "assembly:user_external_id",
+      "@type": "xsd:string"
+    },
+    "legal_entity_id": {
+      "@id": "assembly:legal_entity_id",
+      "@type": "xsd:string"
+    },
+    "reference": {
+      "@id": "assembly:reference",
+      "@type": "xsd:string"
+    },
+    "from_user_name": {
+      "@id": "assembly:from_user_name",
+      "@type": "xsd:string"
+    },
+    "from_user_id": {
+      "@id": "assembly:from_user_id",
+      "@type": "xsd:string"
+    },
+    "refund_state": {
+      "@id": "assembly:refund_state",
+      "@type": "xsd:string"
+    },
+    "address_city": {
+      "@id": "assembly:address_city",
+      "@type": "xsd:string"
+    },
+    "address_state": {
+      "@id": "assembly:address_state",
+      "@type": "xsd:string"
+    },
+    "address_postcode": {
+      "@id": "assembly:address_postcode",
+      "@type": "xsd:string"
+    },
+    "address_country": {
+      "@id": "assembly:address_country"
+    },
+    "single_batch_transaction": "assembly:single_batch_transaction",
+    "single_item": "assembly:single_item",
+    "item_requestBody": "assembly:item_requestBody",
+    "payment_type": {
+      "@id": "assembly:payment_type",
+      "@type": "xsd:integer"
+    },
+    "buyer_id": {
+      "@id": "assembly:buyer_id",
+      "@type": "xsd:string"
+    },
+    "seller_id": {
+      "@id": "assembly:seller_id",
+      "@type": "xsd:string"
+    },
+    "tax_invoice": {
+      "@id": "assembly:tax_invoice",
+      "@type": "xsd:boolean"
+    },
+    "update_item_requestBody": "assembly:update_item_requestBody",
+    "wire_details": "assembly:wire_details",
+    "beneficiary": {
+      "@id": "assembly:beneficiary",
+      "@type": "xsd:string"
+    },
+    "swift": {
+      "@id": "assembly:swift",
+      "@type": "xsd:string"
+    },
+    "wire_details_with_id": "assembly:wire_details_with_id",
+    "single_wire_details_with_id": "assembly:single_wire_details_with_id",
+    "single_status": "assembly:single_status",
+    "account_id_requestBody": "assembly:account_id_requestBody",
+    "merchant_phone": {
+      "@id": "assembly:merchant_phone",
+      "@type": "xsd:string"
+    },
+    "refund_requestBody": "assembly:refund_requestBody",
+    "refund_amount": {
+      "@id": "assembly:refund_amount",
+      "@type": "xsd:integer"
+    },
+    "refund_message": {
+      "@id": "assembly:refund_message",
+      "@type": "xsd:string"
+    },
+    "card_account_id_requestBody": "assembly:card_account_id_requestBody",
+    "partial_payment": "assembly:partial_payment",
+    "release_payment_requestBody": "assembly:release_payment_requestBody",
+    "release_amount": {
+      "@id": "assembly:release_amount",
+      "@type": "xsd:integer"
+    },
+    "flag_release": {
+      "@id": "assembly:flag_release",
+      "@type": "xsd:boolean"
+    },
+    "acknowledge_payment": "assembly:acknowledge_payment",
+    "payment_id": {
+      "@id": "assembly:payment_id",
+      "@type": "xsd:string"
+    },
+    "payment_token": {
+      "@id": "assembly:payment_token",
+      "@type": "xsd:string"
+    },
+    "account_id_asyncRequestBody": "assembly:account_id_asyncRequestBody",
+    "request_three_d_secure": {
+      "@id": "assembly:request_three_d_secure",
+      "@type": "xsd:string"
+    },
+    "make_payment_requestBody": "assembly:make_payment_requestBody",
+    "wait": {
+      "@id": "assembly:wait",
+      "@type": "xsd:integer"
+    },
+    "InitiatePaymentRequest": "assembly:InitiatePaymentRequest",
+    "priority": {
+      "@id": "assembly:priority",
+      "@type": "xsd:string"
+    },
+    "payment_info": {
+      "@id": "assembly:payment_info",
+      "@type": "@id"
+    },
+    "retry_info": {
+      "@id": "assembly:retry_info",
+      "@type": "@id"
+    },
+    "PaymentInformation": "assembly:PaymentInformation",
+    "last_payment": {
+      "@id": "assembly:last_payment",
+      "@type": "xsd:boolean"
+    },
+    "remittance_info": {
+      "@id": "assembly:remittance_info",
+      "@type": "xsd:string"
+    },
+    "unique_superannuation_id": {
+      "@id": "assembly:unique_superannuation_id",
+      "@type": "xsd:string"
+    },
+    "unique_superannuation_code": {
+      "@id": "assembly:unique_superannuation_code",
+      "@type": "xsd:string"
+    },
+    "RetryInformation": "assembly:RetryInformation",
+    "payment_request_uuid": {
+      "@id": "assembly:payment_request_uuid",
+      "@type": "xsd:string"
+    },
+    "ErrorDetails": "assembly:ErrorDetails",
+    "error_code": {
+      "@id": "assembly:error_code",
+      "@type": "xsd:string"
+    },
+    "error_message": {
+      "@id": "assembly:error_message",
+      "@type": "xsd:string"
+    },
+    "PayToErrorResponse": "assembly:PayToErrorResponse",
+    "InitiatePaymentResponse": "assembly:InitiatePaymentResponse",
+    "agreement_uuid": {
+      "@id": "assembly:agreement_uuid",
+      "@type": "xsd:string"
+    },
+    "instruction_id": {
+      "@id": "assembly:instruction_id",
+      "@type": "xsd:string"
+    },
+    "agreement_id": {
+      "@id": "assembly:agreement_id",
+      "@type": "xsd:string"
+    },
+    "InitiatePaymentStatusResponse": "assembly:InitiatePaymentStatusResponse",
+    "status_description": {
+      "@id": "assembly:status_description",
+      "@type": "xsd:string"
+    },
+    "status_reason_code": {
+      "@id": "assembly:status_reason_code",
+      "@type": "xsd:string"
+    },
+    "status_reason_description": {
+      "@id": "assembly:status_reason_description",
+      "@type": "xsd:string"
+    },
+    "payment_reconciled": {
+      "@id": "assembly:payment_reconciled",
+      "@type": "xsd:boolean"
+    },
+    "retry_attempts": {
+      "@id": "assembly:retry_attempts",
+      "@type": "@id"
+    },
+    "PaymentInfo": "assembly:PaymentInfo",
+    "RetryAttempts": "assembly:RetryAttempts",
+    "count": {
+      "@id": "assembly:count",
+      "@type": "xsd:integer"
+    },
+    "RetryInfo": "assembly:RetryInfo",
+    "InitiatePaymentListResponse": "assembly:InitiatePaymentListResponse",
+    "total_count": {
+      "@id": "assembly:total_count",
+      "@type": "xsd:integer"
+    },
+    "initiate_payment_status_responses": {
+      "@id": "assembly:initiate_payment_status_responses",
+      "@container": "@list"
+    },
+    "CreateAgreementResponse": "assembly:CreateAgreementResponse",
+    "AgreementInformation": "assembly:AgreementInformation",
+    "short_description": {
+      "@id": "assembly:short_description",
+      "@type": "xsd:string"
+    },
+    "purpose_code": {
+      "@id": "assembly:purpose_code",
+      "@type": "xsd:string"
+    },
+    "agreement_type": {
+      "@id": "assembly:agreement_type",
+      "@type": "xsd:string"
+    },
+    "automatic_renewal": {
+      "@id": "assembly:automatic_renewal",
+      "@type": "xsd:boolean"
+    },
+    "validity_start_date": {
+      "@id": "assembly:validity_start_date",
+      "@type": "xsd:string"
+    },
+    "validity_end_date": {
+      "@id": "assembly:validity_end_date",
+      "@type": "xsd:string"
+    },
+    "transfer_arrangement": {
+      "@id": "assembly:transfer_arrangement",
+      "@type": "xsd:string"
+    },
+    "debtor_info": {
+      "@id": "assembly:debtor_info",
+      "@type": "@id"
+    },
+    "creditor_info": {
+      "@id": "assembly:creditor_info",
+      "@type": "@id"
+    },
+    "payment_initiator_info": {
+      "@id": "assembly:payment_initiator_info",
+      "@type": "@id"
+    },
+    "payment_terms": {
+      "@id": "assembly:payment_terms",
+      "@type": "@id"
+    },
+    "CreditorInformation": "assembly:CreditorInformation",
+    "ultimate_creditor_name": {
+      "@id": "assembly:ultimate_creditor_name",
+      "@type": "xsd:string"
+    },
+    "creditor_reference": {
+      "@id": "assembly:creditor_reference",
+      "@type": "xsd:string"
+    },
+    "DebtorAccountInformation": "assembly:DebtorAccountInformation",
+    "account_id_type": {
+      "@id": "assembly:account_id_type",
+      "@type": "xsd:string"
+    },
+    "payid_details": {
+      "@id": "assembly:payid_details",
+      "@type": "@id"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Assembly Payments API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Assembly Payments's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-22) from openapi/assembly-payments-api-openapi.yml, openapi/assembly-payments-asynchronous-api-openapi.yml, openapi/assembly-payments-payto-api-openapi.yml.",
+  "dcterms:created": "2026-10-22",
+  "dcterms:source": [
+    "openapi/assembly-payments-api-openapi.yml",
+    "openapi/assembly-payments-asynchronous-api-openapi.yml",
+    "openapi/assembly-payments-payto-api-openapi.yml",
+    "openapi/assembly-payments-supplementary-data-apis-api-openapi.yml",
+    "openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml"
+  ]
+}

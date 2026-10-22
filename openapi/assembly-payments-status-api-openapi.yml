@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  description: This is the Swagger definition for the AssemblyPayment's Webhooks API
+  version: 1.0.4
+  title: Webhooks Status API
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://sandbox.au-0000.api.assemblypay.com
+  description: Sandbox (Pre-live) server and API
+- url: https://au-0000.api.assemblypay.com
+  description: Production server and API
+- url: https://virtserver.swaggerhub.com/AssemblyPlatforms/WAPI/1.0.4
+  description: SwaggerHub API Auto Mocking
+security:
+- bearerAuth: []
+tags:
+- name: Status
+paths:
+  /status:
+    get:
+      tags:
+      - Status
+      summary: Check health of server
+      description: returns healthy if server is running fine
+      operationId: getStatus
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+              examples:
+                response:
+                  value:
+                    status: healthy
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/createsecretkey.md
+  - https://developer.hellozai.com/reference/createwebhook.md
+  - https://developer.hellozai.com/reference/deletewebhookbyid.md
+  - https://developer.hellozai.com/reference/getallwebhooks.md
+  - https://developer.hellozai.com/reference/getjob.md
+  - https://developer.hellozai.com/reference/getjobs.md
+  - https://developer.hellozai.com/reference/getstatus.md
+  - https://developer.hellozai.com/reference/getwebhookbyid.md
+  - https://developer.hellozai.com/reference/updatewebhook.md
+  merge:
+    pages: 9
+    deduped: 26
+    conflicts_kept_first: 0

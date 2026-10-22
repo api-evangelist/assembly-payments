@@ -1,0 +1,962 @@
+name: Assembly Payments (Zai) MCP server (candidate)
+description: 'No official Assembly Payments / Zai MCP server was found: developer.hellozai.com/llms.txt (146 pages) names no MCP server and a web search for a Zai MCP server returned nothing. This is a
+  CANDIDATE tool list derived from the saved OpenAPI operations; nobody ships this server.'
+type: MCPServer
+generated: '2026-10-22'
+method: derived
+status: candidate
+source:
+- openapi/assembly-payments-api-openapi.yml
+- openapi/assembly-payments-asynchronous-api-openapi.yml
+- openapi/assembly-payments-payto-api-openapi.yml
+- openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+- openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml
+- openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+- openapi/assembly-payments-webhooks-api-openapi.yml
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+evidence:
+  llms_txt: https://developer.hellozai.com/llms.txt (HTTP 200, no MCP mention)
+  search: 'web search "Zai hellozai MCP server Model Context Protocol" 2026-10-22: no provider server found'
+auth_note: The REST APIs use OAuth2 client-credentials bearer tokens issued by au-0000.auth.assemblypay.com (per the saved spec servers); token operations are excluded from the tool list.
+tools:
+- name: showAddress
+  description: Show Address
+  operation: showAddress
+  method: GET
+  path: /addresses/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createBankAccount
+  description: Create Bank Account
+  operation: createBankAccount
+  method: POST
+  path: /bank_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showBankAccount
+  description: Show Bank Account
+  operation: showBankAccount
+  method: GET
+  path: /bank_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: redactBankAccount
+  description: Redact Bank Account
+  operation: redactBankAccount
+  method: DELETE
+  path: /bank_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: sendPennyAmount
+  description: Send Penny Amount
+  operation: sendPennyAmount
+  method: PATCH
+  path: /bank_accounts/{id}/penny_send
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: verifyPennyAmount
+  description: Verify Penny Amount
+  operation: verifyPennyAmount
+  method: PATCH
+  path: /bank_accounts/{id}/penny_verify
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showBankAccountUser
+  description: Show Bank Account User
+  operation: showBankAccountUser
+  method: GET
+  path: /bank_accounts/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listBatchTransactions
+  description: List Batch Transactions
+  operation: listBatchTransactions
+  method: GET
+  path: /batch_transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showBatchTransaction
+  description: Show Batch Transaction
+  operation: showBatchTransaction
+  method: GET
+  path: /batch_transactions/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createBPayAccount
+  description: Create BPay Account
+  operation: createBPayAccount
+  method: POST
+  path: /bpay_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showBPayAccount
+  description: Show BPay Account
+  operation: showBPayAccount
+  method: GET
+  path: /bpay_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showBPayAccountUser
+  description: Show BPay Account User
+  operation: showBPayAccountUser
+  method: GET
+  path: /bpay_accounts/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listCallbacks
+  description: List Callbacks
+  operation: listCallbacks
+  method: GET
+  path: /callbacks
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createCallback
+  description: Create Callback
+  operation: createCallback
+  method: POST
+  path: /callbacks
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showCallbackResponse
+  description: Show Callback Response
+  operation: showCallbackResponse
+  method: GET
+  path: /callbacks/{callback_id}/responses/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showCallback
+  description: Show Callback
+  operation: showCallback
+  method: GET
+  path: /callbacks/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: deleteCallback
+  description: Delete Callback
+  operation: deleteCallback
+  method: DELETE
+  path: /callbacks/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: updateCallback
+  description: Update Callback
+  operation: updateCallback
+  method: PATCH
+  path: /callbacks/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listCallbackResponse
+  description: List Callback Responses
+  operation: listCallbackResponse
+  method: GET
+  path: /callbacks/{id}/responses
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createCardAccount
+  description: Create Card Account
+  operation: createCardAccount
+  method: POST
+  path: /card_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showCardAccount
+  description: Show Card Account
+  operation: showCardAccount
+  method: GET
+  path: /card_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: redactCardAccount
+  description: Redact Card Account
+  operation: redactCardAccount
+  method: DELETE
+  path: /card_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showCardAccountUser
+  description: Show Card Account User
+  operation: showCardAccountUser
+  method: GET
+  path: /card_accounts/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: verifyCard
+  description: Verify Card
+  operation: verifyCard
+  method: PATCH
+  path: /card_accounts/{id}/verify
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listCharges
+  description: List Charges
+  operation: listCharges
+  method: GET
+  path: /charges
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createCharge
+  description: Create Charge
+  operation: createCharge
+  method: POST
+  path: /charges
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showCharge
+  description: Show Charge
+  operation: showCharge
+  method: GET
+  path: /charges/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showChargeBuyer
+  description: Show Charge Buyer
+  operation: showChargeBuyer
+  method: GET
+  path: /charges/{id}/buyers
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showChargeStatus
+  description: Show Charge Status
+  operation: showChargeStatus
+  method: GET
+  path: /charges/{id}/status
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listCompanies
+  description: List Companies
+  operation: listCompanies
+  method: GET
+  path: /companies
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createCompany
+  description: Create Company
+  operation: createCompany
+  method: POST
+  path: /companies
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showCompany
+  description: Show Company
+  operation: showCompany
+  method: GET
+  path: /companies/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: updateCompany
+  description: Update Company
+  operation: updateCompany
+  method: PATCH
+  path: /companies/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listDirectDebitAuthorities
+  description: List Direct Debit Authorities
+  operation: listDirectDebitAuthorities
+  method: GET
+  path: /direct_debit_authorities
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createDirectDebitAuthority
+  description: Create Direct Debit Authority
+  operation: createDirectDebitAuthority
+  method: POST
+  path: /direct_debit_authorities
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showDirectDebitAuthority
+  description: Show Direct Debit Authority
+  operation: showDirectDebitAuthority
+  method: GET
+  path: /direct_debit_authorities/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listDisbursement
+  description: List Disbursements
+  operation: listDisbursement
+  method: GET
+  path: /disbursements
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursement
+  description: Show Disbursement
+  operation: showDisbursement
+  method: GET
+  path: /disbursements/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursementBankAccounts
+  description: Show Disbursement Bank Accounts
+  operation: showDisbursementBankAccounts
+  method: GET
+  path: /disbursements/{id}/bank_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursementItems
+  description: Show Disbursement Items
+  operation: showDisbursementItems
+  method: GET
+  path: /disbursements/{id}/items
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursementTransactions
+  description: Show Disbursement Transactions
+  operation: showDisbursementTransactions
+  method: GET
+  path: /disbursements/{id}/transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursementUsers
+  description: Show Disbursement Users
+  operation: showDisbursementUsers
+  method: GET
+  path: /disbursements/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showDisbursementWalletAccounts
+  description: Show Disbursement Wallet Accounts
+  operation: showDisbursementWalletAccounts
+  method: GET
+  path: /disbursements/{id}/wallet_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listFees
+  description: List Fees
+  operation: listFees
+  method: GET
+  path: /fees
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createFee
+  description: Create fee
+  operation: createFee
+  method: POST
+  path: /fees
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showFee
+  description: Show Fee
+  operation: showFee
+  method: GET
+  path: /fees/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listItems
+  description: List Items
+  operation: listItems
+  method: GET
+  path: /items
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createItem
+  description: Create Item
+  operation: createItem
+  method: POST
+  path: /items
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showItem
+  description: Show Item
+  operation: showItem
+  method: GET
+  path: /items/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: deleteItem
+  description: Delete Item
+  operation: deleteItem
+  method: DELETE
+  path: /items/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: updateItem
+  description: Update Item
+  operation: updateItem
+  method: PATCH
+  path: /items/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: authorizePayment
+  description: Authorize Payment
+  operation: authorizePayment
+  method: PATCH
+  path: /items/{id}/authorize_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listItemBatchTransactions
+  description: List Item Batch Transactions
+  operation: listItemBatchTransactions
+  method: GET
+  path: /items/{id}/batch_transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showItemBuyer
+  description: Show Item Buyer
+  operation: showItemBuyer
+  method: GET
+  path: /items/{id}/buyers
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: cancelItem
+  description: Cancel
+  operation: cancelItem
+  method: PATCH
+  path: /items/{id}/cancel
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: capturePayment
+  description: Capture Payment
+  operation: capturePayment
+  method: PATCH
+  path: /items/{id}/capture_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showItemFees
+  description: Show Item Fees
+  operation: showItemFees
+  method: GET
+  path: /items/{id}/fees
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: makePayment
+  description: Make Payment
+  operation: makePayment
+  method: PATCH
+  path: /items/{id}/make_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: makePaymentAsync
+  description: Make an async Payment
+  operation: makePaymentAsync
+  method: PATCH
+  path: /items/{id}/make_payment_async
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: refund
+  description: Refund
+  operation: refund
+  method: PATCH
+  path: /items/{id}/refund
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showItemSeller
+  description: Show Item Seller
+  operation: showItemSeller
+  method: GET
+  path: /items/{id}/sellers
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showItemStatus
+  description: Show Item Status
+  operation: showItemStatus
+  method: GET
+  path: /items/{id}/status
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listItemTransactions
+  description: List Item Transactions
+  operation: listItemTransactions
+  method: GET
+  path: /items/{id}/transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: voidPayment
+  description: Void Payment
+  operation: voidPayment
+  method: PATCH
+  path: /items/{id}/void_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showItemWireDetails
+  description: Show Item Wire Details
+  operation: showItemWireDetails
+  method: GET
+  path: /items/{id}/wire_details
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showMarketplace
+  description: Show Marketplace
+  operation: showMarketplace
+  method: GET
+  path: /marketplace
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createSubWallet
+  description: Create Sub-wallet
+  operation: createSubWallet
+  method: POST
+  path: /sub_wallets
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: transferSubWallet
+  description: Fund transfers
+  operation: transferSubWallet
+  method: PATCH
+  path: /sub_wallets/transfer
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listSubWallets
+  description: List Sub-wallets
+  operation: listSubWallets
+  method: GET
+  path: /sub_wallets/{account_id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showSubWallet
+  description: Show Sub-wallet
+  operation: showSubWallet
+  method: GET
+  path: /sub_wallets/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: deleteSubWallet
+  description: Redact Sub-wallet
+  operation: deleteSubWallet
+  method: DELETE
+  path: /sub_wallets/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: updateSubWallet
+  description: Update Sub-wallet
+  operation: updateSubWallet
+  method: PATCH
+  path: /sub_wallets/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: billPaymentSubWallet
+  description: Pay a Bill
+  operation: billPaymentSubWallet
+  method: POST
+  path: /sub_wallets/{id}/bill_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showSubWalletTransactions
+  description: List Sub-wallet transactions
+  operation: showSubWalletTransactions
+  method: GET
+  path: /sub_wallets/{id}/transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showSubWalletUser
+  description: Show Sub-wallet User
+  operation: showSubWalletUser
+  method: GET
+  path: /sub_wallets/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showSubWalletWalletAccount
+  description: Show the Wallet Account of a Sub-wallet
+  operation: showSubWalletWalletAccount
+  method: GET
+  path: /sub_wallets/{id}/wallet_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: withdrawFundsSubWallet
+  description: Withdraw Funds
+  operation: withdrawFundsSubWallet
+  method: POST
+  path: /sub_wallets/{id}/withdraw
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: validateRoutingNumber
+  description: Validate Routing Number
+  operation: validateRoutingNumber
+  method: GET
+  path: /tools/routing_number
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: healthCheck
+  description: Health check
+  operation: healthCheck
+  method: GET
+  path: /tools/status
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listTransactions
+  description: List Transactions
+  operation: listTransactions
+  method: GET
+  path: /transactions
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransaction
+  description: Show Transaction
+  operation: showTransaction
+  method: GET
+  path: /transactions/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransactionBankAccount
+  description: Show Transaction Bank Account
+  operation: showTransactionBankAccount
+  method: GET
+  path: /transactions/{id}/bank_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransactionCardAccount
+  description: Show Transaction Card Account
+  operation: showTransactionCardAccount
+  method: GET
+  path: /transactions/{id}/card_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransactionFees
+  description: Show Transaction Fees
+  operation: showTransactionFees
+  method: GET
+  path: /transactions/{id}/fees
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransactionUser
+  description: Show Transaction User
+  operation: showTransactionUser
+  method: GET
+  path: /transactions/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showTransactionWalletAccount
+  description: Show Transaction Wallet Account
+  operation: showTransactionWalletAccount
+  method: GET
+  path: /transactions/{id}/wallet_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listUsers
+  description: List Users
+  operation: listUsers
+  method: GET
+  path: /users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: createUser
+  description: Create User
+  operation: createUser
+  method: POST
+  path: /users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showUser
+  description: Show User
+  operation: showUser
+  method: GET
+  path: /users/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: updateUser
+  description: Update User
+  operation: updateUser
+  method: PATCH
+  path: /users/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showUserBankAccount
+  description: Show User Bank Account
+  operation: showUserBankAccount
+  method: GET
+  path: /users/{id}/bank_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: listUserBPayAccounts
+  description: List User's BPay Accounts
+  operation: listUserBPayAccounts
+  method: GET
+  path: /users/{id}/bpay_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showUserCardAccount
+  description: Show User Card Account
+  operation: showUserCardAccount
+  method: GET
+  path: /users/{id}/card_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: setUserDisbursementAccount
+  description: Set User Disbursement Account
+  operation: setUserDisbursementAccount
+  method: PATCH
+  path: /users/{id}/disbursement_account
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: verifyUser
+  description: Verify User (Prelive Only)
+  operation: verifyUser
+  method: PATCH
+  path: /users/{id}/identity_verified
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: listUserItems
+  description: List User Items
+  operation: listUserItems
+  method: GET
+  path: /users/{id}/items
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showUserWalletAccounts
+  description: Show User Wallet Account
+  operation: showUserWalletAccounts
+  method: GET
+  path: /users/{id}/wallet_accounts
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showWalletAccount
+  description: Show Wallet Account
+  operation: showWalletAccount
+  method: GET
+  path: /wallet_accounts/{id}
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: billPayment
+  description: Pay a Bill
+  operation: billPayment
+  method: POST
+  path: /wallet_accounts/{id}/bill_payment
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showWalletAccountNBPAYDetails
+  description: Show Wallet Account BPAY Details
+  operation: showWalletAccountNBPAYDetails
+  method: GET
+  path: /wallet_accounts/{id}/bpay_details
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: showWalletAccountNPPDetails
+  description: Show Wallet Account NPP Details
+  operation: showWalletAccountNPPDetails
+  method: GET
+  path: /wallet_accounts/{id}/npp_details
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: nppLastDomesticLeg
+  description: Initiate Last Domestic Leg Payout
+  operation: nppLastDomesticLeg
+  method: POST
+  path: /wallet_accounts/{id}/npp_last_domestic_leg
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: showWalletAccountUser
+  description: Show Wallet Account User
+  operation: showWalletAccountUser
+  method: GET
+  path: /wallet_accounts/{id}/users
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: true
+- name: withdrawFunds
+  description: Withdraw Funds
+  operation: withdrawFunds
+  method: POST
+  path: /wallet_accounts/{id}/withdraw
+  spec: openapi/assembly-payments-api-openapi.yml
+  readOnly: false
+- name: getAgreementsByUser
+  description: Get All PayTo Agreements for a User
+  operation: getAgreementsByUser
+  method: GET
+  path: /agreements
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: true
+- name: validateAgreement
+  description: Validate PayTo Agreement
+  operation: validateAgreement
+  method: POST
+  path: /agreements/validate
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: getAgreementDetails
+  description: Get PayTo Agreement Details
+  operation: getAgreementDetails
+  method: GET
+  path: /agreements/{agreement_uuid}
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: true
+- name: amendAgreementDetails
+  description: Amend PayTo Agreement Details
+  operation: amendAgreementDetails
+  method: PATCH
+  path: /agreements/{agreement_uuid}/amend
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: createAgreement
+  description: Create PayTo Agreement
+  operation: createAgreement
+  method: POST
+  path: /agreements/{agreement_uuid}/create
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: getInitiatePaymentStatusList
+  description: Get All PayTo Payment Initiation Requests for an Agreement
+  operation: getInitiatePaymentStatusList
+  method: GET
+  path: /agreements/{agreement_uuid}/payment_requests
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: true
+- name: initiatePaymentRequest
+  description: Initiate PayTo Payment
+  operation: initiatePaymentRequest
+  method: POST
+  path: /agreements/{agreement_uuid}/payment_requests/initiate
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: recallAgreementAction
+  description: Recall PayTo Agreement
+  operation: recallAgreementAction
+  method: PATCH
+  path: /agreements/{agreement_uuid}/recall
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: amendAgreementStatus
+  description: Amend PayTo Agreement Status
+  operation: amendAgreementStatus
+  method: PATCH
+  path: /agreements/{agreement_uuid}/status
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: false
+- name: getInitiatePaymentStatus
+  description: Get PayTo Payment Initiation Request Details
+  operation: getInitiatePaymentStatus
+  method: GET
+  path: /payment_requests/{payment_request_uuid}
+  spec: openapi/assembly-payments-payto-api-openapi.yml
+  readOnly: true
+- name: getPayInsByInstructionId
+  description: Failed NPP Payment Details
+  operation: getPayInsByInstructionId
+  method: GET
+  path: /payment_details/failed/{instructionId}
+  spec: openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+  readOnly: true
+- name: showTransactionSupplementaryData
+  description: Show Transaction Supplementary Data
+  operation: showTransactionSupplementaryData
+  method: GET
+  path: /transactions/{id}/supplementary_data
+  spec: openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+  readOnly: true
+- name: getPayID
+  description: Retrieve a PayID
+  operation: getPayID
+  method: GET
+  path: /pay_ids/{id}
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: true
+- name: updatePayIdStatus
+  description: Update PayID Status
+  operation: updatePayIdStatus
+  method: PATCH
+  path: /pay_ids/{id}/status
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: showVirtualAccount
+  description: Show Virtual Account
+  operation: showVirtualAccount
+  method: GET
+  path: /virtual_accounts/{id}
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: true
+- name: updateVirtualAccountAccountName
+  description: Update Account Name
+  operation: updateVirtualAccountAccountName
+  method: PATCH
+  path: /virtual_accounts/{id}/account_name
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: updateVirtualAccountAKAName
+  description: Update AKA Names
+  operation: updateVirtualAccountAKAName
+  method: PATCH
+  path: /virtual_accounts/{id}/aka_names
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: registerPayID
+  description: Register PayID
+  operation: registerPayID
+  method: POST
+  path: /virtual_accounts/{id}/pay_ids
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: updateVirtualAccount
+  description: Update Virtual Account Status
+  operation: updateVirtualAccount
+  method: PATCH
+  path: /virtual_accounts/{id}/status
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: createVirtualAccount
+  description: Create Virtual Account
+  operation: createVirtualAccount
+  method: POST
+  path: /wallet_accounts/{id}/virtual_accounts
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: false
+- name: listVirtualAccountByWalletAccount
+  description: List Virtual Accounts
+  operation: listVirtualAccountByWalletAccount
+  method: GET
+  path: /wallet_accounts/{id}/virtual_accounts
+  spec: openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml
+  readOnly: true
+- name: getStatus
+  description: Check health of server
+  operation: getStatus
+  method: GET
+  path: /status
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: true
+- name: createWebhook
+  description: Create a Webhook
+  operation: createWebhook
+  method: POST
+  path: /webhooks
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: false
+- name: getAllWebhooks
+  description: List Webhooks
+  operation: getAllWebhooks
+  method: GET
+  path: /webhooks
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: true
+- name: createSecretKey
+  description: Create a Secret Key
+  operation: createSecretKey
+  method: POST
+  path: /webhooks/secret_key
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: false
+- name: getWebhookById
+  description: Show Webhook
+  operation: getWebhookById
+  method: GET
+  path: /webhooks/{uuid}
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: true
+- name: updateWebhook
+  description: Update an existing Webhook
+  operation: updateWebhook
+  method: PATCH
+  path: /webhooks/{uuid}
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: false
+- name: deleteWebhookById
+  description: Delete Webhook by ID
+  operation: deleteWebhookById
+  method: DELETE
+  path: /webhooks/{uuid}
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: false
+- name: getJobs
+  description: Get jobs associated to Webhook
+  operation: getJobs
+  method: GET
+  path: /webhooks/{uuid}/jobs
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: true
+- name: getJob
+  description: Show job associated to Webhook
+  operation: getJob
+  method: GET
+  path: /webhooks/{uuid}/jobs/{jobUUID}
+  spec: openapi/assembly-payments-webhooks-api-openapi.yml
+  readOnly: true

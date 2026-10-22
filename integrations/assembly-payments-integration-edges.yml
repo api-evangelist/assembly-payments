@@ -1,0 +1,24 @@
+generated: '2026-10-22'
+method: searched
+source:
+- https://zapier.com/apps/assembly-payments/integrations
+- https://n8n.io/integrations/assembly-payments/
+- https://composio.dev/toolkits/assembly-payments
+- https://monid.ai/tools/assembly-payments
+checked:
+- https://composio.dev/toolkits/assembly-payments
+- https://monid.ai/tools/assembly-payments
+- https://n8n.io/integrations/assembly-payments/
+- https://zapier.com/apps/assembly-payments/integrations
+- https://developer.hellozai.com/docs/woocommerce
+summary: null
+marketplace_apps: []
+edges:
+- partner_name: WooCommerce
+  partner: woocommerce
+  type: docs
+  evidence: https://developer.hellozai.com/docs/woocommerce
+  direction: provider-built
+  note: The Zai Payment Plugin for WooCommerce enables you to accept secure credit card payments directly on your
+    store.
+templates: []

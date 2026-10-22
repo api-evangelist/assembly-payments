@@ -1,0 +1,43 @@
+overlay: 1.0.0
+info:
+  title: Webhooks API enhancements (API Evangelist)
+  version: 1.0.0
+extends: openapi/assembly-payments-webhooks-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-description: Adds provider/docs metadata and per-operation agent-safety hints (derived from HTTP method only) without mutating the original
+  contract.
+actions:
+- target: $.info
+  update:
+    x-provider: Assembly Payments (now Zai)
+    x-api-evangelist-profiled: '2026-10-22'
+    x-docs: https://developer.hellozai.com/docs/introduction
+    x-llms-txt: https://developer.hellozai.com/llms.txt
+- target: $.paths['/status'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/webhooks'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/webhooks'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/webhooks/secret_key'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/webhooks/{uuid}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/webhooks/{uuid}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/webhooks/{uuid}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/webhooks/{uuid}/jobs'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/webhooks/{uuid}/jobs/{jobUUID}'].get
+  update:
+    x-agent-safety: read-only

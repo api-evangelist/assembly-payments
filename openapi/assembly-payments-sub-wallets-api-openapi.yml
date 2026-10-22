@@ -1,0 +1,1824 @@
+openapi: 3.2.0
+info:
+  title: Assembly Sub Wallets API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Sub-wallets
+paths:
+  /sub_wallets:
+    post:
+      tags:
+      - Sub-wallets
+      summary: Create Sub-wallet
+      description: Create a sub-wallet for a user's wallet account.This is specified by the wallet `account_id`. Use sub-wallets as a part of building your own scheduling and workflow. Create as many as you want to manage, with no limits to the amount.
+      operationId: createSubWallet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_wallet_create_requestBody'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_create_responseBody'
+              examples:
+                response:
+                  value:
+                    sub_wallets:
+                      id: 8665ee43-d350-4276-ac04-1031029faa53
+                      name: Investment
+                      active: true
+                      created_at: '2019-04-29 02:42:31.536000+00:00'
+                      updated_at: '2020-05-03 12:01:02.254000+00:00'
+                      balance: 0
+                      currency: AUD
+                      links:
+                        self: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa5
+                        users: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa53/users
+                        wallet_accounts: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa53/wallet_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                when account_id not given in request body:
+                  value:
+                    errors:
+                      account_id:
+                      - required field missing
+                when account_id format is invalid:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid format
+                when account_id is invalid i.e., does not exist:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid
+                when account_id belongs to a different marketplace:
+                  value:
+                    errors:
+                      account_id:
+                      - must belong to the marketplace
+  /sub_wallets/transfer:
+    patch:
+      tags:
+      - Sub-wallets
+      summary: Fund transfers
+      description: Fund transfers between a wallet account and its sub-wallet as well as between any sub-wallets that belong to the same wallet account. The `source` and `destination` accounts must be `active` and use the same currency.
+      operationId: transferSubWallet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_wallet_transfer_requestBody'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_transfer_responseBody'
+              examples:
+                response:
+                  value:
+                    transactions:
+                      id: b8049d20-ba41-013a-bbc8-0a58a9feac03
+                      created_at: '2022-05-20 08:06:47.228000+00:00'
+                      updated_at: '2022-05-20 08:06:47.423000+00:00'
+                      description: Debit of $10.00 from Wallet Account for Credit of $10.00 to Sub-wallet Account
+                      type: fund_transfer
+                      type_method: misc
+                      state: successful
+                      user_id: aadd608d3926dc2a0e7499d80c92c03f
+                      user_name: First1653026421 LastName
+                      account_id: 0acef200-ba30-013a-1231-0a58a9feac03
+                      account_type: wallet_account
+                      amount: 1000
+                      currency: AUD
+                      debit_credit: debit
+                      marketplace:
+                        group_name: null
+                        name: platform test-user-1653026421
+                        short_name: null,
+                        uuid: b6f2f40e-9f83-43be-9e70-25692bccc029
+                      related:
+                        transactions:
+                        - id: b804aef0-ba41-013a-7c6a-0a58a9feac03
+                          account_id: df00f819-57d2-4d97-afdc-78a4f9d92535
+                          account_type: sub_wallet_account
+                          user_id: aadd608d3926dc2a0e7499d80c92c03f
+                          user_name: First1653026421 LastName
+                      links:
+                        self: /sub_wallets/transfer
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                source not provided:
+                  value:
+                    errors:
+                      source:
+                      - required field missing
+                destination not provided:
+                  value:
+                    errors:
+                      destination:
+                      - required field missing
+                amount not provided:
+                  value:
+                    errors:
+                      amount:
+                      - required field missing
+                source and destination are both wallet accounts:
+                  value:
+                    errors:
+                      base:
+                      - invalid source or destination
+                source is not a wallet account or sub-wallet account:
+                  value:
+                    errors:
+                      base:
+                      - invalid source or destination
+                destination is not a wallet account or sub-wallet account:
+                  value:
+                    errors:
+                      base:
+                      - invalid source or destination
+                source is a redacted sub-wallet:
+                  value:
+                    errors:
+                      source:
+                      - unable to process request, sub-wallet already deleted
+                destination is a redacted sub-wallet:
+                  value:
+                    errors:
+                      destination:
+                      - unable to process request, sub-wallet already deleted
+                source does not have enough balance:
+                  value:
+                    errors:
+                      base:
+                      - The account you're transacting from does not have enough funds available
+                source and destination belong to different marketplace:
+                  value:
+                    errors:
+                      base:
+                      - You can't transact between marketplaces
+                source and destination are from different users:
+                  value:
+                    errors:
+                      base:
+                      - You cannot move funds to someone else's sub-wallet account
+                source and destination have different currencies:
+                  value:
+                    errors:
+                      base:
+                      - You cannot transact across different currencies
+  /sub_wallets/{account_id}:
+    get:
+      tags:
+      - Sub-wallets
+      summary: List Sub-wallets
+      description: List all the sub-wallets that belong to a user's wallet account. These are specified by the wallet `account_id`.
+      operationId: listSubWallets
+      parameters:
+      - name: account_id
+        in: path
+        description: Wallet Account Id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 901d8cd0-6af3-0138-967d-0a58a9feac04
+      - name: offset
+        in: query
+        description: Number of records to offset. Required for pagination.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        description: Number of records to retrieve. Up to 200.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 200
+          minimum: 1
+          type: integer
+          default: 10
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallets'
+              examples:
+                response:
+                  value:
+                    sub_wallets:
+                    - id: 8665ee43-d350-4276-ac04-1031029faa53
+                      name: Investment
+                      active: true
+                      created_at: '2019-04-29 02:42:31.536000+00:00'
+                      updated_at: '2020-05-03 12:01:02.254000+00:00'
+                      balance: 663337
+                      currency: AUD
+                      links:
+                        self: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa5
+                        users: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa53/users
+                        transactions: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa53/transactions
+                        wallet_accounts: /sub_wallets/8665ee43-d350-4276-ac04-1031029faa53/wallet_accounts
+                    links:
+                      self: /sub_wallets
+                    meta:
+                      limit: 10
+                      offset: 0
+                      total: 1
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                when account_id not given:
+                  value:
+                    errors:
+                      account_id:
+                      - required field missing
+                when account_id format is invalid:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid format
+                when account_id is invalid i.e., does not exist:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid
+                when account_id belongs to a different marketplace:
+                  value:
+                    errors:
+                      account_id:
+                      - must belong to the marketplace
+  /sub_wallets/{id}:
+    get:
+      tags:
+      - Sub-wallets
+      summary: Show Sub-wallet
+      description: Show details of a specific sub-wallet using the given`:id`.
+      operationId: showSubWallet
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet'
+              examples:
+                response:
+                  value:
+                    sub_wallets:
+                      id: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      name: medical
+                      active: true
+                      balance: 0
+                      created_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      updated_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      currency: AUD
+                      links:
+                        self: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee
+                        users: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/users
+                        transactions: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/transactions
+                        wallet_accounts: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/wallet_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+    delete:
+      tags:
+      - Sub-wallets
+      summary: Redact Sub-wallet
+      description: Redact a sub-wallet using the given `:id`. Only sub-wallets with zero balance can be redacted. Once this is done, the sub-wallet can no longer be used as a funding source.
+      operationId: deleteSubWallet
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet'
+              examples:
+                response:
+                  value:
+                    sub_wallets:
+                      id: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      name: medical
+                      active: false
+                      balance: 0
+                      created_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      updated_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      currency: AUD
+                      links:
+                        self: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee
+                        users: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/users
+                        transactions: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/transactions
+                        wallet_accounts: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/wallet_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+                id is already redacted:
+                  value:
+                    errors:
+                      base:
+                      - unable to process request, sub-wallet already deleted
+                balance of sub-wallet is non-zero:
+                  value:
+                    errors:
+                      base:
+                      - unable to delete sub-wallet with non-zero balance
+    patch:
+      tags:
+      - Sub-wallets
+      summary: Update Sub-wallet
+      description: Update an existing sub-wallet using the given `:id`. You can change the `name` of an enabled sub-wallet. You can change the `active` status of a `redacted` sub-wallet.
+      operationId: updateSubWallet
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_wallets_id_body'
+            examples:
+              bothInput:
+                summary: update both name and active
+                value:
+                  name: Investment Fund
+                  active: true
+              activeInput:
+                summary: enable redacted subwallet
+                value:
+                  active: true
+              nameInput:
+                summary: update name
+                value:
+                  name: Investment Fund
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet'
+              examples:
+                response:
+                  value:
+                    sub_wallets:
+                      id: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      name: Investment Fund
+                      active: true
+                      balance: 0
+                      created_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      updated_at: c66a1bec-4ca5-418c-8b0a-5513819576ee
+                      currency: AUD
+                      links:
+                        self: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee
+                        users: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/users
+                        transactions: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/transactions
+                        wallet_accounts: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/wallet_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+                invalid field names or no parameters given:
+                  value:
+                    errors:
+                      base:
+                      - unable to process request
+                invalid value for provided active field:
+                  value:
+                    errors:
+                      base:
+                      - invalid value provided
+                attempting to update name for redacted sub-wallet:
+                  value:
+                    errors:
+                      base:
+                      - unable to process request, sub wallet already deleted
+  /sub_wallets/{id}/bill_payment:
+    post:
+      tags:
+      - Sub-wallets
+      summary: Pay a Bill
+      description: Pay a bill to a specified BPAY account that's associated with its `account_id` by withdrawing funds from a sub-wallet using the given `id`.
+      operationId: billPaymentSubWallet
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 901d8cd0-6af3-0138-967d-0a58a9feac04
+        example: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bill_payment_requestBody'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_disbursement'
+              examples:
+                response:
+                  value:
+                    disbursements:
+                      id: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+                      amount: 173
+                      currency: AUD
+                      created_at: '2020-05-09 07:09:03.383000+00:00'
+                      updated_at: '2020-05-09 07:09:04.585000+00:00'
+                      state: pending
+                      to: BPay Account
+                      account_name: My Water Company
+                      biller_name: ABC Water
+                      biller_code: 123456
+                      crn: 9.87654321E8
+                      links:
+                        transactions: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+                        wallet_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts
+                        bank_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts
+                        bpay_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bpay_accounts
+                        paypal_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts
+                        items: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items
+                        users: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                payout feature configuration not enabled:
+                  value:
+                    errors:
+                      payout:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+                id belongs to redacted sub-wallet:
+                  value:
+                    errors:
+                      base:
+                      - unable to process request, sub-wallet already deleted
+                account_id is not provided:
+                  value:
+                    errors:
+                      account_id:
+                      - required field missing
+                account_id format is invalid:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid format
+                account_id is not of a Bpay account:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid destination account
+                account_id is of a inactive Bpay account:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid destination account
+                amount is not provided:
+                  value:
+                    errors:
+                      amount:
+                      - required field missing
+                amount is greater than sub-wallet balance:
+                  value:
+                    errors:
+                      payout:
+                      - Invalid disbursement amount.
+                amount has a different currency:
+                  value:
+                    errors:
+                      base:
+                      - You cannot transact across different currencies
+                reference_id is not unique:
+                  value:
+                    errors:
+                      reference_id:
+                      - Unable to process this request, reference_id must be unique for every bill payment request
+  /sub_wallets/{id}/transactions:
+    get:
+      tags:
+      - Sub-wallets
+      summary: List Sub-wallet transactions
+      description: List all transactions of a sub-wallet using the given `:id`.
+      operationId: showSubWalletTransactions
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_transactions_index'
+              examples:
+                response:
+                  value:
+                    transactions:
+                    - id: 0546ef82-5e16-4e52-9978-c9e2fcc07641
+                      created_at: '2022-05-20 08:06:47.228000+00:00'
+                      updated_at: '2022-05-20 08:06:47.423000+00:00'
+                      description: Debit of $10.00 from Wallet Account for Credit of $10.00 to Sub-wallet Account
+                      type: fund_transfer
+                      type_method: misc
+                      state: successful
+                      user_id: aadd608d3926dc2a0e7499d80c92c03f
+                      user_name: First1653026421 LastName
+                      account_id: 0acef200-ba30-013a-1231-0a58a9feac03
+                      account_type: wallet_account
+                      amount: 1000
+                      currency: AUD
+                      debit_credit: debit
+                      marketplace:
+                        group_name: null
+                        name: platform test-user-1653026421
+                        short_name: null,
+                        uuid: b6f2f40e-9f83-43be-9e70-25692bccc029
+                      related:
+                        transactions:
+                        - id: b804aef0-ba41-013a-7c6a-0a58a9feac03
+                          account_id: df00f819-57d2-4d97-afdc-78a4f9d92535
+                          account_type: sub_wallet_account
+                          user_id: aadd608d3926dc2a0e7499d80c92c03f
+                          user_name: First1653026421 LastName
+                    meta:
+                      limit: 10
+                      offset: 0
+                      total: 1
+                    links:
+                      self: /sub_wallets/0546ef82-5e16-4e52-9978-c9e2fcc07641/transactions
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+  /sub_wallets/{id}/users:
+    get:
+      tags:
+      - Sub-wallets
+      summary: Show Sub-wallet User
+      description: Show the user that a sub-wallet is associated with using the given `:id`.
+      operationId: showSubWalletUser
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_user'
+              examples:
+                response:
+                  value:
+                    users:
+                      created_at: '2020-04-03 07:59:00.379000+00:00'
+                      updated_at: '2020-04-03 07:59:00.379000+00:00'
+                      id: Seller_1234
+                      full_name: Samuel Seller
+                      email: sam@example.com
+                      mobile: 69543131
+                      first_name: Samuel
+                      last_name: Seller
+                      custom_descriptor: Sam Garden Jobs
+                      location: AUS
+                      verification_state: pending
+                      held_state: false
+                      roles:
+                      - customer
+                      dob: encrypted
+                      government_number: encrypted
+                      flags: {}
+                      related:
+                        addresses: 11111111-2222-3333-4444-55555555555,
+                      links:
+                        self: /bank_accounts/901d8cd0-6af3-0138-967d-0a58a9feac04/users
+                        items: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/items
+                        card_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/card_accounts
+                        paypal_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/paypal_accounts
+                        payid_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/payid_accounts
+                        bank_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/bank_accounts
+                        wallet_accounts: /users/e6bc0480-57ae-0138-c46e-0a58a9feac03/wallet_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+  /sub_wallets/{id}/wallet_accounts:
+    get:
+      tags:
+      - Sub-wallets
+      summary: Show the Wallet Account of a Sub-wallet
+      description: Show the details of the wallet account that a sub-wallet is associated with using the given `:id`.
+      operationId: showSubWalletWalletAccount
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+          default: c66a1bec-4ca5-418c-8b0a-5513819576ee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wallet_account'
+              examples:
+                response:
+                  value:
+                    wallet_accounts:
+                      id: 5c1c6b10-4c56-0137-8cd7-0242ac110002
+                      active: true
+                      created_at: '2019-04-29 02:42:31.536000+00:00'
+                      updated_at: '2020-05-03 12:01:02.254000+00:00'
+                      balance: 663337
+                      currency: AUD
+                      links:
+                        self: /transactions/aed45af0-6f63-0138-901c-0a58a9feac03/wallet_accounts
+                        users: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/users
+                        batch_transactions: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/batch_transactions
+                        transactions: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/transactions
+                        bpay_details: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/bpay_details
+                        npp_details: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/npp_details
+                        virtual_accounts: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/virtual_accounts
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+  /sub_wallets/{id}/withdraw:
+    post:
+      tags:
+      - Sub-wallets
+      summary: Withdraw Funds
+      description: Withdraw funds from a sub-wallet using the given `id` and move the specified amount to a disbursement account associated with the `account_id`.
+      operationId: withdrawFundsSubWallet
+      parameters:
+      - name: id
+        in: path
+        description: sub-wallet ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+        example: bd6e9c20-73f1-0138-fb91-0a58a9feac09
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sub_wallet_withdraw_requestBody'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_disbursement'
+              examples:
+                response:
+                  value:
+                    disbursements:
+                      id: 8a31ebfa-421b-4cbb-9241-632f71b3778a
+                      reference_id: 7190770-1-2908
+                      amount: 173
+                      currency: AUD
+                      created_at: '2020-05-09 07:09:03.383000+00:00'
+                      updated_at: '2020-05-09 07:09:04.585000+00:00'
+                      state: pending
+                      to: Bank Account
+                      bank_name: Test Bank Assembly
+                      bank_account_name: Assembly seller71718579
+                      bank_account_number: XXX130
+                      bank_routing_number: XXXXX8
+                      npp_payout_state: trying
+                      links:
+                        transactions: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+                        wallet_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts
+                        bank_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts
+                        paypal_accounts: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts
+                        items: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items
+                        users: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users
+        '422':
+          description: unprocessable content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sub_wallet_error_responseBody'
+              examples:
+                feature configuration not enabled:
+                  value:
+                    errors:
+                      sub_wallets:
+                      - feature not available
+                payout feature configuration not enabled:
+                  value:
+                    errors:
+                      payout:
+                      - feature not available
+                id not provided:
+                  value:
+                    errors:
+                      id:
+                      - required field missing
+                id format is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid format
+                id is invalid:
+                  value:
+                    errors:
+                      id:
+                      - invalid
+                id belongs to a different marketplace:
+                  value:
+                    errors:
+                      id:
+                      - must belong to the marketplace
+                id belongs to redacted sub-wallet:
+                  value:
+                    errors:
+                      base:
+                      - unable to process request, sub-wallet already deleted
+                account_id is not provided:
+                  value:
+                    errors:
+                      account_id:
+                      - required field missing
+                account_id format is invalid:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid format
+                account_id is invalid:
+                  value:
+                    errors:
+                      account_id:
+                      - invalid destination account
+                amount is not provided:
+                  value:
+                    errors:
+                      amount:
+                      - required field missing
+                amount is greater than sub-wallet balance:
+                  value:
+                    errors:
+                      amount:
+                      - must not be greater than the sub-wallet balance
+                amount has a different currency:
+                  value:
+                    errors:
+                      base:
+                      - You cannot transact across different currencies
+                reference_id is not unique:
+                  value:
+                    errors:
+                      reference_id:
+                      - Unable to process this request, reference_id must be unique for every bill payment request
+components:
+  schemas:
+    sub_wallet_related_transactions:
+      type: array
+      items:
+        $ref: '#/components/schemas/sub_wallet_tr'
+    single_disbursement:
+      type: object
+      properties:
+        disbursements:
+          $ref: '#/components/schemas/disbursement'
+    sub_wallet_update_requestBody3:
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: status of sub-wallet
+          example: true
+          default: true
+    sub_wallet_sub_wallets_links:
+      type: object
+      properties:
+        self:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee
+        users:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/users
+        transactions:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/transactions
+        wallet_accounts:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/wallet_accounts
+      example: null
+    sub_wallet_error_responseBody_errors:
+      type: object
+      properties:
+        field:
+          type: object
+      example: null
+    sub_wallet_update_requestBody1:
+      type: object
+      properties:
+        name:
+          type: string
+          description: sub-wallet name
+          example: Investment Fund
+          default: Investment Fund
+        active:
+          type: boolean
+          description: status of sub-wallet
+          example: true
+          default: true
+    sub_wallet_error_responseBody:
+      type: object
+      properties:
+        errors:
+          $ref: '#/components/schemas/sub_wallet_error_responseBody_errors'
+    sub_wallet_transactions:
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          example: fund_transfer
+        type_method:
+          type: string
+          example: misc
+        state:
+          type: string
+          example: successful
+        user_id:
+          type: string
+        user_name:
+          type: string
+        account_id:
+          type: string
+          example: d9418820-b8b5-013a-09ed-5e50adfe91ad
+        account_type:
+          type: string
+        sub_wallets_id:
+          type: string
+        sub_wallet_name:
+          type: string
+        amount:
+          type: integer
+        currency:
+          type: string
+          example: AUD
+        debit_credit:
+          type: string
+          example: debit
+        marketplace:
+          $ref: '#/components/schemas/sub_wallet_transactions_mp'
+        related:
+          $ref: '#/components/schemas/sub_wallet_related'
+        links:
+          $ref: '#/components/schemas/sub_wallet_transaction_links'
+    sub_wallet_transactions_index:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/sub_wallet_transactions'
+        meta:
+          $ref: '#/components/schemas/meta'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /sub_wallets/0546ef82-5e16-4e52-9978-c9e2fcc07641/transactions
+    sub_wallets:
+      type: object
+      properties:
+        sub_wallets:
+          type: array
+          items:
+            $ref: '#/components/schemas/sub_wallet'
+    sub_wallet_sub_wallets:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+        name:
+          type: string
+          example: investment
+        balance:
+          type: integer
+        active:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        currency:
+          type: string
+          example: AUD
+        links:
+          $ref: '#/components/schemas/sub_wallet_sub_wallets_links'
+      example: null
+    sub_wallet_related:
+      type: object
+      properties:
+        transactions:
+          $ref: '#/components/schemas/sub_wallet_related_transactions'
+    sub_wallet_withdraw_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      properties:
+        account_id:
+          description: Account to withdraw to.
+          type: string
+          example: c1824ad0-73f1-0138-3700-0a58a9feac09
+          default: c1824ad0-73f1-0138-3700-0a58a9feac09
+        amount:
+          description: Amount (in cents) to withdraw.
+          type: integer
+          example: '173'
+          default: '173'
+        custom_descriptor:
+          description: A descriptor specified by the customer to be passed on the withdraw call. This requires that custom_descriptors are enabled. In the case of fast payments (AU / NPP) Assembly will append a value in the beginning of descriptor, the customer can use 200 characters (excluding URL, javascript/code, emojis). In the case of DE batch payments will allow 18 characters
+          type: string
+          example: ''
+        reference_id:
+          description: Unique reference information that can be specified for a for wallet withdrawal request. This is an optional field and cannot contain '.' character.
+          type: string
+          example: 7190770-1-2908
+          default: 7190770-1-2908
+    user:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        full_name:
+          type: string
+          example: Samuel Seller
+        email:
+          type: string
+          format: email
+          example: samuel.seller@assemblypayments.com
+        mobile:
+          type: string
+          example: 61491570156
+        phone:
+          type: string
+        logo_url:
+          type: string
+        color_1:
+          type: string
+        color_2:
+          type: string
+        first_name:
+          type: string
+          example: Samuel
+        last_name:
+          type: string
+          example: Seller
+        id:
+          type: string
+          example: Seller_1234
+        custom_descriptor:
+          type: string
+        location:
+          type: string
+          example: AUS
+        verification_status:
+          type: string
+          example: pending
+        held_state:
+          type: boolean
+          example: false
+        roles:
+          type: array
+          items:
+            type: string
+            example: customer
+        dob:
+          type: string
+          example: encrypted
+        government_number:
+          type: string
+          example: encrypted
+        drivers_license:
+          type: string
+        flags:
+          type: object
+        related:
+          type: object
+          properties:
+            addresses:
+              type: string
+              example: fe602dcf-4175-4f88-b5be-3beb04092dcd
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            items:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            payid_accounts:
+              type: string
+            bpay_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            wallet_accounts:
+              type: string
+    sub_wallet_transfer_requestBody:
+      required:
+      - source
+      - destination
+      - amount
+      type: object
+      properties:
+        source:
+          type: string
+          description: Account ID or sub-wallet ID from which fund is to be debited
+          example: 31b9e5ec-06d3-41e7-bc3b-a2c18890add6
+          default: 31b9e5ec-06d3-41e7-bc3b-a2c18890add6
+        destination:
+          type: string
+          description: Account ID or sub-wallet ID that will receive the fund
+          example: 3eb78280-b8b6-013a-c1b7-5e50adfe91ad
+          default: 3eb78280-b8b6-013a-c1b7-5e50adfe91ad
+        amount:
+          type: integer
+          description: amount in cents that will be transfered
+          example: 1000
+          default: 1000
+    sub_wallet_transactions_mp:
+      type: object
+      properties:
+        group_name:
+          type: string
+        name:
+          type: string
+        short_name:
+          type: string
+        uuid:
+          type: string
+          example: 513677b8-be51-49e8-8603-d116b31a5ee9
+    sub_wallet:
+      type: object
+      properties:
+        sub_wallets:
+          $ref: '#/components/schemas/sub_wallet_sub_wallets'
+    sub_wallet_tr:
+      properties:
+        id:
+          type: string
+        account_id:
+          type: string
+        account_type:
+          type: string
+          example: sub_wallet_account
+        user_id:
+          type: string
+        user_name:
+          type: string
+    sub_wallet_transaction_links:
+      type: object
+      properties:
+        self:
+          type: string
+          example: /sub_wallets/transfer
+    sub_wallets_id_body:
+      oneOf:
+      - $ref: '#/components/schemas/sub_wallet_update_requestBody1'
+      - $ref: '#/components/schemas/sub_wallet_update_requestBody2'
+      - $ref: '#/components/schemas/sub_wallet_update_requestBody3'
+    meta:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 10
+          default: 10
+        offset:
+          type: integer
+          example: 0
+          default: 0
+        total:
+          type: integer
+          example: 1
+    disbursement:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ad688d54-6791-4f1d-add7-88fbd89b70d1
+        reference_id:
+          type: string
+          example: 7190770-1-2908
+        amount:
+          type: integer
+          example: 10000
+        currency:
+          type: string
+          example: AUD
+        batch_id:
+          type: string
+          example: null
+        cuscal_payment_transaction_id:
+          type: string
+          example: null
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+          example: pending
+        to:
+          type: string
+          example: Bank Account
+        bank_name:
+          type: string
+          example: Bank of Australia
+        bank_account_name:
+          type: string
+          example: Samuel Seller
+        bank_account_number:
+          type: string
+          example: XXX234
+        bank_routing_number:
+          type: string
+          example: XXXXX3
+        npp_payout_state:
+          type: string
+          example: trying
+        account_name:
+          type: string
+          example: My Water Company
+        biller_name:
+          type: string
+          example: ABC Water
+        biller_code:
+          type: string
+          example: 123456
+        crn:
+          type: string
+          example: 0987654321
+        links:
+          type: object
+          properties:
+            transactions:
+              type: string
+              example: /disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions
+            wallet_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/wallet_accounts
+            paypal_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/paypal_accounts
+            bank_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bank_accounts
+            bpay_accounts:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bpay_accounts
+            items:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/items
+            users:
+              type: string
+              example: /disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/users
+    sub_wallet_transfer_responseBody:
+      type: object
+      properties:
+        transactions:
+          $ref: '#/components/schemas/sub_wallet_transactions'
+    sub_wallet_create_responseBody_sub_wallets:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c66a1bec-4ca5-418c-8b0a-5513819576ee
+        name:
+          type: string
+          example: Investment Fund
+        balance:
+          type: integer
+          example: 0
+        active:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        currency:
+          type: string
+          example: AUD
+        links:
+          $ref: '#/components/schemas/sub_wallet_create_responseBody_sub_wallets_links'
+      example: null
+    sub_wallet_create_requestBody:
+      required:
+      - account_id
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: Wallet Account Id for which sub-wallet is to be created.
+          example: 86991380-90a5-013a-57cc-5e50adfe91ad
+          default: 86991380-90a5-013a-57cc-5e50adfe91ad
+        name:
+          type: string
+          description: sub-wallet name
+          example: Investment Fund
+          default: Investment Fund
+    sub_wallet_update_requestBody2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: sub-wallet name
+          example: Investment Fund
+          default: Investment Fund
+    wallet_account:
+      type: object
+      properties:
+        wallet_accounts:
+          type: object
+          properties:
+            active:
+              type: boolean
+              example: true
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            id:
+              type: string
+              format: uuid
+              example: 46deb476-c1a6-41eb-8eb7-26a695bbe5bc
+            currency:
+              type: string
+              example: AUD
+            verification_status:
+              type: string
+              enum:
+              - verified
+              - not_verified
+              example: not_verified
+            balance:
+              type: integer
+            links:
+              type: object
+              properties:
+                self:
+                  type: object
+                  example: /transactions/aed45af0-6f63-0138-901c-0a58a9feac03/wallet_accounts
+                users:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/users
+                batch_transactions:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/batch_transactions
+                transactions:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/transactions
+                bpay_details:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/bpay_details
+                npp_details:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/npp_details
+                virtual_accounts:
+                  type: object
+                  example: /wallet_accounts/5c1c6b10-4c56-0137-8cd7-0242ac110002/virtual_accounts
+    single_user:
+      type: object
+      properties:
+        users:
+          $ref: '#/components/schemas/user'
+    sub_wallet_create_responseBody_sub_wallets_links:
+      type: object
+      properties:
+        self:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee
+        users:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/users
+        wallet_accounts:
+          type: object
+          example: /sub_wallets/c66a1bec-4ca5-418c-8b0a-5513819576ee/wallet_accounts
+      example: null
+    sub_wallet_create_responseBody:
+      type: object
+      properties:
+        sub_wallets:
+          $ref: '#/components/schemas/sub_wallet_create_responseBody_sub_wallets'
+    bill_payment_requestBody:
+      type: object
+      required:
+      - account_id
+      - amount
+      properties:
+        account_id:
+          description: BPay Account to withdraw to. This needs to be a bpay_account id
+          type: string
+          example: c1824ad0-73f1-0138-3700-0a58a9feac09
+          default: c1824ad0-73f1-0138-3700-0a58a9feac09
+        amount:
+          description: Amount (in cents) to withdraw.
+          type: integer
+          example: '173'
+          default: ''
+        reference_id:
+          description: Unique reference information that can be specified for Pay a Bill request. This is an optional field and cannot contain '.' character.
+          type: string
+          example: test100
+          default: ''
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

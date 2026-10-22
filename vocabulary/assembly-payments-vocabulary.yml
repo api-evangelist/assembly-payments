@@ -1,0 +1,430 @@
+generated: '2026-10-22'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/assembly-payments-api-openapi.yml
+- openapi/assembly-payments-asynchronous-api-openapi.yml
+- openapi/assembly-payments-payto-api-openapi.yml
+- openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+- openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml
+vocabulary:
+  name: Assembly Payments Domain Vocabulary
+  description: 'Terms declared by Assembly Payments''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-22'
+  terms:
+  - term: PayTo Payments
+    definition: Payment Initiation APIs
+    tags:
+    - Resource Group
+    source: openapi/assembly-payments-payto-api-openapi.yml
+  - term: PayTo Agreements
+    definition: Agreement Management APIs
+    tags:
+    - Resource Group
+    source: openapi/assembly-payments-payto-api-openapi.yml
+  - term: error
+    definition: 'Object declared by the contract with fields: error.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/error
+  - term: tokens_request_body
+    definition: 'Object declared by the contract with fields: grant_type, client_id, client_secret, scope.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/tokens_request_body
+  - term: tokens_response
+    definition: 'Object declared by the contract with fields: access_token, expires_in, token_type.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/tokens_response
+  - term: address
+    definition: 'Object declared by the contract with fields: addresses.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/address
+  - term: bank_account_au
+    definition: 'Object declared by the contract with fields: bank_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bank_account_au
+  - term: bank_account_deletion
+    definition: 'Object declared by the contract with fields: bank_account.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bank_account_deletion
+  - term: bank_account_requestBody_au
+    definition: 'Object declared by the contract with fields: user_id, bank_name, account_name, routing_number, account_number, account_type,
+      holder_type, country, payout_currency, currency.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bank_account_requestBody_au
+  - term: penny_verify_requestBody
+    definition: 'Object declared by the contract with fields: amount_1, amount_2.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/penny_verify_requestBody
+  - term: single_user
+    definition: 'Object declared by the contract with fields: users.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_user
+  - term: user
+    definition: 'Object declared by the contract with fields: created_at, updated_at, full_name, email, mobile, phone, logo_url, color_1, color_2,
+      first_name, last_name, id. (11 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/user
+  - term: single_routing_number
+    definition: 'Object declared by the contract with fields: routing_number.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_routing_number
+  - term: bpay_account
+    definition: 'Object declared by the contract with fields: bpay_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bpay_account
+  - term: bpay_account_requestBody
+    definition: 'Object declared by the contract with fields: user_id, account_name, biller_code, bpay_crn.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bpay_account_requestBody
+  - term: single_disbursement
+    definition: 'Object declared by the contract with fields: disbursements.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_disbursement
+  - term: disbursement
+    definition: 'Object declared by the contract with fields: id, reference_id, amount, currency, batch_id, cuscal_payment_transaction_id, created_at,
+      updated_at, state, to, bank_name, bank_account_name. (8 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/disbursement
+  - term: bill_payment_requestBody
+    definition: 'Object declared by the contract with fields: account_id, amount, reference_id.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bill_payment_requestBody
+  - term: withdraw_requestBody
+    definition: 'Object declared by the contract with fields: account_id, amount, custom_descriptor, reference_id.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/withdraw_requestBody
+  - term: wallet_account
+    definition: 'Object declared by the contract with fields: wallet_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/wallet_account
+  - term: wallet_account_npp_details
+    definition: 'Object declared by the contract with fields: id, npp_details.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/wallet_account_npp_details
+  - term: wallet_account_bpay_details
+    definition: 'Object declared by the contract with fields: id, bpay_details.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/wallet_account_bpay_details
+  - term: npp_last_domestic_leg_requestBody
+    definition: 'Object declared by the contract with fields: account_id, amount, custom_descriptor, reference_id, end_to_end_id, ifti_information.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/npp_last_domestic_leg_requestBody
+  - term: party_identification
+    definition: 'Object declared by the contract with fields: name, address, organisation_identification, organisation_bic, private_identification,
+      date_place_of_birth, country_of_residence, contact_details.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/party_identification
+  - term: ifti_address
+    definition: 'This represents address of an individual or non-individual customer of a NPP participant. This object could be populated in one
+      of formats below:'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/ifti_address
+  - term: address_type
+    definition: Address Type ADDR - Postal Address is the complete postal address BIZZ - Business Address is the business address DLVY - Delivery
+      To Address is the address to which delivery is to take place HOME - Residential Address is the home address MLTO - Mail To Address is the
+      address to which mail is sent PBOX - POBox Address is a postal office (PO) box
+    tags:
+    - Enumeration
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/address_type
+  - term: date_and_place_of_birth
+    definition: 'Object declared by the contract with fields: birth_date, place_of_birth, city_of_birth, country_of_birth.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/date_and_place_of_birth
+  - term: contact_details
+    definition: 'Object declared by the contract with fields: name_prefix, name, phone_number, mobile_number, fax_number, email_address, other.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/contact_details
+  - term: generic_identification
+    definition: 'Object declared by the contract with fields: identification, identification_type_proprietary, identification_type_code, identification_issuer.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/generic_identification
+  - term: ifti_information_response
+    definition: 'Object declared by the contract with fields: instruction_identification, ultimate_debtor_information, charge_bearer, previous_instructing_agent,
+      creditor_agent_instruction, initiating_party_information, instructed_amount, ultimate_creditor_information, exchange_rate, payment_purpose_proprietary,
+      payment_information, regulatory_reporting. (2 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/ifti_information_response
+  - term: party_identification_sample
+    definition: 'Object declared by the contract with fields: name, country_of_residence, address, organisation_identification.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/party_identification_sample
+  - term: sub_wallet
+    definition: 'Object declared by the contract with fields: sub_wallets.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet
+  - term: sub_wallets
+    definition: 'Object declared by the contract with fields: sub_wallets.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallets
+  - term: sub_wallet_error_responseBody
+    definition: 'Object declared by the contract with fields: errors.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_error_responseBody
+  - term: sub_wallet_sub_wallets_links
+    definition: 'Object declared by the contract with fields: self, users, transactions, wallet_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_sub_wallets_links
+  - term: sub_wallet_sub_wallets
+    definition: 'Object declared by the contract with fields: id, name, balance, active, created_at, updated_at, currency, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_sub_wallets
+  - term: sub_wallet_error_responseBody_errors
+    definition: 'Object declared by the contract with fields: field.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_error_responseBody_errors
+  - term: sub_wallet_create_requestBody
+    definition: 'Object declared by the contract with fields: account_id, name.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_create_requestBody
+  - term: sub_wallet_create_responseBody
+    definition: 'Object declared by the contract with fields: sub_wallets.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_create_responseBody
+  - term: sub_wallet_create_responseBody_sub_wallets_links
+    definition: 'Object declared by the contract with fields: self, users, wallet_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_create_responseBody_sub_wallets_links
+  - term: sub_wallet_create_responseBody_sub_wallets
+    definition: 'Object declared by the contract with fields: id, name, balance, active, created_at, updated_at, currency, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_create_responseBody_sub_wallets
+  - term: sub_wallet_update_requestBody1
+    definition: 'Object declared by the contract with fields: name, active.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_update_requestBody1
+  - term: sub_wallet_update_requestBody2
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_update_requestBody2
+  - term: sub_wallet_update_requestBody3
+    definition: 'Object declared by the contract with fields: active.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_update_requestBody3
+  - term: sub_wallet_transfer_requestBody
+    definition: 'Object declared by the contract with fields: source, destination, amount.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transfer_requestBody
+  - term: sub_wallet_transfer_responseBody
+    definition: 'Object declared by the contract with fields: transactions.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transfer_responseBody
+  - term: sub_wallet_transactions
+    definition: 'Object declared by the contract with fields: id, created_at, updated_at, description, type, type_method, state, user_id, user_name,
+      account_id, account_type, sub_wallets_id. (7 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transactions
+  - term: sub_wallet_transactions_mp
+    definition: 'Object declared by the contract with fields: group_name, name, short_name, uuid.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transactions_mp
+  - term: sub_wallet_related
+    definition: 'Object declared by the contract with fields: transactions.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_related
+  - term: sub_wallet_tr
+    definition: 'Object declared by the contract with fields: id, account_id, account_type, user_id, user_name.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_tr
+  - term: sub_wallet_transaction_links
+    definition: 'Object declared by the contract with fields: self.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transaction_links
+  - term: sub_wallet_transactions_index
+    definition: 'Object declared by the contract with fields: transactions, meta, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_transactions_index
+  - term: meta
+    definition: 'Object declared by the contract with fields: limit, offset, total.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/meta
+  - term: sub_wallet_withdraw_requestBody
+    definition: 'Object declared by the contract with fields: account_id, amount, custom_descriptor, reference_id.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/sub_wallet_withdraw_requestBody
+  - term: list_bpay_accounts
+    definition: 'Object declared by the contract with fields: bpay_accounts, links, meta.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/list_bpay_accounts
+  - term: card_account
+    definition: 'Object declared by the contract with fields: card_accounts.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/card_account
+  - term: update_user_requestBody
+    definition: 'Object declared by the contract with fields: first_name, last_name, email, mobile, address_line1, address_line2, state, city,
+      zip, country, dob, government_number. (8 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/update_user_requestBody
+  - term: bank_account_id_requestBody
+    definition: 'Object declared by the contract with fields: account_id.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/bank_account_id_requestBody
+  - term: users
+    definition: 'Object declared by the contract with fields: users.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/users
+  - term: user_requestBody
+    definition: 'Object declared by the contract with fields: id, first_name, last_name, email, mobile, address_line1, address_line2, state, city,
+      zip, country, dob. (10 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/user_requestBody
+  - term: items
+    definition: 'Object declared by the contract with fields: items, links, meta.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/items
+  - term: item
+    definition: 'Object declared by the contract with fields: id, name, description, created_at, updated_at, state, status, amount, payment_type_id,
+      currency, buyer_name, buyer_email. (34 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/item
+  - term: single_callback
+    definition: 'Object declared by the contract with fields: callbacks.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_callback
+  - term: callback
+    definition: 'Object declared by the contract with fields: id, description, url, object_type, enabled, authorization_token, created_at, updated_at,
+      marketplace_id, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/callback
+  - term: callback_deletion
+    definition: 'Object declared by the contract with fields: callbacks.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/callback_deletion
+  - term: callback_requestBody
+    definition: 'Object declared by the contract with fields: url, object_type, enabled.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/callback_requestBody
+  - term: list_callback_responses
+    definition: 'Object declared by the contract with fields: callback_responses, meta, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/list_callback_responses
+  - term: callback_response
+    definition: 'Object declared by the contract with fields: id, url, created_at, payload, response, response_code.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/callback_response
+  - term: single_callback_response
+    definition: 'Object declared by the contract with fields: call_responses.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_callback_response
+  - term: callbacks
+    definition: 'Object declared by the contract with fields: callbacks.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/callbacks
+  - term: card_account_requestBody
+    definition: 'Object declared by the contract with fields: full_name, number, expiry_month, expiry_year, cvv, user_id.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/card_account_requestBody
+  - term: card_account_verify_requestBody
+    definition: 'Object declared by the contract with fields: cvv.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/card_account_verify_requestBody
+  - term: card_account_deletion
+    definition: 'Object declared by the contract with fields: card_account.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/card_account_deletion
+  - term: simple_company
+    definition: 'Object declared by the contract with fields: id, name, legal_name, business_email.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/simple_company
+  - term: simple_companies
+    definition: 'Object declared by the contract with fields: companies.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/simple_companies
+  - term: single_company
+    definition: 'Object declared by the contract with fields: companies.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/single_company
+  - term: company
+    definition: 'Object declared by the contract with fields: legal_name, name, tax_number, business_email, charge_tax, phone, id, related, self.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/company
+  - term: company_requestBody
+    definition: 'Object declared by the contract with fields: name, legal_name, tax_number, business_email, charge_tax, address_line1, address_line2,
+      city, state, zip, country, phone. (1 more)'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/company_requestBody
+  - term: list_direct_debit_authorities
+    definition: 'Object declared by the contract with fields: direct_debit_authorities.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/list_direct_debit_authorities
+  - term: direct_debit_authority
+    definition: 'Object declared by the contract with fields: id, created_at, updated_at, amount, bank_bsb, debit_user_id, state, related, links.'
+    tags:
+    - Object
+    source: openapi/assembly-payments-api-openapi.yml#/components/schemas/direct_debit_authority

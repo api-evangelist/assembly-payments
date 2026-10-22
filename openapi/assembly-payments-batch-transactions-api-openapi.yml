@@ -1,0 +1,838 @@
+openapi: 3.2.0
+info:
+  title: Assembly Batch Transactions API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Batch Transactions
+paths:
+  /batch_transactions:
+    get:
+      tags:
+      - Batch Transactions
+      summary: List Batch Transactions
+      description: Retrieve an ordered and paginated list of existing **Batch Transactions**. The list can be filtered by **Account**, **Batch ID**, **Item**, and **Transaction Type**.
+      operationId: listBatchTransactions
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      - name: account_id
+        in: query
+        description: Bank, Card or Wallet Account ID.
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: batch_id
+        in: query
+        description: Batch ID. This appears on a bank reference.
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: item_id
+        in: query
+        description: Item ID
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - $ref: '#/components/parameters/transactionType'
+      - $ref: '#/components/parameters/transactionTypeMethod'
+      - name: direction
+        in: query
+        description: Direction of the transaction. Options are debit, credit
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - debit
+          - credit
+        example: ''
+      - name: created_before
+        in: query
+        description: Date and time in ISO 8601 format the item(s) were created before (e.g. 2020-02-27T23:54:59Z)
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: created_after
+        in: query
+        description: Date and time in ISO 8601 format the item(s) were created after (e.g. 2020-02-27T23:54:59Z)
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ''
+      - name: disbursement_bank
+        in: query
+        description: The bank used for disbursing the payment. Please use a default value of `any`
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: any
+      - name: processing_bank
+        in: query
+        description: The bank used for processing the payment. Please use a default value of `any`
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/list_batch_transactions'
+              examples:
+                response:
+                  value:
+                    batch_transactions:
+                    - created_at: '2020-05-04T02:05:21.577Z'
+                      updated_at: '2020-05-04T02:05:57.302Z'
+                      status: 12200
+                      id: 12484
+                      reference_id: 7190770-1-2908
+                      uuid: fe121ef2-1304-4e32-87f8-cb35907e9086
+                      disbursement_bank: null
+                      processing_bank: null
+                      external_reference: null
+                      reference_amount: null
+                      internal_state: null
+                      internal_status: null
+                      account_external:
+                        account_type_id: 9100
+                        currency:
+                          code: AUD
+                      external_account_details: 'wl+nVSMZ3zoQPf7R3gAB4zqbj57ufv/lCnTjx64Dmenjb8S4ZNs5xI/GE1Lt
+
+                        0K4GrTh+nChpCP6U3ejlxNDi0fK0DUNF2XR0LkuAtJGlXsiH/adpzIhOtkaD
+
+                        96yT5lu5/bNOw8oNykr3oUol7mqJf6GHf2Qp+Fb4QG8UdS1lO8hHMpCjHfal
+
+                        DqQjHbsO2CP3AxwDOE8dVAlihYayEhc/rYbmE+LHbfXXLYBMeUgn+ELf5KIR
+
+                        2qNUmjMCGlbeChX9Ek13LL5gwV9HmqYLl+w065+4ey27kfHHeByiMq6xXTNm
+
+                        vi10XWswHAjAjahZHQz97FPPFDF9jEfU+UCPNrk1iQ==
+
+                        '
+                      external_account_details_encrypted: true
+                      marketplace:
+                        group_name: null
+                        name: platform neol 1556509948
+                        short_name: null
+                        uuid: 8124ac0a-4ac2-4a30-a036-b00120118a87
+                        account_details: 'Cb7Sku6dDbSUKXkGpka/YXnw0m4lD/MVVNjmZ2Ki910kgLJnJMeENVL2+tRj
+
+                          5aOtXSqYOknPCQ/ZbVaQCutMvGjlw1IeQCvaP2D/cz3yKTbk5eezJvKXnQ8t
+
+                          i0y2R1LPTu3nsfaRIn/J0o4nhfyO1qnA3rpfeS2GgRhLaDy7DDOQ2Bz3i7uu
+
+                          aFKKLqM6GUyeTweUnCX1WoR3YHPN5Jk/4mPz7LwGJ+7L4GlfACvEuMb5Ls0Z
+
+                          g1hUzz8PJt3SBMpM620NephmNnfCLnxpbtuf9CNqDibjuZOLwtn0JlLQRei9
+
+                          41hMOLmzzX2SwuiL2ghqOxSpUPsByC8UuJhMSsQ48g==
+
+                          '
+                        account_details_encrypted: true
+                      first_name: Assembly
+                      last_name: seller71264506
+                      user_email: neol_seller71264506@assemblypayments.com
+                      user_external_id: seller-71264506
+                      payout_currency: null
+                      type: disbursement
+                      type_method: direct_credit
+                      batch_id: 241
+                      cuscal_payment_transaction_id: null
+                      reference: '241: platform neol 1556509948'
+                      state: batched
+                      user_id: 84feb680-6fd0-0138-f438-0a58a9feac03
+                      account_id: 851265b0-6fd0-0138-7374-0a58a9feac03
+                      from_user_name: Assembly seller71264506
+                      from_user_id: 84feb680-6fd0-0138-f438-0a58a9feac03
+                      refund_state: null
+                      account_type: wallet_account
+                      amount: 542419
+                      currency: AUD
+                      country: null
+                      debit_credit: credit
+                      item:
+                        id: null
+                        item_number: null
+                      description: Debit of $5,424.19 from Wallet Account for Credit of $5,424.19 to Bank Account
+                      related:
+                        account_to:
+                          id: 8557cae0-6fd0-0138-8cac-0a58a9feac03
+                          account_type: bank_account
+                          user_id: 84feb680-6fd0-0138-f438-0a58a9feac03
+                    - created_at: '2020-05-04T02:05:21.303Z'
+                      updated_at: '2020-05-04T02:05:57.188Z'
+                      status: 12200
+                      id: 12483
+                      reference_id: 7190770-1-2908
+                      uuid: b843535a-903f-4351-aa0c-983c6e6eecb1
+                      disbursement_bank: null
+                      processing_bank: null
+                      external_reference: null
+                      reference_amount: null
+                      internal_state: null
+                      internal_status: null
+                      account_external:
+                        account_type_id: 9100
+                        currency:
+                          code: AUD
+                      external_account_details: 'a6egntycAJXBoJnbiWVh5yuNeLl0Cc20Wk+kCKpoYPd+q/P5mShk2s5BLJts
+
+                        wZOR+SaoTZ5UXj7TlEH0dZKSBLTVwCHofdJwXF+9m1SZJBRALQWny9p+VK1R
+
+                        y2wOCvvANx58a2YCvwV60eI3sHnTbOda1P6D0WC8ghAszoEzfJAIwc9j6OFE
+
+                        /8DUGqhqJbvHCmtXUztca/Ugf8aRLxZwRUigFSr4Ht+2OZRT3I6F+phh7CTq
+
+                        5rqu70T44DpIvOOqdxQTsix1FW8PskW3k5d3NrgUYFJ4itjlyfHg7ESYI2Q4
+
+                        vnCNymXoLIkAgil4dFM+4A+6UAsKdBL0HwR3YpXoZA==
+
+                        '
+                      external_account_details_encrypted: true
+                      marketplace:
+                        group_name: null
+                        name: platform neol 1556509948
+                        short_name: null
+                        uuid: 8124ac0a-4ac2-4a30-a036-b00120118a87
+                        account_details: 'Cb7Sku6dDbSUKXkGpka/YXnw0m4lD/MVVNjmZ2Ki910kgLJnJMeENVL2+tRj
+
+                          5aOtXSqYOknPCQ/ZbVaQCutMvGjlw1IeQCvaP2D/cz3yKTbk5eezJvKXnQ8t
+
+                          i0y2R1LPTu3nsfaRIn/J0o4nhfyO1qnA3rpfeS2GgRhLaDy7DDOQ2Bz3i7uu
+
+                          aFKKLqM6GUyeTweUnCX1WoR3YHPN5Jk/4mPz7LwGJ+7L4GlfACvEuMb5Ls0Z
+
+                          g1hUzz8PJt3SBMpM620NephmNnfCLnxpbtuf9CNqDibjuZOLwtn0JlLQRei9
+
+                          41hMOLmzzX2SwuiL2ghqOxSpUPsByC8UuJhMSsQ48g==
+
+                          '
+                        account_details_encrypted: true
+                      first_name: Assembly
+                      last_name: seller71264480
+                      user_email: neol_seller71264480@assemblypayments.com
+                      user_external_id: seller-71264480
+                      payout_currency: null
+                      type: disbursement
+                      type_method: direct_credit
+                      batch_id: 241
+                      cuscal_payment_transaction_id: null
+                      reference: '241: platform neol 1556509948'
+                      state: batched
+                      user_id: 755042f0-6fd0-0138-7c6e-0a58a9feac03
+                      account_id: 7588e1c0-6fd0-0138-8e9a-0a58a9feac03
+                      from_user_name: Assembly seller71264480
+                      from_user_id: 755042f0-6fd0-0138-7c6e-0a58a9feac03
+                      refund_state: null
+                      account_type: wallet_account
+                      amount: 815439
+                      currency: AUD
+                      country: null
+                      debit_credit: credit
+                      item:
+                        id: null
+                        item_number: null
+                      description: Debit of $8,154.39 from Wallet Account for Credit of $8,154.39 to Bank Account
+                      related:
+                        account_to:
+                          id: 75dc2840-6fd0-0138-f50b-0a58a9feac03
+                          account_type: bank_account
+                          user_id: 755042f0-6fd0-0138-7c6e-0a58a9feac03
+                    meta:
+                      limit: 2
+                      offset: 0
+                      total: 1378
+                    links:
+                      self: /batch_transactions?limit=2&user_id=&transaction_type=&batch_id=&disbursement_bank
+  /batch_transactions/{id}:
+    get:
+      tags:
+      - Batch Transactions
+      summary: Show Batch Transaction
+      description: Get a batch transaction using its ID
+      operationId: showBatchTransaction
+      parameters:
+      - name: id
+        in: path
+        description: Transaction ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 90c1418b-f4f4-413e-a4ba-f29c334e7f55
+        example: 90c1418b-f4f4-413e-a4ba-f29c334e7f55
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_batch_transaction'
+              examples:
+                response:
+                  value:
+                    batch_transactions:
+                      created_at: '2020-05-05T12:26:59.112Z'
+                      updated_at: '2020-05-05T12:31:03.389Z'
+                      id: 13143
+                      reference_id: 7190770-1-2908
+                      uuid: 90c1418b-f4f4-413e-a4ba-f29c334e7f55
+                      external_reference: null
+                      reference_amount: null
+                      account_external:
+                        account_type_id: 9100
+                        currency:
+                          code: AUD
+                      internal_state: null
+                      internal_status: null
+                      user_email: assemblybuyer71391895@assemblypayments.com
+                      first_name: Buyer
+                      last_name: Last Name
+                      legal_entity_id: 5f46763e-fb7a-4feb-9820-93a5703ddd17
+                      user_external_id: buyer-71391895
+                      phone: '+1588681395'
+                      marketplace:
+                        group_name: null
+                        name: platform1556505750
+                        short_name: null
+                        uuid: 041e8015-5101-44f1-9b7d-6a206603f29f
+                        account_details: 'hW9azjTFODCCII3tz8oeXWY8ggZe1P0oPVR7mj4i4dew3nQh9g1sc7BhC07e
+
+                          CAoKvO2hhofH3cGoVzbjMUVgcBEh5Q+0ZyomyYZ608A8wT2cER2iPw3Uc9xu
+
+                          5l7RNiW5bX19+ckySth7ACUX8UUV1uScJm16zylGTvVi++otp/mtOUh1o1CB
+
+                          DBgQ7H0JLoxcXevs97E8Fv0Pxu1M7lS+9OsA0rm8l1SXESeuDoAzPHZ9CXBA
+
+                          3EGUROEDJdfZAJ4T4lLSiYq/ppjb4rwoC+g65ju3o3knUO6Q9/8qxbfSIPNM
+
+                          8gN8ZlDsCstk+spDAOY1EQMldXxCkJsdygGOV18S0w==
+
+                          '
+                        account_details_encrypted: true
+                      external_account_details: 'e4Y1C51S6jIPVW6/uMezjb1G9HXzdaPXUD6QdpkVgsDJG8uRyP7PeFwQJtgA
+
+                        r37BonDf0CGvO/OWtH72AZ1SEhMIBpPCDAYdRI4AMgyiuZUCcqC4gD9VbpK0
+
+                        14vsvx+NtKAS+BqHir1e9S1mhEnAV9DjT3NnMrVqUEZ1dJpChQ9Tbl+iINWY
+
+                        BdYglbokhSpcPko0s5tk8i9QuBl3qKvyJ0E2GUxSANTJSyefIN97UVJonXpt
+
+                        Ay7UUAPALqafDhjBWE8VNAw4EAXoFG5SSbeKC9LKPIKwzqxlpFvwUuBk/PHw
+
+                        Bl2YwMfvQyi7PsHMBHGJO/+tdiOowTsayoeCyOa7oQ==
+
+                        '
+                      external_account_details_encrypted: true
+                      company: null
+                      payout_currency: null
+                      address_line1: Courtland Ave.
+                      address_line2: Courtland Ave.
+                      address_city: Macon
+                      address_state: GA
+                      address_postcode: '31204'
+                      address_country:
+                        id: 1
+                        name: Australia
+                        three_code: AUS
+                        two_code: au
+                        currency_id: 1
+                        numeric_code: '36'
+                      account_type: 9100
+                      type: payment
+                      type_method: direct_debit
+                      batch_id: 245
+                      cuscal_payment_transaction_id: null
+                      reference: platform1556505750
+                      deposit_reference: null
+                      state: successful
+                      status: 12000
+                      user_id: 1ea8d380-70f9-0138-ba3b-0a58a9feac06
+                      account_id: 26065be0-70f9-0138-9abc-0a58a9feac06
+                      from_user_name: Neol1604984243 Calangi
+                      from_user_id: 1604984243
+                      amount: 109
+                      currency: AUD
+                      debit_credit: debit
+                      description: Debit of $1.09 from Bank Account for Credit of $1.09 to Item
+                      related:
+                        account_to:
+                          id: edf4e4ef-0d78-48db-85e0-0af04c5dc2d6
+                          account_type: item
+                          user_id: 5b9fe350-4c56-0137-e134-0242ac110002
+                      links:
+                        self: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55
+                        users: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/users
+                        fees: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/fees
+                        wallet_accounts: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/wallet_accounts
+                        card_accounts: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/card_accounts
+                        paypal_accounts: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/paypal_accounts
+                        bank_accounts: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/bank_accounts
+                        items: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/items
+                        marketplace: /batch_transactions/90c1418b-f4f4-413e-a4ba-f29c334e7f55/marketplaces
+components:
+  schemas:
+    batch_transaction:
+      type: object
+      required:
+      - id
+      - amount
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: string
+        reference_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          example: 12200
+        uuid:
+          type: string
+        disbursement_bank:
+          type: string
+          example: Bank A
+        processing_bank:
+          type: string
+          example: Bank A
+        external_reference:
+          type: string
+          example: null
+        reference_amount:
+          type: string
+          example: null
+        internal_state:
+          type: string
+          example: null
+        internal_status:
+          type: string
+          example: null
+        account_external:
+          type: object
+          properties:
+            account_type_id:
+              type: string
+              example: 9100
+            currency:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: AUD
+        external_account_details:
+          type: string
+        external_account_details_encrypted:
+          type: boolean
+        marketplace:
+          type: object
+          properties:
+            group_name:
+              type: string
+            name:
+              type: string
+            short_name:
+              type: string
+            uuid:
+              type: string
+              format: uuid
+            account_details:
+              type: string
+            account_details_encrypted:
+              type: boolean
+        first_name:
+          type: string
+          example: first name
+        last_name:
+          type: string
+          example: last name
+        user_email:
+          type: string
+          example: email@email.com
+        user_external_id:
+          type: string
+          example: buyer-71391895
+        legal_entity_id:
+          type: string
+          example: 49fac28b-5628-4cec-854f-58a9b87dd58d
+        phone:
+          type: string
+          example: 1588681395
+        payout_currency:
+          type: string
+        type:
+          type: string
+          example: disbursement
+        type_method:
+          type: string
+          example: direct_credit
+        batch_id:
+          type: integer
+          example: 302
+        cuscal_payment_transaction_id:
+          type: string
+        reference:
+          type: string
+        state:
+          type: string
+          example: batched
+        user_id:
+          type: string
+          example: 064d6800-fff3-11e5-86aa-5e5517507c66
+        account_id:
+          type: string
+          example: e57120ea-053d-11e6-b512-3e1d05defe78
+        account_type:
+          type: string
+          example: item
+        from_user_name:
+          type: string
+          example: payer
+        from_user_id:
+          type: string
+          example: 064d6800-fff3-11e5-86aa-5e5517507c66
+        refund_state:
+          type: string
+        amount:
+          type: integer
+          example: 9800
+        currency:
+          type: string
+          example: AUD
+        company:
+          type: string
+          example: ABC Pty Ltd
+        address_line1:
+          type: string
+          example: Courtland Ave.
+        address_line2:
+          type: string
+          example: Building 1
+        address_city:
+          type: string
+          example: Melbourne
+        address_state:
+          type: string
+          example: VIC
+        address_postcode:
+          type: string
+          example: 3000
+        address_country:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            three_code:
+              type: string
+            two_code:
+              type: string
+            currency_id:
+              type: string
+            numeric_code:
+              type: string
+        country:
+          type: string
+          example: AUD
+        debit_credit:
+          type: string
+          example: credit
+        description:
+          type: string
+          example: Credit of $98.00 to Item by Debit of $98.00 from Wallet Account
+        item:
+          type: object
+          properties:
+            id:
+              type: string
+            item_number:
+              type: string
+        deposit_reference:
+          type: string
+          example: AUD
+        related:
+          type: object
+          properties:
+            account_to:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 385b50bb-237a-42cb-9382-22953e191ae6
+                account_type:
+                  type: string
+                  example: wallet_account
+                user_id:
+                  type: string
+                  example: 5830def0-ffe8-11e5-86aa-5e5517507c66
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            users:
+              type: string
+            fees:
+              type: string
+            wallet_accounts:
+              type: string
+            card_accounts:
+              type: string
+            paypal_accounts:
+              type: string
+            bank_accounts:
+              type: string
+            items:
+              type: string
+            marketplace:
+              type: string
+    single_batch_transaction:
+      properties:
+        batch_transactions:
+          $ref: '#/components/schemas/batch_transaction'
+    list_batch_transactions:
+      properties:
+        batch_transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/batch_transaction'
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+            offset:
+              type: integer
+            total:
+              type: integer
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+  parameters:
+    transactionType:
+      name: transaction_type
+      in: query
+      description: 'The type of transaction. Options for querying are: payment, refund, disbursement, fee, deposit, withdrawal. For returned values please refer here: [Enumeration Values](https://developer.assemblypayments.com/docs/enumeration-values) for the full list'
+      required: false
+      schema:
+        type: string
+        enum:
+        - payment
+        - refund
+        - disbursement
+        - fee
+        - deposit
+        - withdrawal
+    offsetParam:
+      name: offset
+      in: query
+      description: Number of records to offset. Required for pagination.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Number of records to retrieve. Up to 200.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+    transactionTypeMethod:
+      name: transaction_type_method
+      in: query
+      description: 'The method the transaction was carried out with. Options for querying are: credit_card, npp, bpay, wire_transfer, wallet_account_transfer, misc. For returned values please refer here: [Enumeration Values](https://developer.assemblypayments.com/docs/enumeration-values) for the full list'
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+        enum:
+        - credit_card
+        - npp
+        - bpay
+        - wallet_account_transfer
+        - wire_transfer
+        - misc
+      example: ''
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

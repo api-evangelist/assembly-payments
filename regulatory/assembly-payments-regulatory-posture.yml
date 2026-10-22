@@ -1,0 +1,129 @@
+generated: '2026-10-22'
+method: searched
+source:
+- https://www.hellozai.com/company/policies/privacy-policy
+- https://www.hellozai.com/company/policies/terms-conditions
+note: Assembly Payments now operates as Zai (Zai Australia Pty. Ltd.). Terms and conditions page (200, 8361 chars)
+  carried no regulatory-signal language; all signals come from the privacy policy.
+signals:
+  data_subject_request:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: 15. Your rights and controlling your personal information
+    channel: 'Risk and Compliance team (section 21: phone 1300 047 883, post)'
+    stated_sla: we will respond within 30 calendar days
+    rights_named:
+    - access (APP 12)
+    - correction (APP 13)
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: 'You can ask us for access to the personal information we hold about you (APP 12), and ask us to correct
+        it if it''s inaccurate, out of date, incomplete, irrelevant or misleading (APP 13). To do so, contact us
+        using the details in section 21. When you make a request: we will respond within 30 calendar days; we won''t
+        charge you for making the request;'
+    note: Statutory access and correction rights under the Australian Privacy Principles, with a 30-calendar-day
+      response commitment and no charge for making a request.
+  exit_assistance:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: 15. Your rights and controlling your personal information
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: 'Separately, and as discretionary services rather than obligations under Australian law, we can also:
+        where reasonably practicable, help you transfer it to another provider (data portability); provide your
+        information in a commonly used machine-readable format (such as CSV); delete it, except for what we are
+        otherwise required by law to keep;'
+    note: Personal-data portability (machine-readable export such as CSV) and deletion are offered explicitly as
+      DISCRETIONARY services, not legal obligations. This is individual data portability, not a contractual platform
+      exit/transition commitment for business customers.
+  ai_transparency:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: 16. Automated decision-making
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: From 10 December 2026, where we use a computer program to make a decision, or to do something substantially
+        and directly related to making a decision, that could reasonably be expected to significantly affect your
+        rights or interests, and personal information is used in the operation of that program, we will disclose
+        in this policy the kinds of personal information used and the kinds of decisions made.
+    note: A forward-dated commitment to disclose automated decision-making (aligned to the Australian Privacy Act
+      amendments effective 10 December 2026). As fetched on 2026-10-22 the policy does not yet list any such decisions;
+      it is a promise of future disclosure, not a current one.
+  data_retention:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: 10. How long we keep your information
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: 'We keep personal information only for as long as it is needed for the purpose we collected it for,
+        or as required by law, and take reasonable steps to destroy or de-identify it once that purpose no longer
+        applies. In particular: as a reporting entity under the AML/CTF Act, we keep customer due diligence records
+        for seven (7) years after the end of our relationship with you, or after the relevant transaction, as required
+        by that Act;'
+    note: 'Purpose-limited retention with one stated period: seven years for AML/CTF customer due diligence records.'
+  incident_notification:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: 12. Notifiable data breaches
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: If we suspect an eligible data breach has occurred — one likely to result in serious harm to individuals
+        whose personal information is involved — we assess it within 30 days, as required by Part IIIC of the Privacy
+        Act. Where we confirm an eligible data breach, we notify affected individuals and the Office of the Australian
+        Information Commissioner (OAIC) as soon as practicable.
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: to notify any personal data breaches to the data controller without undue delay;
+    note: 'Notifiable Data Breaches scheme: 30-day assessment, notification to individuals and the OAIC "as soon
+      as practicable" (no fixed hour count). Where acting as a GDPR processor, breaches are notified to the controller
+      without undue delay.'
+  data_residency:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: Overseas disclosure / Schedule A — Overseas recipients
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: We may disclose personal information to recipients located overseas, including our service providers,
+        for example other financial institutions, payment processors, customer support and CRM platforms, fraud
+        detection providers, and cloud hosting providers.
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: 'These and other service providers may process or receive personal information in overseas locations,
+        including: Philippines New Zealand United States of America South Africa'
+    countries_named:
+    - Philippines
+    - New Zealand
+    - United States of America
+    - South Africa
+    note: 'No data-residency guarantee: personal information may be processed outside Australia; Schedule A names
+      the overseas locations. Accountability is retained under APP 8.1.'
+  subprocessors:
+    url: https://www.hellozai.com/company/policies/privacy-policy
+    section: Schedule A — Overseas recipients
+    evidence:
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: As at the date of our last review, our service providers included Google WorkSpace, Employment Hero,
+        Freshdesk, Atlassian/Confluence and Amazon.
+    - source: https://www.hellozai.com/company/policies/privacy-policy
+      http_status: 200
+      fetched: '2026-10-22'
+      quote: not to use a sub-processor without the prior written authorisation of the data controller;
+    named:
+    - Google WorkSpace
+    - Employment Hero
+    - Freshdesk
+    - Atlassian/Confluence
+    - Amazon
+    note: A short, non-exhaustive service-provider list inside the privacy policy (not a dedicated subprocessor
+      page with change notification), plus a GDPR-processor commitment to use sub-processors only with the controller's
+      prior written authorisation.

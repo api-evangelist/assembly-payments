@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-bank-account-request-body-au-schema.json",
+  "title": "bank_account_requestBody_au",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-api-openapi.yml#/components/schemas/bank_account_requestBody_au",
+  "type": "object",
+  "required": [
+    "user_id",
+    "bank_name",
+    "account_name",
+    "routing_number",
+    "account_number",
+    "account_type",
+    "holder_type",
+    "country"
+  ],
+  "properties": {
+    "user_id": {
+      "description": "User ID",
+      "type": "string",
+      "default": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+    },
+    "bank_name": {
+      "description": "Bank name",
+      "type": "string",
+      "default": "Bank of Australia"
+    },
+    "account_name": {
+      "description": "Account name",
+      "type": "string",
+      "default": "Samuel Seller"
+    },
+    "routing_number": {
+      "description": "*Required conditionally* - Routing number / BSB number. See [Bank account formats by country](https://developer.assemblypayments.com/docs/input-formats).\n",
+      "type": "string",
+      "default": "111123"
+    },
+    "account_number": {
+      "description": "Account number. See [Bank account formats by country](https://developer.assemblypayments.com/docs/input-formats).\n",
+      "type": "string",
+      "default": "111234"
+    },
+    "account_type": {
+      "description": "Bank account type (savings or checking)",
+      "type": "string",
+      "enum": [
+        "savings",
+        "checking"
+      ],
+      "default": "checking"
+    },
+    "holder_type": {
+      "description": "Holder type (personal or business)",
+      "type": "string",
+      "enum": [
+        "personal",
+        "business"
+      ],
+      "default": "personal"
+    },
+    "country": {
+      "description": "[ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Officially_assigned_code_elements) country code (3 char)",
+      "type": "string",
+      "maxLength": 3,
+      "default": "AUS"
+    },
+    "payout_currency": {
+      "description": "[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This parameter determines the currency with which funds are paid out.",
+      "type": "string"
+    },
+    "currency": {
+      "description": "[ISO 4217 alpha-3](https://en.wikipedia.org/wiki/ISO_4217#Active_codes) currency code. This is an optional field and if not provided, the item will be created with the default currency of the marketplace.",
+      "type": "string"
+    }
+  }
+}

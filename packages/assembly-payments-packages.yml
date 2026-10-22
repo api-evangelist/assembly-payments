@@ -1,0 +1,96 @@
+generated: '2026-10-22'
+method: searched
+source: https://github.com/AssemblyPayments; registry metadata endpoints (rubygems, packagist, npm, pypi, nuget)
+note: Assembly Payments was formerly PromisePay and now trades as Zai (hellozai.com). The first-party server SDKs were published under the PromisePay
+  name and have not been released since 2016-2017; the current docs (developer.hellozai.com) list no server SDK, only browser JS loaders.
+packages:
+- name: promisepay
+  registry: rubygems
+  url: https://rubygems.org/gems/promisepay
+  language: ruby
+  official: false
+  version: 1.2.0
+  published: '2016-09-01'
+  repository: https://github.com/PromisePay/promisepay-ruby
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: promisepay/promisepay-php
+  registry: packagist
+  url: https://packagist.org/packages/promisepay/promisepay-php
+  language: php
+  official: false
+  version: 2.4.5
+  published: '2017-08-30'
+  repository: https://github.com/PromisePay/promisepay-php
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: promisepay-dotnet
+  registry: github
+  url: https://github.com/AssemblyPayments/promisepay-dotnet
+  language: csharp
+  official: true
+  version: null
+  published: null
+  note: Source repo only (last push 2018-11-19); no NuGet package found under promisepay/assemblypayments/PromisePay.API (404).
+- name: ios-sdk
+  registry: github
+  url: https://github.com/AssemblyPayments/ios-sdk
+  language: swift
+  official: true
+  version: null
+  published: null
+  note: Source repo only, last push 2017-10-16.
+- name: android-sdk
+  registry: github
+  url: https://github.com/AssemblyPayments/android-sdk
+  language: java
+  official: true
+  version: null
+  published: null
+  note: Source repo only, last push 2019-04-08.
+- name: assembly.js (Hosted Form)
+  registry: cdn
+  url: https://hosted.assemblypay.com/assembly.js
+  language: javascript
+  official: true
+  version: null
+  published: null
+  note: Unpinned CDN script documented at https://developer.hellozai.com/docs/integrating-drop-in-ui-for-capturing-a-credit-card; floats to latest.
+- name: assembly.js (Hosted Fields)
+  registry: cdn
+  url: https://hosted-fields.assemblypay.com/assembly.js
+  language: javascript
+  official: true
+  version: null
+  published: null
+  note: Unpinned CDN script documented at https://developer.hellozai.com/docs/integrating-hosted-fields.
+- name: assembly-3ds2.js
+  registry: cdn
+  url: https://hosted-fields.assemblypay.com/assembly-3ds2.js
+  language: javascript
+  official: true
+  version: null
+  published: null
+  note: Unpinned 3DS2 JavaScript SDK documented at https://developer.hellozai.com/docs/3ds2.
+- name: zai-payments
+  registry: npm
+  url: https://www.npmjs.com/package/zai-payments
+  language: typescript
+  official: false
+  version: 0.2.3
+  published: '2024-07-25'
+  note: Community bindings by ordermentum (github.com/ordermentum/assembly-payments-node).
+- name: promisepay
+  registry: npm
+  url: https://www.npmjs.com/package/promisepay
+  language: javascript
+  official: false
+  version: 0.1.1
+  published: '2017-10-17'
+  note: Third party (TheRocketLab/node-promisepay).
+- name: promisepay
+  registry: pypi
+  url: https://pypi.org/project/promisepay/
+  language: python
+  official: false
+  version: '1.5'
+  published: '2017-05-17'
+  note: Third party (Rekvant/promisepay-python).

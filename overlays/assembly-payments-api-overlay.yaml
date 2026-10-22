@@ -1,0 +1,337 @@
+overlay: 1.0.0
+info:
+  title: Assembly API enhancements (API Evangelist)
+  version: 1.0.0
+extends: openapi/assembly-payments-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-description: Adds provider/docs metadata and per-operation agent-safety hints (derived from HTTP method only) without mutating the original
+  contract.
+actions:
+- target: $.info
+  update:
+    x-provider: Assembly Payments (now Zai)
+    x-api-evangelist-profiled: '2026-10-22'
+    x-docs: https://developer.hellozai.com/docs/introduction
+    x-llms-txt: https://developer.hellozai.com/llms.txt
+- target: $.paths['/addresses/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/bank_accounts'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/bank_accounts/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/bank_accounts/{id}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/bank_accounts/{id}/penny_send'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/bank_accounts/{id}/penny_verify'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/bank_accounts/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/batch_transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/batch_transactions/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/bpay_accounts'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/bpay_accounts/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/bpay_accounts/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/callbacks'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/callbacks'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/callbacks/{callback_id}/responses/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/callbacks/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/callbacks/{id}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/callbacks/{id}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/callbacks/{id}/responses'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/card_accounts'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/card_accounts/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/card_accounts/{id}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/card_accounts/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/card_accounts/{id}/verify'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/charges'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/charges'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/charges/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/charges/{id}/buyers'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/charges/{id}/status'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/companies'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/companies'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/companies/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/companies/{id}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/direct_debit_authorities'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/direct_debit_authorities'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/direct_debit_authorities/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}/bank_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}/items'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}/transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/disbursements/{id}/wallet_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/fees'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/fees'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/fees/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/items/{id}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/authorize_payment'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/batch_transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/buyers'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/cancel'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/capture_payment'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/fees'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/make_payment'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/make_payment_async'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/refund'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/release_payment'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/sellers'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/status'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/items/{id}/void_payment'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/items/{id}/wire_details'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/marketplace'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/sub_wallets/transfer'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/sub_wallets/{account_id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets/{id}'].delete
+  update:
+    x-agent-safety: destructive
+- target: $.paths['/sub_wallets/{id}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/sub_wallets/{id}/bill_payment'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/sub_wallets/{id}/transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets/{id}/wallet_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/sub_wallets/{id}/withdraw'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/token_auths'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/tokens'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/tools/routing_number'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/tools/status'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/bank_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/card_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/fees'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/transactions/{id}/wallet_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/users/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users/{id}'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/users/{id}/bank_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users/{id}/bpay_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users/{id}/card_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users/{id}/disbursement_account'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/users/{id}/identity_verified'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/users/{id}/items'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/users/{id}/wallet_accounts'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/wallet_accounts/{id}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/wallet_accounts/{id}/bill_payment'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/wallet_accounts/{id}/bpay_details'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/wallet_accounts/{id}/npp_details'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/wallet_accounts/{id}/npp_last_domestic_leg'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/wallet_accounts/{id}/users'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/wallet_accounts/{id}/withdraw'].post
+  update:
+    x-agent-safety: mutating

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-virtual-account-schema.json",
+  "title": "virtual_account",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml#/components/schemas/virtual_account",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "routing_number": {
+      "type": "string",
+      "format": "numeric",
+      "minLength": 6,
+      "maxLength": 6
+    },
+    "account_number": {
+      "type": "string",
+      "format": "numeric",
+      "minLength": 9,
+      "maxLength": 9
+    },
+    "currency": {
+      "type": "string",
+      "format": "alphabets"
+    },
+    "user_external_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "wallet_account_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "pending_activation",
+        "activation_failed",
+        "disabled",
+        "closed"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "account_type": {
+      "type": "string",
+      "enum": [
+        "NIND"
+      ],
+      "maxLength": 4
+    },
+    "full_legal_account_name": {
+      "type": "string",
+      "maxLength": 140
+    },
+    "account_name": {
+      "$ref": "#/$defs/virtual_account_account_name"
+    },
+    "aka_names": {
+      "$ref": "#/$defs/aka_names"
+    },
+    "merchant_id": {
+      "$ref": "#/$defs/merchant_id"
+    }
+  },
+  "$defs": {
+    "aka_name": {
+      "type": "string",
+      "maxLength": 140,
+      "description": "An alias for a _Virtual Account_. This is used in CoP lookups."
+    },
+    "aka_names": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/aka_name"
+      },
+      "maximum": 3,
+      "minimum": 0,
+      "description": "A list of AKA Names."
+    },
+    "merchant_id": {
+      "type": "string",
+      "maxLength": 35,
+      "description": "An identifier that links a _Virtual Account_ to a merchant. This is used in CoP lookups."
+    },
+    "virtual_account_account_name": {
+      "type": "string",
+      "maxLength": 140,
+      "description": "A name given for a _Virtual Account_. This is used in CoP lookups."
+    }
+  }
+}

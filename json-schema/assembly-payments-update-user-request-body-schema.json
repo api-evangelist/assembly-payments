@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-update-user-request-body-schema.json",
+  "title": "update_user_requestBody",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-api-openapi.yml#/components/schemas/update_user_requestBody",
+  "type": "object",
+  "required": [
+    "first_name"
+  ],
+  "properties": {
+    "first_name": {
+      "description": "First name of the user",
+      "type": "string",
+      "default": "Neol1556506027"
+    },
+    "last_name": {
+      "description": "Last name of the user",
+      "type": "string"
+    },
+    "email": {
+      "description": "Email of the user. Unique to platform.",
+      "type": "string"
+    },
+    "mobile": {
+      "description": "International number format. Include '+' and no spaces.",
+      "type": "string"
+    },
+    "address_line1": {
+      "description": "First line of the user address",
+      "type": "string"
+    },
+    "address_line2": {
+      "description": "Second line of the user address",
+      "type": "string"
+    },
+    "state": {
+      "description": "State section of the user address",
+      "type": "string"
+    },
+    "city": {
+      "description": "City section of the user address",
+      "type": "string"
+    },
+    "zip": {
+      "description": "Postcode",
+      "type": "string"
+    },
+    "country": {
+      "description": "[ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Officially_assigned_code_elements) country code (3 char)",
+      "type": "string"
+    },
+    "dob": {
+      "description": "Date of Birth (DD/MM/YYYY).",
+      "type": "string"
+    },
+    "government_number": {
+      "description": "Generic parameter to capture important user verification data. eg. SSN for US users, TFN for AU users.",
+      "type": "string"
+    },
+    "drivers_license_number": {
+      "description": "Driving license number of the user",
+      "type": "string"
+    },
+    "drivers_license_state": {
+      "description": "State section of the user's driving license",
+      "type": "string"
+    },
+    "ip_address": {
+      "description": "IP address",
+      "type": "string"
+    },
+    "logo_url": {
+      "description": "URL link to the logo",
+      "type": "string"
+    },
+    "color_1": {
+      "description": "Color code number 1",
+      "type": "string"
+    },
+    "color_2": {
+      "description": "Color code number 2",
+      "type": "string"
+    },
+    "custom_descriptor": {
+      "description": "When custom_descriptors are enabled, this is the information to appear on bundle direct debit statements (which show the buyer's custom_descriptor) as well as international wire payout, direct credit and PayPal payout statements (which show the seller's custom_descriptor)",
+      "type": "string"
+    },
+    "authorized_signer_title": {
+      "description": "‘Authorised Signer Title’, which refers to the role / job title (e.g. Director or General Manager) for the individual User, who is authorised to sign contracts on behalf of the business entity / Merchant User. (Note: information required for AMEX Merchants)",
+      "type": "string"
+    }
+  }
+}

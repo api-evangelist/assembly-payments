@@ -1,0 +1,1118 @@
+openapi: 3.2.0
+info:
+  title: Assembly Item Actions API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Item Actions
+paths:
+  /items/{id}/authorize_payment:
+    patch:
+      tags:
+      - Item Actions
+      summary: Authorize Payment
+      description: Where pre-authentication is enabled on a platform, initiates a credit card payment authorization for an item. When an authorization is successful, your platform holds the item amount for capture, but there is no transfer of funds happening. This call is used with the Capture Payment or Void Payment calls.
+      operationId: authorizePayment
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card_account_id_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items/7190770-1-2908/authorize_payment?account_id=725cc8c0-759b-0138-5d6d-0a58a9feac05
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/cancel:
+    patch:
+      tags:
+      - Item Actions
+      summary: Cancel
+      description: Cancel an **Item**. This will transition the **Item** state to `cancelled`. **Items** can only be cancelled if they haven't been actioned in any other way.
+      operationId: cancelItem
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items/7190770-1-2908/cancel
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/capture_payment:
+    patch:
+      tags:
+      - Item Actions
+      summary: Capture Payment
+      description: Where pre-authentication is enabled on a platform, completes a credit card payment for an item whose payment is authorized. This call is used with the Authorize Payment call.
+      operationId: capturePayment
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/partial_payment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items/7190770-1-2908/capture_payment
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/make_payment:
+    patch:
+      tags:
+      - Item Actions
+      summary: Make Payment
+      description: Make a payment for an **Item**. Pass the `:account_id` of a **Bank Account** or a **Card Account** associated with the **Item's** buyer. The **Item** state will transition to one of `payment_held`, `payment_pending` or `completed` for an **Express** or **Approve** payment type.
+      operationId: makePayment
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_id_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+  /items/{id}/make_payment_async:
+    patch:
+      tags:
+      - Item Actions
+      summary: Make an async Payment
+      description: 'Initiate a card payment with 3D Secure 2.0 authentication support.
+
+        This endpoint initiates the payment process and returns a `payment_token`
+
+        required for 3DS2 component initialisation.'
+      operationId: makePaymentAsync
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        schema:
+          type: string
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account_id_asyncRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/acknowledge_payment'
+  /items/{id}/refund:
+    patch:
+      tags:
+      - Item Actions
+      summary: Refund
+      description: Refund an **Item**'s funds. A partial `amount` can be specified otherwise the full amount will be refunded. This will transition the **Item** state to 'refunded' if the full amount is refunded, or to the previously held state if a partial `amount` is specified.
+      operationId: refund
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID to be refunded
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refund_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    id: 7190770-1-2908
+                    name: Item 7190770-1-2908
+                    description: Test Item 7190770-1-2908
+                    custom_descriptor: null
+                    payout_descriptor: null
+                    created_at: '2020-05-11T10:26:49.660Z'
+                    updated_at: '2020-05-11T10:26:49.660Z'
+                    state: pending
+                    net_amount: 102
+                    chargedback_amount: 0
+                    refunded_amount: 0
+                    released_amount: 0
+                    seller_url: ''
+                    buyer_url: ''
+                    remaining_amount: 102
+                    status: 22000
+                    amount: 102
+                    payment_type_id: 2
+                    due_date: null
+                    requested_release_amount: 0
+                    pending_release_amount: 0
+                    dynamic_descriptor: null
+                    invoice_url: null
+                    deposit_reference: '100014012533386'
+                    buyer_fees: 0
+                    seller_fees: 0
+                    credit_card_fee: 0
+                    direct_debit_fee: 0
+                    paypal_fee: 0
+                    promisepay_fee: 1
+                    batch_state: null
+                    total_outstanding: 102
+                    total_amount: 102
+                    currency: AUD
+                    payment_method: pending
+                    buyer_name: Neol Buyer
+                    buyer_email: neol_buyer719013950014@assemblypayments.com
+                    buyer_country: AUS
+                    seller_name: Assembly seller71718579
+                    seller_email: neol_seller71718579@assemblypayments.com
+                    seller_country: AUS
+                    payment_credit_card_enabled: true
+                    payment_direct_debit_enabled: true
+                    tds_check_state: null
+                    related:
+                      buyers: buyer-719013950014
+                      sellers: seller-71718579
+                    links:
+                      self: /items/7190770-1-2908/refund
+                      buyers: /items/7190770-1-2908/buyers
+                      sellers: /items/7190770-1-2908/sellers
+                      status: /items/7190770-1-2908/status
+                      fees: /items/7190770-1-2908/fees
+                      transactions: /items/7190770-1-2908/transactions
+                      batch_transactions: /items/7190770-1-2908/batch_transactions
+                      wire_details: /items/7190770-1-2908/wire_details
+                      bpay_details: /items/7190770-1-2908/bpay_details
+                      tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/release_payment:
+    patch:
+      tags:
+      - Item Actions
+      summary: Release Payment (Deprecated - Do Not Use)
+      description: Included for legacy purposes for existing customers that use Escrow payments which are no longer supported for new flows/customers. Release funds held in escrow from an **Item** with an **Escrow** or **Escrow Partial Release** payment type. This will transition the **Item** state to `completed`.
+      operationId: releasePayment
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/release_payment_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: completed
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 102
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22500
+                      amount: 102
+                      payment_type_id: 1
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 0
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items/7190770-1-2908/cancel
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+  /items/{id}/void_payment:
+    patch:
+      tags:
+      - Item Actions
+      summary: Void Payment
+      description: 'Where pre-authentication is enabled on a platform, voids the `payment_authorized` status for an item. This call is used with the Authorize Payment call. **Note**: Not all payment gateways support the Void Payment API call. In this case, you can wait until a payment authorization expires. A payment authorisation expires after 3 to 6 days if not captured.'
+      operationId: voidPayment
+      parameters:
+      - name: id
+        in: path
+        description: Marketplace / Platform item ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: 7190770-1-2908
+        example: 7190770-1-2908
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_item'
+              examples:
+                response:
+                  value:
+                    items:
+                      id: 7190770-1-2908
+                      name: Item 7190770-1-2908
+                      description: Test Item 7190770-1-2908
+                      custom_descriptor: null
+                      payout_descriptor: null
+                      created_at: '2020-05-11T10:26:49.660Z'
+                      updated_at: '2020-05-11T10:26:49.660Z'
+                      state: pending
+                      net_amount: 102
+                      chargedback_amount: 0
+                      refunded_amount: 0
+                      released_amount: 0
+                      seller_url: ''
+                      buyer_url: ''
+                      remaining_amount: 102
+                      status: 22000
+                      amount: 102
+                      payment_type_id: 2
+                      due_date: null
+                      requested_release_amount: 0
+                      pending_release_amount: 0
+                      dynamic_descriptor: null
+                      invoice_url: null
+                      deposit_reference: '100014012533386'
+                      buyer_fees: 0
+                      seller_fees: 0
+                      credit_card_fee: 0
+                      direct_debit_fee: 0
+                      paypal_fee: 0
+                      promisepay_fee: 1
+                      batch_state: null
+                      total_outstanding: 102
+                      total_amount: 102
+                      currency: AUD
+                      payment_method: pending
+                      buyer_name: Neol Buyer
+                      buyer_email: neol_buyer719013950014@assemblypayments.com
+                      buyer_country: AUS
+                      seller_name: Assembly seller71718579
+                      seller_email: neol_seller71718579@assemblypayments.com
+                      seller_country: AUS
+                      payment_credit_card_enabled: true
+                      payment_direct_debit_enabled: true
+                      tds_check_state: null
+                      related:
+                        buyers: buyer-719013950014
+                        sellers: seller-71718579
+                      links:
+                        self: /items/7190770-1-2908/void_payment
+                        buyers: /items/7190770-1-2908/buyers
+                        sellers: /items/7190770-1-2908/sellers
+                        status: /items/7190770-1-2908/status
+                        fees: /items/7190770-1-2908/fees
+                        transactions: /items/7190770-1-2908/transactions
+                        batch_transactions: /items/7190770-1-2908/batch_transactions
+                        wire_details: /items/7190770-1-2908/wire_details
+                        bpay_details: /items/7190770-1-2908/bpay_details
+                        tds_checks: /items/7190770-1-2908/tds_checks
+components:
+  schemas:
+    account_id_requestBody:
+      type: object
+      required:
+      - account_id
+      properties:
+        account_id:
+          description: Account id of the bank account/credit card, etc making payment (not user id)
+          type: string
+          example: 725cc8c0-759b-0138-5d6d-0a58a9feac05
+          default: 725cc8c0-759b-0138-5d6d-0a58a9feac05
+        device_id:
+          description: Device Information for the device initiating the payment. This will need to be provided for card payments.
+          type: string
+          example: ''
+        ip_address:
+          description: IP Information for the device initiating the payment. This will need to be provided for card payments.
+          type: string
+          example: ''
+        cvv:
+          description: CVV / CVC
+          type: string
+          example: ''
+        merchant_phone:
+          description: Seller User Phone Number or Mobile number. International number format. Include '+' and no spaces.
+          type: string
+          example: ''
+    single_item:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/item'
+    account_id_asyncRequestBody:
+      type: object
+      required:
+      - account_id
+      properties:
+        account_id:
+          description: Account id of the bank account/credit card, etc making payment (not user id)
+          type: string
+        request_three_d_secure:
+          description: 'Customise the 3DS (3D Secure) preference for this payment.
+
+            If `automatic`, 3DS preference is determined automatically by the system.
+
+            If `challenge`, Request a 3DS challenge is presented to the user.
+
+            If `any`, request a 3DS frictionless or challenge flow.
+
+            **Important:** Use the returned `payment_token` to initialise the 3DS2 web component.
+
+            '
+          type: string
+          example: challenge
+          default: automatic
+          enum:
+          - automatic
+          - challenge
+          - any
+    acknowledge_payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: Generated payment ID
+          example: '1000014012533486'
+        account_id:
+          type: string
+          description: Card Account ID
+          example: 86991380-90a5-013a-57cc-5e50adfe91ad
+        payment_token:
+          type: string
+          description: Token passed to front-end component, for secure access of the payment status
+        items:
+          $ref: '#/components/schemas/item'
+    refund_requestBody:
+      type: object
+      properties:
+        refund_amount:
+          description: For partial refunds, if they are enabled for marketplace.
+          type: integer
+          example: ''
+        refund_message:
+          description: Reason for the request.
+          type: string
+          example: ''
+        account_id:
+          description: The account id to be used to get the refunds from. This will need to be an account that has already been set up within Assembly
+          type: string
+          example: ''
+    item:
+      type: object
+      required:
+      - id
+      - name
+      - amount
+      - payment_type
+      - buyer_id
+      - seller_id
+      properties:
+        id:
+          type: string
+          example: 7190770-1-2908
+        name:
+          type: string
+          example: 'Item #001'
+        description:
+          type: string
+          example: My first Item.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+          enum:
+          - pending
+          - payment_required
+          - wire_pending
+          - payment_pending
+          - payment_held
+          - payment_authorized
+          - void_pending
+          - voided
+          - fraud_hold
+          - payment_deposited
+          - work_completed
+          - problem_flagged
+          - problem_resolve_requested
+          - problem_escalated
+          - completed
+          - cancelled
+          - refunded
+          - refund_pending
+          - refund_flagged
+          - off_platform_refunded
+          - partial_completed
+          - partial_paid
+          - off_platform_chargedback
+          example: pending
+        status:
+          type: integer
+          enum:
+          - 22000
+          - 22100
+          - 22110
+          - 22150
+          - 22175
+          - 22180
+          - 22185
+          - 22195
+          - 22190
+          - 22200
+          - 22300
+          - 22400
+          - 22410
+          - 22420
+          - 22500
+          - 22575
+          - 22600
+          - 22610
+          - 22650
+          - 22670
+          - 22700
+          - 22800
+          - 22680
+          example: 22000
+        amount:
+          type: integer
+          example: 20000
+        payment_type_id:
+          type: integer
+          example: 2
+        currency:
+          type: string
+          example: AUD
+        buyer_name:
+          type: string
+          example: Sample Buyer
+        buyer_email:
+          type: string
+          format: email
+          example: sample.buyer@assemblypayments.com
+        buyer_country:
+          type: string
+          example: AUS
+        seller_name:
+          type: string
+          example: Sample Seller
+        seller_email:
+          type: string
+          format: email
+          example: sample.seller@assemblypayments.com
+        seller_country:
+          type: string
+          format: email
+          example: AUS
+        tds_check_state:
+          type: string
+          format: email
+          example: NA
+        batch_state:
+          type: string
+          example: null
+        invoice_url:
+          type: string
+          example: null
+        payout_descriptor:
+          type: string
+          example: null
+        remaining_amount:
+          type: integer
+          example: 0
+        requested_release_amount:
+          type: integer
+          example: 0
+        custom_descriptor:
+          type: string
+          example: null
+        net_amount:
+          type: integer
+          example: 20000
+        chargedback_amount:
+          type: integer
+          example: 0
+        refunded_amount:
+          type: integer
+          example: 0
+        released_amount:
+          type: integer
+          example: 0
+        buyer_fees:
+          type: integer
+          example: 0
+        seller_fees:
+          type: integer
+          example: 400
+        credit_card_fee:
+          type: integer
+          example: 0
+        paypal_fee:
+          type: integer
+          example: 0
+        seller_url:
+          type: string
+        buyer_url:
+          type: string
+        direct_debit_fee:
+          type: integer
+          example: 0
+        due_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        pending_release_amount:
+          type: integer
+          example: 0
+        dynamic_descriptor:
+          type: string
+          example: null
+        deposit_reference:
+          type: string
+          example: 100014013961629
+        promisepay_fee:
+          type: integer
+          example: 350
+        total_outstanding:
+          type: integer
+          example: 20000
+        total_amount:
+          type: integer
+          example: 20000
+        payment_method:
+          type: string
+          example: pending
+        payment_credit_card_enabled:
+          type: boolean
+          example: true
+        payment_direct_debit_enabled:
+          type: boolean
+          example: true
+        related:
+          type: object
+          properties:
+            buyers:
+              type: string
+              example: 064d6800-fff3-11e5-86aa-5e5517507c66
+            sellers:
+              type: string
+              example: 5830def0-ffe8-11e5-86aa-5e5517507c66
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            buyers:
+              type: string
+            sellers:
+              type: string
+            status:
+              type: string
+            fees:
+              type: string
+            transactions:
+              type: string
+            batch_transactions:
+              type: string
+            wire_details:
+              type: string
+            bpay_details:
+              type: string
+            tds_checks:
+              type: string
+    card_account_id_requestBody:
+      type: object
+      required:
+      - account_id
+      properties:
+        account_id:
+          description: Card account ID
+          type: string
+          example: 725cc8c0-759b-0138-5d6d-0a58a9feac05
+          default: 725cc8c0-759b-0138-5d6d-0a58a9feac05
+        cvv:
+          description: CVV / CVC
+          type: string
+          example: ''
+        merchant_phone:
+          description: Seller User Phone Number or Mobile number. International number format. Include '+' and no spaces.
+          type: string
+          example: ''
+    partial_payment:
+      type: object
+      properties:
+        amount:
+          description: For partial payment, if they are enabled for marketplace.
+          type: integer
+          example: 100
+    release_payment_requestBody:
+      type: object
+      properties:
+        release_amount:
+          description: Partial amount to be released in cents
+          type: integer
+          example: ''
+        flag_release:
+          description: to be used if release flagging enabled for your marketplace
+          type: boolean
+          example: ''
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

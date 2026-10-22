@@ -1,0 +1,1507 @@
+[
+ {
+  "page": "https://developer.hellozai.com/reference/npplastdomesticleg-1.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "[Upcoming] Initiate Last Domestic Leg Payout",
+    "description": "\nThis document describes the Initiate Last Domestic Leg Payout endpoint update going live in 2027.\n\n For `POST /wallet_accounts/{id}/npp_last_domestic_leg`. See 'Initiate Last Domestic Leg Payout' under Wallet Accounts in the main API documentation  for the current live version.",
+    "version": "2.4-ifti-v4",
+    "contact": {
+     "email": "support@assemblypayments.com",
+     "url": "http://docs.assemblypayments.com/"
+    }
+   },
+   "servers": [
+    {
+     "url": "https://test.api.promisepay.com",
+     "description": "Pre-live environment"
+    },
+    {
+     "url": "https://secure.api.promisepay.com",
+     "description": "Production environment"
+    }
+   ],
+   "x-explorer-enabled": false,
+   "x-samples-languages": [
+    "curl",
+    "ruby",
+    "php",
+    "javascript",
+    "csharp",
+    "go"
+   ],
+   "paths": {
+    "/wallet_accounts/{id}/npp_last_domestic_leg": {
+     "post": {
+      "tags": [
+       "Wallet Accounts"
+      ],
+      "summary": "Initiate Last Domestic Leg Payout (Upcoming 2027)",
+      "description": "Facilitate the real-time settlement of the last domestic leg payout for International Funds Transfer Instructions (IFTI) through NPP rails. This updated `ifti_information` payload shape goes live in 2027 and applies to accounts enabled for international funds transfer instructions. See 'Initiate Last Domestic Leg Payout' under Wallet Accounts in the main API documentation for the current live version.",
+      "operationId": "nppLastDomesticLeg",
+      "parameters": [
+       {
+        "name": "id",
+        "in": "path",
+        "description": "Wallet account ID",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "default": "bd6e9c20-73f1-0138-fb91-0a58a9feac09"
+        },
+        "example": "bd6e9c20-73f1-0138-fb91-0a58a9feac09"
+       }
+      ],
+      "requestBody": {
+       "required": true,
+       "content": {
+        "application/json": {
+         "schema": {
+          "$ref": "#/components/schemas/npp_last_domestic_leg_requestBody"
+         }
+        }
+       }
+      },
+      "responses": {
+       "201": {
+        "description": "OK",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "disbursements": {
+             "$ref": "#/components/schemas/npp_last_domestic_leg_disbursement"
+            }
+           }
+          },
+          "examples": {
+           "response": {
+            "value": {
+             "disbursements": {
+              "id": "8a31ebfa-421b-4cbb-9241-632f71b3778a",
+              "reference_id": "7190770-1-2908",
+              "amount": 173,
+              "currency": "AUD",
+              "batch_id": null,
+              "cuscal_payment_transaction_id": null,
+              "created_at": "2020-05-09T07:09:03.383Z",
+              "updated_at": "2020-05-09T07:09:04.585Z",
+              "state": "pending",
+              "to": "Bank Account",
+              "bank_name": "Test Bank Assembly",
+              "bank_account_name": "Assembly seller71718579",
+              "bank_account_number": "XXX130",
+              "bank_routing_number": "XXXXX8",
+              "npp_payout_state": "trying",
+              "end_to_end_id": "PRTYAUXXXX",
+              "ifti_information": {
+               "instruction_identification": "BANKNTSTXXXI20180501000000000000010",
+               "charge_bearer": "CRED",
+               "uetr": "de2da6c9-18be-48d4-8053-867ed90a316a",
+               "creditor_lei": "529900T8BM49AURSDO55",
+               "debtor_lei": "213800WSGIIZCXF1P572",
+               "service_level": [
+                "URGENT"
+               ],
+               "previous_instructing_agent": [
+                {
+                 "agent_bic": "YOURBIC1234"
+                }
+               ],
+               "creditor_agent_instruction": [
+                {
+                 "instruction_information": "sample",
+                 "code": "CHQB"
+                }
+               ],
+               "initiating_party_information": {
+                "name": "Initiator Name",
+                "country_of_residence": "AU",
+                "address": {
+                 "address_type": "ADDR",
+                 "country_code": "AU",
+                 "address_line": [
+                  "Level 4",
+                  "1 Margaret"
+                 ]
+                },
+                "organisation_identification": [
+                 {
+                  "lei": "529900T8BM49AURSDO55",
+                  "other": []
+                 }
+                ]
+               },
+               "debtor": {
+                "name": "Debtor Name",
+                "organisation_identification": {
+                 "lei": "529900T8BM49AURSDO55",
+                 "other": []
+                }
+               },
+               "debtor_account": {
+                "iban": "DE89370400440532013000"
+               },
+               "debtor_agent_information": {
+                "bic": "DEUTDEDD"
+               },
+               "creditor_address": {
+                "address_type": "ADDR",
+                "country_code": "AU",
+                "address_line": [
+                 "123 Main St"
+                ]
+               },
+               "next_agent_instruction": [
+                "INSTRUCTION_001"
+               ],
+               "instructed_amount": {
+                "currency": "AUD",
+                "amount": "3.25"
+               },
+               "ultimate_creditor_information": {
+                "name": "Jane Doe",
+                "country_of_residence": "AU",
+                "address": {
+                 "address_type": "ADDR",
+                 "country_code": "AU",
+                 "address_line": [
+                  "Level 4",
+                  "2 Margaret"
+                 ]
+                },
+                "organisation_identification": {
+                 "lei": "529900T8BM49AURSDO55",
+                 "other": []
+                }
+               },
+               "exchange_rate": "1.23",
+               "payment_purpose_proprietary": "Prtry",
+               "payment_information": {
+                "uetr": "de2da6c9-18be-48d4-8053-867ed90a316a",
+                "country_of_origin": "DE",
+                "remittance_information_unstructured": "MAP_RE_Happy",
+                "payment_purpose_code": "EPAY"
+               },
+               "regulatory_reporting": [
+                {
+                 "authority_name": "Name"
+                }
+               ],
+               "remittance_information_structured": {
+                "referred_document_information": [
+                 {
+                  "code": "sample",
+                  "proprietary": "sample",
+                  "issuer": "sample",
+                  "number": "sample",
+                  "related_date": "2026-01-01"
+                 }
+                ]
+               },
+               "related_remittance_information": [
+                {
+                 "identification": "S010"
+                }
+               ]
+              },
+              "links": {
+               "transactions": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions",
+               "wallet_accounts": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/wallet_accounts",
+               "bank_accounts": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/bank_accounts",
+               "paypal_accounts": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/paypal_accounts",
+               "items": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/items",
+               "users": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/users"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "schemas": {
+     "npp_last_domestic_leg_disbursement": {
+      "type": "object",
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/disbursement"
+       },
+       {
+        "type": "object",
+        "properties": {
+         "end_to_end_id": {
+          "type": "string",
+          "example": "PRTYAUXXXX"
+         },
+         "ifti_information": {
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/ifti_information_response"
+           }
+          ]
+         }
+        }
+       }
+      ]
+     },
+     "disbursement": {
+      "type": "object",
+      "properties": {
+       "id": {
+        "type": "string",
+        "example": "ad688d54-6791-4f1d-add7-88fbd89b70d1"
+       },
+       "reference_id": {
+        "type": "string",
+        "example": "7190770-1-2908"
+       },
+       "amount": {
+        "type": "integer",
+        "example": 10000
+       },
+       "currency": {
+        "type": "string",
+        "example": "AUD"
+       },
+       "batch_id": {
+        "type": "string",
+        "example": null
+       },
+       "cuscal_payment_transaction_id": {
+        "type": "string",
+        "example": null
+       },
+       "created_at": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "updated_at": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "state": {
+        "type": "string",
+        "example": "pending"
+       },
+       "to": {
+        "type": "string",
+        "example": "Bank Account"
+       },
+       "bank_name": {
+        "type": "string",
+        "example": "Bank of Australia"
+       },
+       "bank_account_name": {
+        "type": "string",
+        "example": "Samuel Seller"
+       },
+       "bank_account_number": {
+        "type": "string",
+        "example": "XXX234"
+       },
+       "bank_routing_number": {
+        "type": "string",
+        "example": "XXXXX3"
+       },
+       "npp_payout_state": {
+        "type": "string",
+        "example": "trying"
+       },
+       "account_name": {
+        "type": "string",
+        "example": "My Water Company"
+       },
+       "biller_name": {
+        "type": "string",
+        "example": "ABC Water"
+       },
+       "biller_code": {
+        "type": "string",
+        "example": 123456
+       },
+       "crn": {
+        "type": "string",
+        "example": "0987654321"
+       },
+       "links": {
+        "type": "object",
+        "properties": {
+         "transactions": {
+          "type": "string",
+          "example": "/disbursements/8a31ebfa-421b-4cbb-9241-632f71b3778a/transactions"
+         },
+         "wallet_accounts": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/wallet_accounts"
+         },
+         "paypal_accounts": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/paypal_accounts"
+         },
+         "bank_accounts": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bank_accounts"
+         },
+         "bpay_accounts": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/bpay_accounts"
+         },
+         "items": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/items"
+         },
+         "users": {
+          "type": "string",
+          "example": "/disbursements/ea36e48a-4638-4d1a-a345-e1a0a584df8b/users"
+         }
+        }
+       }
+      }
+     },
+     "npp_last_domestic_leg_requestBody": {
+      "type": "object",
+      "required": [
+       "account_id",
+       "amount",
+       "ifti_information",
+       "end_to_end_id"
+      ],
+      "properties": {
+       "account_id": {
+        "description": "Account to withdraw to.",
+        "type": "string",
+        "example": "c1824ad0-73f1-0138-3700-0a58a9feac09",
+        "default": "c1824ad0-73f1-0138-3700-0a58a9feac09"
+       },
+       "amount": {
+        "description": "Amount (in cents) to withdraw.",
+        "type": "integer",
+        "example": "173",
+        "default": "173"
+       },
+       "custom_descriptor": {
+        "description": "A descriptor specified by the customer to be passed on the withdraw call. This requires that custom_descriptors are enabled. In the case of fast payments (AU / NPP) Assembly will append a value in the beginning of descriptor, the customer can use 200 characters (excluding URL, javascript/code, emojis). In the case of DE batch payments will allow 18 characters",
+        "type": "string",
+        "example": ""
+       },
+       "reference_id": {
+        "description": "Unique reference information that can be specified for a for wallet withdrawal request. This is an optional field and cannot contain '.' character.",
+        "type": "string",
+        "example": "7190770-1-2908",
+        "default": "7190770-1-2908"
+       },
+       "end_to_end_id": {
+        "description": "A unique identifier assigned by the initiating party to track and reconcile the IFTI payout throughout its lifecycle. This value must be unique per transaction and is included in payment messaging for traceability across participating financial institutions. This is the Debtor’s (customer) reference for the Payment to be provided to Creditor (customer). Mandatory for NPP IFTI Payment.",
+        "type": "string",
+        "example": "PRTYAUXXXX",
+        "default": "NOTPROVIDED"
+       },
+       "ifti_information": {
+        "required": [
+         "instruction_identification",
+         "charge_bearer",
+         "debtor",
+         "debtor_account",
+         "debtor_agent_information",
+         "payment_information"
+        ],
+        "description": "IFTI Payer Information (updated shape, going live in 2027).\n\nThis is a required field and cannot contain invalid characters.\nPlease get in touch with customer service before enabling this feature.\n\nFields marked below are required exclusively for **IFTI payout processing to meet reporting and compliance\nrequirements**.\n\nPlease refer to individual field descriptions for specific conditional requirements.\n\nCompared to the current live version: `debtor`, `debtor_account`, and `debtor_agent_information` are new\nmandatory blocks; `ultimate_debtor_information` and `creditor_agent_instruction` are now optional;\n`previous_instructing_agent` is now an array (max 3); `contact_details` has been removed from all party\nblocks; and organisation/private identification is now `{ lei, other: [...] }` rather than a bare array.",
+        "type": "object",
+        "properties": {
+         "instruction_identification": {
+          "description": "A unique transaction reference number that identifies the\nfinal domestic payout request for NPP. It is recommended that this reference\nnumber matches the point-to-point transaction reference used in your Austrac reporting.\nMandatory for NPP IFTI Payment.",
+          "type": "string",
+          "maxLength": 35,
+          "example": "BANKNTSTXXXI20180501000000000000010"
+         },
+         "local_clearing_option": {
+          "description": "Local clearing option used for the domestic leg of the payment.",
+          "type": "string",
+          "example": "sample"
+         },
+         "debit_date_time": {
+          "description": "Date and time the debtor's account was debited.",
+          "type": "string",
+          "format": "date-time"
+         },
+         "credit_date_time": {
+          "description": "Date and time the creditor's account was credited.",
+          "type": "string",
+          "format": "date-time"
+         },
+         "cls_time": {
+          "description": "CLS (Continuous Linked Settlement) time, when applicable.",
+          "type": "string",
+          "format": "date-time"
+         },
+         "uetr": {
+          "description": "Unique End-to-end Transaction Reference (UETR) for the underlying international message. Optional.",
+          "type": "string",
+          "example": "de2da6c9-18be-48d4-8053-867ed90a316a"
+         },
+         "creditor_lei": {
+          "description": "Legal Entity Identifier (LEI) of the creditor, when available. 20 characters: 18 alphanumeric + 2 numeric.",
+          "type": "string",
+          "pattern": "[A-Z0-9]{18}[0-9]{2}",
+          "example": "529900T8BM49AURSDO55"
+         },
+         "debtor_lei": {
+          "description": "Legal Entity Identifier (LEI) of the debtor, when available. 20 characters: 18 alphanumeric + 2 numeric.",
+          "type": "string",
+          "pattern": "[A-Z0-9]{18}[0-9]{2}",
+          "example": "213800WSGIIZCXF1P572"
+         },
+         "instructed_amount": {
+          "description": "Transaction Amount. This is the amount originated in foreign currency.",
+          "type": "object",
+          "properties": {
+           "currency": {
+            "type": "string",
+            "example": "AUD"
+           },
+           "amount": {
+            "type": "string",
+            "example": "3.25"
+           }
+          }
+         },
+         "exchange_rate": {
+          "description": "Exchange rate used for AUD FX conversion.  Mandatory for IFTI if present in the source international message.",
+          "type": "string",
+          "example": "1.23"
+         },
+         "charge_bearer": {
+          "description": "Specifies which party/parties will bear the charges of processing payment transaction.\n\nValid values -\n'CRED' (Borne by Creditor),\n'DEBT' (Borne by Debtor),\n'SHAR' (Shared),\n'SLEV' (Following Service Level).",
+          "type": "string",
+          "enum": [
+           "CRED",
+           "DEBT",
+           "SHAR",
+           "SLEV"
+          ],
+          "example": "CRED"
+         },
+         "charges_information": {
+          "description": "Charges applied by agents along the payment chain. Array, max 3 items.  When an item is present, its `amount` and `agent_bic` are required.",
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+           "type": "object",
+           "properties": {
+            "amount": {
+             "type": "object",
+             "properties": {
+              "currency": {
+               "type": "string",
+               "example": "AUD"
+              },
+              "amount": {
+               "type": "string",
+               "example": "3.25"
+              }
+             }
+            },
+            "agent_bic": {
+             "type": "string",
+             "example": "YOURBIC1234"
+            }
+           }
+          }
+         },
+         "payment_purpose_proprietary": {
+          "description": "Refers to a code or description used to specify the reason or purpose for the payment. This information is often provided by the sender to clarify the intent of the transfer, such as payment for goods, services, or a personal remittance. Mandatory for IFTI if present in the source international message.",
+          "type": "string",
+          "example": "Prtry"
+         },
+         "previous_instructing_agent": {
+          "description": "This identifies the agent or remitter's bank that instructs the intermediary bank or NPP payer participant to clear funds, typically for bulk or aggregated transfers to your account. Each entry can either be the agent_bic OR clearing system identification and clearing system member identification. **Now an array (max 3 items) - was a single object in the current live version.**",
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+           "type": "object",
+           "properties": {
+            "agent_bic": {
+             "type": "string",
+             "example": "YOURBIC1234"
+            },
+            "clearing_system_identification": {
+             "type": "string",
+             "example": "BICCODE123"
+            },
+            "clearing_system_member_identification": {
+             "type": "string",
+             "example": "BICCODE123MEM"
+            }
+           }
+          }
+         },
+         "creditor_address": {
+          "description": "Address of the creditor's bank/branch. New in this version.",
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/ifti_address_v4"
+           }
+          ]
+         },
+         "creditor_agent_instruction": {
+          "description": "Refers to additional details or instructions provided to the bank or financial institution responsible for crediting the funds to the recipient (the creditor). These instructions are provided by the initiating party and help the creditor agent accurately complete the transfer. **Now optional - was mandatory in the current live version.** Sent as-is (the current live version prefixed instruction_information with a BIC smuggling convention no longer needed now that debtor_agent_information exists).",
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "instruction_information": {
+             "type": "string",
+             "maxLength": 140,
+             "example": "sample"
+            },
+            "code": {
+             "type": "string",
+             "enum": [
+              "CHQB",
+              "HOLD",
+              "PHOB",
+              "TELB"
+             ],
+             "example": "CHQB"
+            }
+           }
+          }
+         },
+         "next_agent_instruction": {
+          "description": "Free-text instructions for the next agent in the payment chain. Array, max 3 items.",
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+           "type": "string"
+          },
+          "example": [
+           "INSTRUCTION_001"
+          ]
+         },
+         "regulatory_reporting": {
+          "description": "Refers to the obligation to report certain transaction details to regulatory authorities to comply with anti-money laundering (AML), counter-terrorism financing (CTF), and other financial regulations. Array, max 10 items.",
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+           "type": "object",
+           "properties": {
+            "reporting_type": {
+             "type": "string",
+             "example": "sample"
+            },
+            "authority_name": {
+             "description": "Refers to the name of the regulatory body or financial authority to which the payment details are reported for compliance purposes. This is typically a government or financial intelligence agency that monitors transactions for anti-money laundering (AML) and counter-terrorism financing (CTF) efforts.",
+             "type": "string",
+             "example": "Name"
+            },
+            "authority_country": {
+             "type": "string",
+             "pattern": "[A-Z]{2,2}",
+             "example": "AU"
+            },
+            "details": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "type": {
+                "type": "string"
+               },
+               "date": {
+                "type": "string",
+                "format": "date"
+               },
+               "country": {
+                "type": "string",
+                "pattern": "[A-Z]{2,2}"
+               },
+               "code": {
+                "type": "string"
+               },
+               "amount": {
+                "type": "object",
+                "properties": {
+                 "currency": {
+                  "type": "string",
+                  "example": "AUD"
+                 },
+                 "amount": {
+                  "type": "string",
+                  "example": "3.25"
+                 }
+                }
+               },
+               "information": {
+                "type": "array",
+                "items": {
+                 "type": "string"
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         },
+         "remittance_information_structured": {
+          "description": "This is now an object whose only property is `referred_document_information` (array, max 3 items). All other sub-fields from the current live version (tax, garnishment, creditor reference, invoicer/invoicee) have been removed.",
+          "type": "object",
+          "properties": {
+           "referred_document_information": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+             "type": "object",
+             "properties": {
+              "code": {
+               "type": "string",
+               "example": "sample"
+              },
+              "proprietary": {
+               "type": "string",
+               "example": "sample"
+              },
+              "issuer": {
+               "type": "string",
+               "example": "sample"
+              },
+              "number": {
+               "type": "string",
+               "example": "sample"
+              },
+              "related_date": {
+               "type": "string",
+               "format": "date"
+              }
+             }
+            }
+           }
+          }
+         },
+         "related_remittance_information": {
+          "description": "Array, max 10 items. `location_details.name` has been removed - it is logged and dropped if still supplied.",
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+           "type": "object",
+           "properties": {
+            "identification": {
+             "type": "string",
+             "example": "S010"
+            },
+            "location_details": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "method": {
+                "type": "string",
+                "example": "sample"
+               },
+               "electronic_address": {
+                "type": "string",
+                "example": "sample"
+               },
+               "postal_address": {
+                "allOf": [
+                 {
+                  "$ref": "#/components/schemas/ifti_address_v4"
+                 }
+                ]
+               }
+              }
+             }
+            }
+           }
+          }
+         },
+         "service_level": {
+          "description": "Pass-through of the service level values carried on the inbound international message. Array, max 3 items, each 1-35 characters (e.g. SEPA, BKTR, G001). Distinct from payment_information.service_level, which Zai populates automatically.",
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+           "type": "string"
+          },
+          "example": [
+           "URGENT"
+          ]
+         },
+         "debtor": {
+          "description": "The debtor party for the international leg. **New mandatory block.** Only `name` is required.",
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/party_identification_v4"
+           }
+          ]
+         },
+         "debtor_account": {
+          "description": "The debtor's account for the international leg. **New mandatory block.** Either `iban` or `account_identification` must be present.",
+          "type": "object",
+          "properties": {
+           "iban": {
+            "type": "string",
+            "example": "DE89370400440532013000"
+           },
+           "account_identification": {
+            "type": "string",
+            "example": "sample"
+           },
+           "account_identification_type_code": {
+            "type": "string",
+            "example": "BBAN"
+           },
+           "account_identification_issuer": {
+            "type": "string",
+            "pattern": "[0-9]{6}",
+            "description": "6-digit BSB, when account_identification_type_code identifies a BSB-style account.",
+            "example": "123456"
+           }
+          }
+         },
+         "debtor_agent_information": {
+          "description": "The debtor's bank/agent for the international leg. **New mandatory block.** Either `bic` or `lei` must be present.",
+          "type": "object",
+          "properties": {
+           "bic": {
+            "pattern": "[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}",
+            "type": "string",
+            "example": "DEUTDEDD"
+           },
+           "lei": {
+            "type": "string",
+            "pattern": "[A-Z0-9]{18}[0-9]{2}",
+            "example": "529900T8BM49AURSDO55"
+           },
+           "name": {
+            "type": "string",
+            "maxLength": 140,
+            "example": "sample"
+           }
+          }
+         },
+         "ultimate_debtor_information": {
+          "description": "**Now optional - was mandatory in the current live version.** If provided, only `name` is required;\n`address` and `country_of_residence` are validated for format only when supplied.",
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/party_identification_v4"
+           }
+          ]
+         },
+         "ultimate_creditor_information": {
+          "description": "The name of the final recipient of the funds, not including any intermediaries\nor account holders. Optional; if provided, only `name` is required.",
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/party_identification_v4"
+           }
+          ]
+         },
+         "initiating_party_information": {
+          "description": "Optional, with no mandatory sub-fields. Unlike the other party blocks,\n`organisation_identification` and `private_identification` here are **arrays**\nof identification groups, not single objects.",
+          "allOf": [
+           {
+            "$ref": "#/components/schemas/party_identification_v4_initiating"
+           }
+          ]
+         },
+         "payment_information": {
+          "required": [
+           "country_of_origin"
+          ],
+          "description": "**Mandatory block.** `country_of_origin` is mandatory; `service_level` is deliberately not accepted here (Zai injects the fixed value `sctxbrdr`) - use the top-level `service_level` field to pass through the customer's own service level values.",
+          "type": "object",
+          "properties": {
+           "uetr": {
+            "description": "Mirrored to the top-level `uetr` field if not already provided there.",
+            "type": "string",
+            "example": "de2da6c9-18be-48d4-8053-867ed90a316a"
+           },
+           "country_of_origin": {
+            "description": "ISO 3166-1 alpha-2 country code of the payment's origin. Mandatory.",
+            "type": "string",
+            "pattern": "[A-Z]{2,2}",
+            "example": "DE"
+           },
+           "remittance_information_unstructured": {
+            "description": "Refers to additional, free-text details provided by the sender about the purpose or context of the payment.",
+            "type": "string",
+            "example": "MAP_RE_Happy"
+           },
+           "payment_purpose_code": {
+            "description": "This refers to the standardized code that indicates the reason for the payment. It helps to identify the nature of the transaction for regulatory and compliance purposes. Refer to https://www.iso20022.org/catalogue-messages/additional-content-messages/external-code-sets for full list of Payment Purpose code.",
+            "type": "string",
+            "example": "EPAY"
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "party_identification_v4": {
+      "description": "Party identification. Unlike the current live version, `organisation_identification` and\n`private_identification` are single objects shaped `{ lei, other: [...] }` rather than a bare\narray, and `contact_details` has been removed.",
+      "type": "object",
+      "properties": {
+       "name": {
+        "maxLength": 140,
+        "type": "string",
+        "example": "John Doe"
+       },
+       "country_of_residence": {
+        "pattern": "[A-Z]{2,2}",
+        "type": "string",
+        "example": "AU"
+       },
+       "address": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/ifti_address_v4"
+         }
+        ]
+       },
+       "organisation_identification": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/generic_identification_v4"
+         }
+        ]
+       },
+       "organisation_bic": {
+        "pattern": "[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}",
+        "type": "string",
+        "example": "SMPLAU2SXXX"
+       },
+       "private_identification": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/generic_identification_v4"
+         }
+        ]
+       },
+       "date_place_of_birth": {
+        "$ref": "#/components/schemas/date_and_place_of_birth"
+       }
+      }
+     },
+     "party_identification_v4_initiating": {
+      "description": "Party identification for `initiating_party_information` only. `organisation_identification`\nand `private_identification` are **arrays** of identification groups here, unlike every other\nparty block where they are single objects.",
+      "type": "object",
+      "properties": {
+       "name": {
+        "maxLength": 140,
+        "type": "string",
+        "example": "John Doe"
+       },
+       "country_of_residence": {
+        "pattern": "[A-Z]{2,2}",
+        "type": "string",
+        "example": "AU"
+       },
+       "address": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/ifti_address_v4"
+         }
+        ]
+       },
+       "organisation_identification": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/generic_identification_v4"
+        }
+       },
+       "organisation_bic": {
+        "pattern": "[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}",
+        "type": "string",
+        "example": "SMPLAU2SXXX"
+       },
+       "private_identification": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/generic_identification_v4"
+        }
+       },
+       "date_place_of_birth": {
+        "$ref": "#/components/schemas/date_and_place_of_birth"
+       }
+      }
+     },
+     "generic_identification_v4": {
+      "description": "Identification group: `{ lei, other: [...] }`, replacing the bare array of identification items used in the current live version.",
+      "type": "object",
+      "properties": {
+       "lei": {
+        "type": "string",
+        "pattern": "[A-Z0-9]{18}[0-9]{2}",
+        "example": "529900T8BM49AURSDO55"
+       },
+       "other": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/generic_identification"
+        }
+       }
+      }
+     },
+     "ifti_address_v4": {
+      "type": "object",
+      "description": "Address, used for creditor_address, party addresses, and related_remittance_information's\npostal_address. Adds bldg_number, floor, post_box, room, town_location, and district_name\ncompared to the current live version's address schema.",
+      "properties": {
+       "address_type": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/address_type"
+         }
+        ]
+       },
+       "department": {
+        "maxLength": 70,
+        "minLength": 1,
+        "type": "string",
+        "description": "Department",
+        "example": "Finance"
+       },
+       "sub_department": {
+        "maxLength": 70,
+        "minLength": 1,
+        "type": "string",
+        "description": "Sub Department",
+        "example": "Billing"
+       },
+       "street_name": {
+        "maxLength": 70,
+        "minLength": 1,
+        "type": "string",
+        "description": "Street Name",
+        "example": "Kent"
+       },
+       "bldg_number": {
+        "maxLength": 16,
+        "minLength": 1,
+        "type": "string",
+        "description": "Building number. New in this version.",
+        "example": "1"
+       },
+       "bldg_name": {
+        "maxLength": 16,
+        "minLength": 1,
+        "type": "string",
+        "description": "Building name",
+        "example": "123"
+       },
+       "floor": {
+        "maxLength": 70,
+        "minLength": 1,
+        "type": "string",
+        "description": "Floor. New in this version.",
+        "example": "4"
+       },
+       "post_box": {
+        "maxLength": 16,
+        "minLength": 1,
+        "type": "string",
+        "description": "Post box. New in this version.",
+        "example": "123"
+       },
+       "room": {
+        "maxLength": 70,
+        "minLength": 1,
+        "type": "string",
+        "description": "Room. New in this version.",
+        "example": "1"
+       },
+       "postcode": {
+        "maxLength": 16,
+        "minLength": 1,
+        "type": "string",
+        "description": "Post Code",
+        "example": "2000"
+       },
+       "town_name": {
+        "maxLength": 35,
+        "minLength": 1,
+        "type": "string",
+        "description": "Town name",
+        "example": "Sydney"
+       },
+       "town_location": {
+        "maxLength": 35,
+        "minLength": 1,
+        "type": "string",
+        "description": "Town location. New in this version.",
+        "example": "Sydney"
+       },
+       "district_name": {
+        "maxLength": 35,
+        "minLength": 1,
+        "type": "string",
+        "description": "District name. New in this version.",
+        "example": "Sample"
+       },
+       "ctry_sub_division": {
+        "maxLength": 35,
+        "minLength": 1,
+        "type": "string",
+        "description": "Country Subdivision",
+        "example": "NSW"
+       },
+       "country_code": {
+        "pattern": "[A-Z]{2,2}",
+        "type": "string",
+        "description": "Country Code",
+        "example": "AU"
+       },
+       "address_line": {
+        "maxItems": 7,
+        "minItems": 0,
+        "type": "array",
+        "items": {
+         "maxLength": 70,
+         "minLength": 1,
+         "type": "string"
+        },
+        "description": "Address Lines:\n\n\"address_line\": [\"Melbourne\", \"2000\" ]"
+       }
+      }
+     },
+     "address_type": {
+      "enum": [
+       "ADDR",
+       "BIZZ",
+       "DLVY",
+       "HOME",
+       "MLTO",
+       "PBOX"
+      ],
+      "type": "string",
+      "description": "Address Type\n\nADDR - Postal Address is the complete postal address\nBIZZ - Business Address is the business address\nDLVY - Delivery To Address is the address to which delivery is to take place\nHOME - Residential Address is the home address\nMLTO - Mail To Address is the address to which mail is sent\nPBOX - POBox Address is a postal office (PO) box"
+     },
+     "date_and_place_of_birth": {
+      "required": [
+       "birth_date",
+       "city_of_birth",
+       "country_of_birth"
+      ],
+      "type": "object",
+      "properties": {
+       "birth_date": {
+        "type": "string",
+        "format": "date"
+       },
+       "place_of_birth": {
+        "maxLength": 35,
+        "type": "string"
+       },
+       "city_of_birth": {
+        "maxLength": 35,
+        "type": "string"
+       },
+       "country_of_birth": {
+        "pattern": "[A-Z]{2,2}",
+        "type": "string",
+        "example": "AU"
+       }
+      }
+     },
+     "generic_identification": {
+      "required": [
+       "identification"
+      ],
+      "type": "object",
+      "properties": {
+       "identification": {
+        "maxLength": 35,
+        "type": "string"
+       },
+       "identification_type_proprietary": {
+        "maxLength": 35,
+        "type": "string"
+       },
+       "identification_type_code": {
+        "maxLength": 4,
+        "minLength": 1,
+        "type": "string",
+        "example": "BBAN"
+       },
+       "identification_issuer": {
+        "maxLength": 35,
+        "type": "string"
+       }
+      }
+     },
+     "ifti_information_response": {
+      "type": "object",
+      "properties": {
+       "instruction_identification": {
+        "type": "string",
+        "example": "BANKNTSTXXXI20180501000000000000010"
+       },
+       "charge_bearer": {
+        "type": "string",
+        "example": "CRED"
+       },
+       "uetr": {
+        "type": "string",
+        "example": "de2da6c9-18be-48d4-8053-867ed90a316a"
+       },
+       "creditor_lei": {
+        "type": "string",
+        "example": "529900T8BM49AURSDO55"
+       },
+       "debtor_lei": {
+        "type": "string",
+        "example": "213800WSGIIZCXF1P572"
+       },
+       "service_level": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "example": [
+         "URGENT"
+        ]
+       },
+       "previous_instructing_agent": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "agent_bic": {
+           "type": "string",
+           "example": "YOURBIC1234"
+          }
+         }
+        }
+       },
+       "creditor_agent_instruction": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "instruction_information": {
+           "type": "string",
+           "example": "sample"
+          },
+          "code": {
+           "type": "string",
+           "example": "CHQB"
+          }
+         }
+        }
+       },
+       "initiating_party_information": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/party_identification_sample_v4_initiating"
+         },
+         {
+          "type": "object"
+         }
+        ]
+       },
+       "debtor": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/party_identification_sample_v4"
+         },
+         {
+          "type": "object"
+         }
+        ]
+       },
+       "debtor_account": {
+        "type": "object",
+        "properties": {
+         "iban": {
+          "type": "string",
+          "example": "DE89370400440532013000"
+         }
+        }
+       },
+       "debtor_agent_information": {
+        "type": "object",
+        "properties": {
+         "bic": {
+          "type": "string",
+          "example": "DEUTDEDD"
+         }
+        }
+       },
+       "creditor_address": {
+        "type": "object",
+        "properties": {
+         "country_code": {
+          "type": "string",
+          "example": "AU"
+         },
+         "address_line": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          },
+          "example": [
+           "123 Main St"
+          ]
+         }
+        }
+       },
+       "next_agent_instruction": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "example": [
+         "INSTRUCTION_001"
+        ]
+       },
+       "instructed_amount": {
+        "type": "object",
+        "properties": {
+         "currency": {
+          "type": "string",
+          "example": "AUD"
+         },
+         "amount": {
+          "type": "string",
+          "example": "3.25"
+         }
+        }
+       },
+       "ultimate_creditor_information": {
+        "allOf": [
+         {
+          "$ref": "#/components/schemas/party_identification_sample_v4"
+         },
+         {
+          "type": "object"
+         }
+        ]
+       },
+       "exchange_rate": {
+        "type": "string",
+        "example": "1.23"
+       },
+       "payment_purpose_proprietary": {
+        "type": "string",
+        "example": "Prtry"
+       },
+       "payment_information": {
+        "type": "object",
+        "properties": {
+         "uetr": {
+          "type": "string",
+          "example": "de2da6c9-18be-48d4-8053-867ed90a316a"
+         },
+         "country_of_origin": {
+          "type": "string",
+          "example": "DE"
+         },
+         "remittance_information_unstructured": {
+          "type": "string",
+          "example": "MAP_RE_Happy"
+         },
+         "payment_purpose_code": {
+          "type": "string",
+          "example": "EPAY"
+         }
+        }
+       },
+       "regulatory_reporting": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "authority_name": {
+           "type": "string",
+           "example": "Name"
+          }
+         }
+        }
+       },
+       "remittance_information_structured": {
+        "type": "object",
+        "properties": {
+         "referred_document_information": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "code": {
+             "type": "string",
+             "example": "sample"
+            },
+            "proprietary": {
+             "type": "string",
+             "example": "sample"
+            },
+            "issuer": {
+             "type": "string",
+             "example": "sample"
+            },
+            "number": {
+             "type": "string",
+             "example": "sample"
+            },
+            "related_date": {
+             "type": "string",
+             "example": "2026-01-01"
+            }
+           }
+          }
+         }
+        }
+       },
+       "related_remittance_information": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "identification": {
+           "type": "string",
+           "example": "S010"
+          }
+         }
+        }
+       }
+      }
+     },
+     "party_identification_sample_v4": {
+      "description": "Simplified response sample for party blocks where organisation_identification is a single object.",
+      "properties": {
+       "name": {
+        "type": "string",
+        "example": "John Doe"
+       },
+       "country_of_residence": {
+        "type": "string",
+        "example": "AU"
+       },
+       "address": {
+        "type": "object",
+        "properties": {
+         "country_code": {
+          "type": "string",
+          "example": "AU"
+         },
+         "address_line": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          },
+          "example": [
+           "Level 4",
+           "1 Margaret"
+          ]
+         }
+        }
+       },
+       "organisation_identification": {
+        "type": "object",
+        "properties": {
+         "lei": {
+          "type": "string",
+          "example": "529900T8BM49AURSDO55"
+         },
+         "other": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "identification": {
+             "type": "string",
+             "example": "ID12345"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "party_identification_sample_v4_initiating": {
+      "description": "Simplified response sample for initiating_party_information, where organisation_identification is an array of objects.",
+      "properties": {
+       "name": {
+        "type": "string",
+        "example": "John Doe"
+       },
+       "country_of_residence": {
+        "type": "string",
+        "example": "AU"
+       },
+       "address": {
+        "type": "object",
+        "properties": {
+         "country_code": {
+          "type": "string",
+          "example": "AU"
+         },
+         "address_line": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          },
+          "example": [
+           "Level 4",
+           "1 Margaret"
+          ]
+         }
+        }
+       },
+       "organisation_identification": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "lei": {
+           "type": "string",
+           "example": "529900T8BM49AURSDO55"
+          },
+          "other": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "identification": {
+              "type": "string",
+              "example": "ID12345"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "securitySchemes": {
+     "oAuth2ClientCredentials": {
+      "type": "oauth2",
+      "description": "Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://au-0000.sandbox.auth.assemblypay.com/tokens",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "oAuth2ClientCredentials": []
+    }
+   ],
+   "x-proxy-enabled": true,
+   "x-samples-enabled": true
+  }
+ }
+]

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/assembly-payments/main/json-schema/assembly-payments-update-va-status-resp-schema.json",
+  "title": "update_va_status_resp",
+  "x-generated": "2026-10-22",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/assembly-payments-virtual-accounts-and-payids-api-openapi.yml#/components/schemas/update_va_status_resp",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Identifies the _Virtual Account_.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "message": {
+      "type": "string"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

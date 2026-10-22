@@ -1,0 +1,16 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/developer-checklist
+versioning:
+  scheme: Single unversioned base URL; OpenAPI info.version 2.4 ("Assembly API"). No public versioning policy found.
+deprecation:
+  policy: null
+  sunset_headers: not documented
+  deprecated_operations:
+  - operation: releasePayment
+    path: PATCH /items/{id}/release_payment
+    evidence: 'Release Payment (Deprecated - Do Not Use): Included for legacy purposes for existing customers that use Escrow payments which are no longer supported for new flows/customers.'
+    docs: https://developer.hellozai.com/reference/releasepayment
+status_page: https://status.hellozai.com/
+health_check: https://developer.hellozai.com/reference/healthcheck
+sla: null

@@ -1,0 +1,48 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/reference/overview
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: oAuth2ClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+    scopes: 0
+  description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+  sources:
+  - openapi/assembly-payments-api-openapi.yml
+  - openapi/assembly-payments-asynchronous-api-openapi.yml
+  - openapi/assembly-payments-upcoming-initiate-last-domestic-leg-payout-api-openapi.yml
+- name: basicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/assembly-payments-asynchronous-api-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/assembly-payments-payto-api-openapi.yml
+  - openapi/assembly-payments-supplementary-data-apis-api-openapi.yml
+  - openapi/assembly-payments-webhooks-api-openapi.yml
+docs: https://developer.hellozai.com/reference/overview
+docs_pages:
+- https://developer.hellozai.com/reference/overview
+- https://developer.hellozai.com/reference/token
+- https://developer.hellozai.com/docs/developer-checklist
+token:
+  flow: OAuth2 client credentials
+  lifetime: tokens expire in 60 minutes
+  issuers:
+    prelive: https://au-0000.sandbox.auth.assemblypay.com
+    live: https://au-0000.auth.assemblypay.com
+  credentials: Client ID, Client Secret, and Scope revealed from the Dashboard Platform Profile menu
+  header: 'Authorization: Bearer <token>'
+frontend_tokens: Hosted Form / Hosted Fields require an expirable card token generated on the back-end (generateToken) so the API key is never exposed.

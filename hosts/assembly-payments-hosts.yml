@@ -1,0 +1,180 @@
+generated: '2026-10-22'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 14
+  own: 5
+  other_domain: 7
+  platform: 2
+  roles:
+  - api
+  - identity
+  - marketing
+  - other
+  - portal
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: assemblypay.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  serves:
+  - cdn
+  - hosting
+  vendor: cloudflare
+  registrable_domain: assemblypay.com
+  role: website
+  relation: own
+- host: au-0000.api.assemblypay.com
+  found_by:
+  - apis[]
+  - vendor-detect
+  types: []
+  serves:
+  - api
+  - cdn
+  vendor: cloudfront
+  registrable_domain: assemblypay.com
+  role: api
+  relation: own
+- host: au-0000.auth.assemblypay.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: assemblypay.com
+  role: identity
+  relation: own
+- host: au-0000.sandbox.auth.assemblypay.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: assemblypay.com
+  role: identity
+  relation: own
+- host: developer.hellozai.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - well-known
+  - vendor-detect
+  types:
+  - GettingStarted
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  serves:
+  - docs
+  - documentation
+  vendor: readme
+  registrable_domain: hellozai.com
+  role: portal
+  relation: other-domain
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: helpdesk.hellozai.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: hellozai.com
+  role: support
+  relation: other-domain
+- host: secure.api.promisepay.com
+  found_by:
+  - apis[]
+  - contract-discovery
+  types: []
+  serves:
+  - api
+  registrable_domain: promisepay.com
+  role: api
+  relation: other-domain
+- host: status.hellozai.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: hellozai.com
+  role: status
+  relation: other-domain
+- host: support.hellozai.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Support
+  serves: []
+  registrable_domain: hellozai.com
+  role: support
+  relation: other-domain
+- host: test.api.promisepay.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: promisepay.com
+  role: api
+  relation: other-domain
+- host: tnq.api.assemblypay.com
+  found_by:
+  - apis[]
+  - vendor-detect
+  types: []
+  serves:
+  - api
+  - api-gateway
+  vendor: aws-api-gateway
+  registrable_domain: assemblypay.com
+  role: api
+  relation: own
+- host: virtserver.swaggerhub.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: swaggerhub.com
+  role: other
+  relation: platform
+- host: www.hellozai.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Blog
+  - Pricing
+  - Contact
+  - TermsOfService
+  - PrivacyPolicy
+  - Leadership
+  - Newsroom
+  - About
+  serves: []
+  registrable_domain: hellozai.com
+  role: marketing
+  relation: other-domain

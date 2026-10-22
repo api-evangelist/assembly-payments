@@ -1,0 +1,477 @@
+openapi: 3.2.0
+info:
+  title: Assembly Companies API
+  description: Assembly (formely PromisePay) is a powerful payments engine custom-built for platforms and marketplaces.
+  version: '2.4'
+  contact:
+    email: support@assemblypayments.com
+    url: http://docs.assemblypayments.com/
+servers:
+- url: https://test.api.promisepay.com
+  description: Pre-live environment
+- url: https://secure.api.promisepay.com
+  description: Production environment
+- url: https://au-0000.sandbox.auth.assemblypay.com
+  description: Pre-Live (Sandbox) Auth issuing server and API
+- url: https://au-0000.auth.assemblypay.com
+  description: Production Auth issuing server and API
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/AssemblyPlatforms/assembly-api/2.1
+security:
+- oAuth2ClientCredentials: []
+tags:
+- name: Companies
+paths:
+  /companies:
+    get:
+      tags:
+      - Companies
+      summary: List Companies
+      description: Retrieve an ordered and paginated list of existing **Companies**.
+      operationId: listCompanies
+      parameters:
+      - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/offsetParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/simple_companies'
+              examples:
+                response:
+                  value:
+                    companies:
+                    - id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      name: Dunder Mifflin
+                      legal_name: DunderCo
+                      business_email: dunder_miffline@email.com
+                      related:
+                        address: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      links:
+                        self: /companies/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                    - id: 5ba45160-4c56-0137-55f0-0242ac110002
+                      name: ABC
+                      legal_name: ABC Companys
+                      business_email: abc@email.com
+                      related:
+                        address: 5ba44070-4c56-0137-ac73-0242ac110002
+                      links:
+                        self: /companies/5ba45160-4c56-0137-55f0-0242ac110002
+                    meta:
+                      limit: 10
+                      offset: 0
+                      total: 1
+                    links:
+                      self: /companies
+    post:
+      tags:
+      - Companies
+      summary: Create Company
+      description: 'Create a **Company** associated with the **User** using a given `user_id`. **Note**: Some parameters are required for user verification. See our guide on Onboarding a Payout User/Seller for more information.'
+      operationId: createCompany
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/company_requestBody'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_company'
+              examples:
+                response:
+                  value:
+                    companies:
+                      legal_name: ABC Pty Ltd
+                      name: ABC
+                      tax_number: '123456789'
+                      business_email: abc@email.com
+                      charge_tax: null
+                      phone: null
+                      id: 0386b4e0-6f59-0138-567d-0a58a9feac03
+                      related:
+                        address: 0386a290-6f59-0138-2530-0a58a9feac03
+                        users: 7443ead0-6af2-0138-1a92-0a58a9feac04
+                      links:
+                        self: /companies?name=ABC&legal_name=ABC%20Pty%20Ltd&tax_number=123456789&business_email=abc%40email.com&charge_tax&address_line1=Collins&address_line2&city=Melbourne&state=VIC&zip=3000&country=AUS&user_id=buyer-70729325
+  /companies/{id}:
+    get:
+      tags:
+      - Companies
+      summary: Show Company
+      description: Show details of a specific **Company** using a given `:id`.
+      operationId: showCompany
+      parameters:
+      - name: id
+        in: path
+        description: Company ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_company'
+              examples:
+                response:
+                  value:
+                    companies:
+                    - id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      name: Dunder Mifflin
+                      legal_name: DunderCo
+                      business_email: dunder_mifflin@email.com
+                      related:
+                        address: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      links:
+                        self: /companies/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+    patch:
+      tags:
+      - Companies
+      summary: Update Company
+      description: Update an existing **Company** attributes using a given `:id`.
+      operationId: updateCompany
+      parameters:
+      - name: id
+        in: path
+        description: Company ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+        example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/company_requestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/single_company'
+              examples:
+                response:
+                  value:
+                    companies:
+                    - id: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      name: Dunder Mifflin
+                      legal_name: DunderCo
+                      business_email: dunder_mifflin@email.com
+                      related:
+                        address: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                      links:
+                        self: /companies/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+components:
+  schemas:
+    single_company:
+      properties:
+        companies:
+          $ref: '#/components/schemas/company'
+    company:
+      type: object
+      properties:
+        legal_name:
+          type: string
+          example: Samuel's Gardening Pty Ltd
+        name:
+          type: string
+          example: Samuel's Gardening
+        tax_number:
+          type: string
+          example: 100200300
+        business_email:
+          type: string
+          example: samuel@email.com
+        charge_tax:
+          type:
+          - boolean
+          - 'null'
+          example: false
+        phone:
+          type: string
+          example: 61400000000
+        id:
+          type: string
+          example: 7b85aa9c-fc54-4449-afef-f52fc2b94cd3
+        related:
+          type: object
+          properties:
+            address:
+              type: string
+              example: cae0ada1-8e31-4bfc-aa24-5331f888cb12
+            users:
+              type: string
+              example: b278dbd0-48da-4824-8ab7-f82008682df2
+        self:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /companies
+    simple_company:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 9280aa36-d7f8-4959-b1ed-0ace2c12cfa2
+        name:
+          type: string
+          example: Assembly Payments
+        legal_name:
+          type: string
+          example: PromisePay
+        business_email:
+          type: string
+          example: test@email.com
+    company_requestBody:
+      type: object
+      required:
+      - name
+      - legal_name
+      - tax_number
+      - country
+      - user_id
+      properties:
+        name:
+          description: Company name
+          type: string
+          example: ABC
+          default: ABC
+        legal_name:
+          description: Company legal name
+          type: string
+          example: ABC Pty Ltd
+          default: ABC Pty Ltd
+        tax_number:
+          description: ABN / Tax number
+          type: string
+          example: '123456789'
+          default: '123456789'
+        business_email:
+          description: The business email address associated with the user or business.Must be a valid email format (e.g., user@business.com). This email is used forofficial communication and account-related notifications. Disposable orpersonal email addresses are not recommended.
+          type: string
+          maximum: 40
+          example: test@email.com
+          format: email
+        charge_tax:
+          description: Charge GST or not? allowed values are true or false
+          type:
+          - boolean
+          - 'null'
+          example: ''
+        address_line1:
+          description: Address line 1
+          type: string
+          example: Collins
+        address_line2:
+          description: Address line 2
+          type: string
+          example: ''
+        city:
+          description: City
+          type: string
+          example: Melbourne
+        state:
+          description: State
+          type: string
+          example: VIC
+        zip:
+          description: Zip
+          type: string
+          example: '3000'
+        country:
+          description: 3 digit country code (eg. AUS)
+          type: string
+          example: AUS
+          default: AUS
+        phone:
+          description: Company phone number
+          type: string
+          example: ''
+          default: ''
+        user_id:
+          description: User ID to associate with the company
+          type: string
+          example: buyer-70729325
+          default: buyer-70729325
+    simple_companies:
+      type: object
+      properties:
+        companies:
+          type: array
+          items:
+            $ref: '#/components/schemas/simple_company'
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: Number of records to offset. Required for pagination.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Number of records to retrieve. Up to 200.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 10
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Please refer to Authentication section within https://developer.assemblypayments.com/reference#authentication
+      flows:
+        clientCredentials:
+          tokenUrl: https://au-0000.sandbox.auth.assemblypay.com/tokens
+          scopes: {}
+x-explorer-enabled: false
+x-samples-languages:
+- curl
+- ruby
+- php
+- javascript
+- csharp
+- go
+x-proxy-enabled: true
+x-samples-enabled: true
+x-provenance:
+  method: searched
+  source: https://developer.hellozai.com/reference
+  harvested: '2026-10-22'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.hellozai.com/reference/authorizepayment.md
+  - https://developer.hellozai.com/reference/billpayment.md
+  - https://developer.hellozai.com/reference/billpaymentsubwallet.md
+  - https://developer.hellozai.com/reference/cancelitem.md
+  - https://developer.hellozai.com/reference/capturepayment.md
+  - https://developer.hellozai.com/reference/createbankaccount.md
+  - https://developer.hellozai.com/reference/createbpayaccount.md
+  - https://developer.hellozai.com/reference/createcallback.md
+  - https://developer.hellozai.com/reference/createcardaccount.md
+  - https://developer.hellozai.com/reference/createcharge.md
+  - https://developer.hellozai.com/reference/createcompany.md
+  - https://developer.hellozai.com/reference/createdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/createfee.md
+  - https://developer.hellozai.com/reference/createitem.md
+  - https://developer.hellozai.com/reference/createsubwallet.md
+  - https://developer.hellozai.com/reference/createuser.md
+  - https://developer.hellozai.com/reference/deletecallback.md
+  - https://developer.hellozai.com/reference/deleteitem.md
+  - https://developer.hellozai.com/reference/deletesubwallet.md
+  - https://developer.hellozai.com/reference/generatetoken.md
+  - https://developer.hellozai.com/reference/healthcheck.md
+  - https://developer.hellozai.com/reference/listbatchtransactions.md
+  - https://developer.hellozai.com/reference/listcallbackresponse.md
+  - https://developer.hellozai.com/reference/listcallbacks.md
+  - https://developer.hellozai.com/reference/listcharges.md
+  - https://developer.hellozai.com/reference/listcompanies.md
+  - https://developer.hellozai.com/reference/listdirectdebitauthorities.md
+  - https://developer.hellozai.com/reference/listdisbursement.md
+  - https://developer.hellozai.com/reference/listfees.md
+  - https://developer.hellozai.com/reference/listitembatchtransactions.md
+  - https://developer.hellozai.com/reference/listitems.md
+  - https://developer.hellozai.com/reference/listitemtransactions.md
+  - https://developer.hellozai.com/reference/listsubwallets.md
+  - https://developer.hellozai.com/reference/listtransactions.md
+  - https://developer.hellozai.com/reference/listuserbpayaccounts.md
+  - https://developer.hellozai.com/reference/listuseritems.md
+  - https://developer.hellozai.com/reference/listusers.md
+  - https://developer.hellozai.com/reference/makepayment.md
+  - https://developer.hellozai.com/reference/makepaymentasync.md
+  - https://developer.hellozai.com/reference/npplastdomesticleg.md
+  - https://developer.hellozai.com/reference/redactbankaccount.md
+  - https://developer.hellozai.com/reference/redactcardaccount.md
+  - https://developer.hellozai.com/reference/refund.md
+  - https://developer.hellozai.com/reference/releasepayment.md
+  - https://developer.hellozai.com/reference/sendpennyamount.md
+  - https://developer.hellozai.com/reference/setuserdisbursementaccount.md
+  - https://developer.hellozai.com/reference/showaddress.md
+  - https://developer.hellozai.com/reference/showbankaccount.md
+  - https://developer.hellozai.com/reference/showbankaccountuser.md
+  - https://developer.hellozai.com/reference/showbatchtransaction.md
+  - https://developer.hellozai.com/reference/showbpayaccount.md
+  - https://developer.hellozai.com/reference/showbpayaccountuser.md
+  - https://developer.hellozai.com/reference/showcallback.md
+  - https://developer.hellozai.com/reference/showcallbackresponse.md
+  - https://developer.hellozai.com/reference/showcardaccount.md
+  - https://developer.hellozai.com/reference/showcardaccountuser.md
+  - https://developer.hellozai.com/reference/showcharge.md
+  - https://developer.hellozai.com/reference/showchargebuyer.md
+  - https://developer.hellozai.com/reference/showchargestatus.md
+  - https://developer.hellozai.com/reference/showcompany.md
+  - https://developer.hellozai.com/reference/showdirectdebitauthority.md
+  - https://developer.hellozai.com/reference/showdisbursement.md
+  - https://developer.hellozai.com/reference/showdisbursementbankaccounts.md
+  - https://developer.hellozai.com/reference/showdisbursementitems.md
+  - https://developer.hellozai.com/reference/showdisbursementtransactions.md
+  - https://developer.hellozai.com/reference/showdisbursementusers.md
+  - https://developer.hellozai.com/reference/showdisbursementwalletaccounts.md
+  - https://developer.hellozai.com/reference/showfee.md
+  - https://developer.hellozai.com/reference/showitem.md
+  - https://developer.hellozai.com/reference/showitembuyer.md
+  - https://developer.hellozai.com/reference/showitemfees.md
+  - https://developer.hellozai.com/reference/showitemseller.md
+  - https://developer.hellozai.com/reference/showitemstatus.md
+  - https://developer.hellozai.com/reference/showitemwiredetails.md
+  - https://developer.hellozai.com/reference/showmarketplace.md
+  - https://developer.hellozai.com/reference/showsubwallet.md
+  - https://developer.hellozai.com/reference/showsubwallettransactions.md
+  - https://developer.hellozai.com/reference/showsubwalletuser.md
+  - https://developer.hellozai.com/reference/showsubwalletwalletaccount.md
+  - https://developer.hellozai.com/reference/showtransaction.md
+  - https://developer.hellozai.com/reference/showtransactionbankaccount.md
+  - https://developer.hellozai.com/reference/showtransactioncardaccount.md
+  - https://developer.hellozai.com/reference/showtransactionfees.md
+  - https://developer.hellozai.com/reference/showtransactionuser.md
+  - https://developer.hellozai.com/reference/showtransactionwalletaccount.md
+  - https://developer.hellozai.com/reference/showuser.md
+  - https://developer.hellozai.com/reference/showuserbankaccount.md
+  - https://developer.hellozai.com/reference/showusercardaccount.md
+  - https://developer.hellozai.com/reference/showuserwalletaccounts.md
+  - https://developer.hellozai.com/reference/showwalletaccount.md
+  - https://developer.hellozai.com/reference/showwalletaccountnbpaydetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountnppdetails.md
+  - https://developer.hellozai.com/reference/showwalletaccountuser.md
+  - https://developer.hellozai.com/reference/token.md
+  - https://developer.hellozai.com/reference/transfersubwallet.md
+  - https://developer.hellozai.com/reference/updatecallback.md
+  - https://developer.hellozai.com/reference/updatecompany.md
+  - https://developer.hellozai.com/reference/updateitem.md
+  - https://developer.hellozai.com/reference/updatesubwallet.md
+  - https://developer.hellozai.com/reference/updateuser.md
+  - https://developer.hellozai.com/reference/validateroutingnumber.md
+  - https://developer.hellozai.com/reference/verifycard.md
+  - https://developer.hellozai.com/reference/verifypennyamount.md
+  - https://developer.hellozai.com/reference/verifyuser.md
+  - https://developer.hellozai.com/reference/voidpayment.md
+  - https://developer.hellozai.com/reference/withdrawfunds.md
+  - https://developer.hellozai.com/reference/withdrawfundssubwallet.md
+  merge:
+    pages: 107
+    deduped: 281
+    conflicts_kept_first: 0

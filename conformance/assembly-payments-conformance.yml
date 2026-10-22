@@ -1,0 +1,36 @@
+generated: '2026-10-22'
+method: searched
+source: https://developer.hellozai.com/docs/3ds2
+standards:
+- id: psd2
+  conforms: claimed
+  scope: 3DS2 card payments
+  evidence: The Zai 3DS2 solution extends our existing Cards Payin Workflow to support 3D Secure 2.0 authentication, ensuring compliance with
+    PSD2 Strong Customer Authentication requirements. (https://developer.hellozai.com/docs/3ds2)
+- id: emv-3ds
+  conforms: claimed
+  scope: card payins
+  evidence: 3D Secure 2.0 authentication via the assembly-3ds2.js SDK (https://developer.hellozai.com/docs/3ds2)
+- id: pci-dss
+  conforms: claimed
+  scope: Hosted Form / Hosted Fields
+  evidence: By integrating with these solutions, you are generally eligible for the simplest PCI validation SAQ-A. (https://developer.hellozai.com/docs/pci-compliance-guide)
+- id: oauth2
+  conforms: true
+  scope: client credentials grant
+  evidence: With the OAuth2 credential flow, you’ll acquire 60-minute Bearer Tokens from an issuing server (https://developer.hellozai.com/reference/overview)
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key documented in docs or declared in OpenAPI.
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.0
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.1
+- id: rfc9457
+  conforms: false
+  evidence: no response declares application/problem+json
+- id: pagination
+  conforms: true
+  evidence: list operations take limit, offset, page

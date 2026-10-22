@@ -1,23 +1,2352 @@
 aid: assembly-payments
+
 name: Assembly Payments
-description: 'Assembly Payments is a company surfaced via the API Evangelist harvest backlog (source:
-  australia-apidays-2026) and added to the network as a stub for full-pipeline profiling.'
+
+description: Assembly Payments was an Australian payments platform founded to give marketplaces, platforms and businesses embedded payment processing,
+  digital wallets, escrow-style payment workflows and real-time payouts through an API. According to the company's own About page, Assembly Payments
+  became the first non-bank to launch real-time payments in Australia and later merged with CurrencyFair to become Zai; assemblypay.com now redirects
+  to hellozai.com, and the developer portal at developer.hellozai.com (still introduced as 'The Assembly Payments Developer Portal') documents
+  the Zai payments API for payment processing, wallets, PayTo, payouts and workflow automation.
+
 url: https://raw.githubusercontent.com/api-evangelist/assembly-payments/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:australia-apidays-2026
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-22 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-22'
+
 modified: '2026-10-22'
+
 tags:
 - Company
-apis: []
+- Payments
+- Fintech
+- Marketplaces
+- Digital Wallets
+- Payouts
+- Australia
+- PayTo
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
+image: https://www.hellozai.com/hubfs/zai01/assets/Featured%20images/Homepage-featured-image.png
+
 common:
+- type: AgenticAccess
+  url: agentic-access/assembly-payments-agentic-access.yml
+- type: RateLimits
+  url: rate-limits/assembly-payments-rate-limits.yml
+- type: Plans
+  url: plans/assembly-payments-plans-pricing.yml
+- type: Spectral
+  url: rules/assembly-payments-rules.yml
+- type: JSONLD
+  url: json-ld/assembly-payments-context.jsonld
+- type: Vocabulary
+  url: vocabulary/assembly-payments-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/assembly-payments-data-model.yml
+- type: Components
+  url: components/assembly-payments-components.yml
+- type: Conventions
+  url: conventions/assembly-payments-conventions.yml
+- type: Sandbox
+  url: sandbox/assembly-payments-sandbox.yml
+- type: Deprecation
+  url: lifecycle/assembly-payments-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/assembly-payments-lifecycle.yml
+- type: DeclineCodes
+  url: errors/assembly-payments-decline-codes.yml
+- type: ErrorCatalog
+  url: errors/assembly-payments-problem-types.yml
+- type: Conformance
+  url: conformance/assembly-payments-conformance.yml
+- type: Overlay
+  url: overlays/assembly-payments-api-overlay.yaml
+- type: LLMsTxt
+  url: llms/assembly-payments-llms.txt
+- type: SecurityTxt
+  url: well-known/assembly-payments-status-security.txt
+- type: WellKnown
+  url: well-known/assembly-payments-well-known.yml
+- type: Hosts
+  url: hosts/assembly-payments-hosts.yml
+- type: IntegrationEdges
+  url: integrations/assembly-payments-integration-edges.yml
+- type: Vendors
+  url: vendors/assembly-payments-vendors.yml
+- type: SDKs
+  url: packages/assembly-payments-packages.yml
+- type: Packages
+  url: packages/assembly-payments-packages.yml
+- type: GettingStarted
+  url: https://developer.hellozai.com/docs/onboarding-a-pay-in-user
+- type: Authentication
+  url: authentication/assembly-payments-authentication.yml
+- type: DomainSecurity
+  url: security/assembly-payments-domain-security.yml
 - type: Website
   url: https://assemblypay.com/
+- type: DeveloperPortal
+  url: https://developer.hellozai.com/
+- type: Documentation
+  url: https://developer.hellozai.com/docs
+- type: APIReference
+  url: https://developer.hellozai.com/reference
+- type: Blog
+  url: https://www.hellozai.com/blog
+- type: Pricing
+  url: https://www.hellozai.com/pricing
+- type: Support
+  url: https://support.hellozai.com/
+- type: Contact
+  url: https://www.hellozai.com/contact-us
+- type: StatusPage
+  url: https://status.hellozai.com/
+- type: TermsOfService
+  url: https://www.hellozai.com/company/policies/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.hellozai.com/company/policies/privacy-policy
+- type: Leadership
+  url: https://www.hellozai.com/company/leadership-team
+- type: Newsroom
+  url: https://www.hellozai.com/news
+- type: About
+  url: https://www.hellozai.com/about-us
+- type: GitHubOrganization
+  url: https://github.com/AssemblyPayments
+
+apis:
+- name: Webhooks API
+  description: >-
+    Configure and manage webhook subscriptions and delivery for Zai/Assembly platform events.
+  image: >-
+    https://www.hellozai.com/hubfs/zai01/assets/Featured%20images/Homepage-featured-image.png
+  humanURL: https://developer.hellozai.com/reference/webhooks-overview
+  baseURL: https://au-0000.api.assemblypay.com
+  tags:
+  - Payments
+  - Fintech
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-webhooks-api-openapi.yml
+    x-source: https://developer.hellozai.com/reference
+    x-ownership: >-
+      Ownership: info.contact is support@assemblypayments.com / support@hellozai.com and the provider's
+      own Environments page (https://developer.hellozai.com/docs/environments) names test.api.promisepay.com
+      and secure.api.promisepay.com as the Pre-live and Live API endpoints; PromisePay is Assembly's former
+      name ('Assembly (formerly PromisePay)') and Assembly merged into Zai.
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/webhooks-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-webhook-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-job-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-webhook-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-webhook-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-webhooks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-jobs-schema.json
+  aid: assembly-payments:webhooks-api
+- aid: assembly-payments:assembly-payments-addresses-api
+  name: Assembly Payments Addresses API
+  description: The Addresses API from Assembly Payments — 1 operation(s) for addresses.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Addresses
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-addresses-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-authentication-api
+  name: Assembly Payments Authentication API
+  description: The Authentication API from Assembly Payments — 1 operation(s) for authentication.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-bank-accounts-api
+  name: Assembly Payments Bank Accounts API
+  description: The Bank Accounts API from Assembly Payments — 6 operation(s) for bank accounts.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Bank Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-bank-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-batch-transactions-api
+  name: Assembly Payments Batch Transactions API
+  description: >-
+    The Batch Transactions API from Assembly Payments — 2 operation(s) for batch transactions.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Batch Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-batch-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-bpay-accounts-api
+  name: Assembly Payments BPay Accounts API
+  description: The BPay Accounts API from Assembly Payments — 3 operation(s) for bpay accounts.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - BPay Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-bpay-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-callbacks-api
+  name: Assembly Payments Callbacks API
+  description: The Callbacks API from Assembly Payments — 4 operation(s) for callbacks.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Callbacks
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-callbacks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-card-accounts-api
+  name: Assembly Payments Card Accounts API
+  description: The Card Accounts API from Assembly Payments — 4 operation(s) for card accounts.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Card Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-card-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-charges-api
+  name: Assembly Payments Charges API
+  description: The Charges API from Assembly Payments — 4 operation(s) for charges.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Charges
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-charges-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-companies-api
+  name: Assembly Payments Companies API
+  description: The Companies API from Assembly Payments — 2 operation(s) for companies.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Companies
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-direct-debit-authorities-api
+  name: Assembly Payments Direct Debit Authorities API
+  description: >-
+    The Direct Debit Authorities API from Assembly Payments — 2 operation(s) for direct debit authorities.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Direct Debit Authorities
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-direct-debit-authorities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-disbursements-api
+  name: Assembly Payments Disbursements API
+  description: The Disbursements API from Assembly Payments — 7 operation(s) for disbursements.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Disbursements
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-disbursements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-failed-npp-payment-details-api
+  name: Assembly Payments Failed NPP Payment Details API
+  description: >-
+    The Failed NPP Payment Details API from Assembly Payments — 1 operation(s) for failed npp payment
+    details.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Failed NPP Payment Details
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-failed-npp-payment-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-fees-api
+  name: Assembly Payments Fees API
+  description: The Fees API from Assembly Payments — 2 operation(s) for fees.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Fees
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-fees-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-item-actions-api
+  name: Assembly Payments Item Actions API
+  description: The Item Actions API from Assembly Payments — 8 operation(s) for item actions.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Item Actions
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-item-actions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-items-api
+  name: Assembly Payments Items API
+  description: The Items API from Assembly Payments — 9 operation(s) for items.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-items-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-jobs-api
+  name: Assembly Payments Jobs API
+  description: The Jobs API from Assembly Payments — 2 operation(s) for jobs.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-marketplaces-api
+  name: Assembly Payments Marketplaces API
+  description: The Marketplaces API from Assembly Payments — 1 operation(s) for marketplaces.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Marketplaces
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-marketplaces-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-payids-api
+  name: Assembly Payments Pay IDs API
+  description: The PayIDs API from Assembly Payments — 3 operation(s) for payids.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - PayIDs
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-payids-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-payto-agreements-api
+  name: Assembly Payments PayTo Agreements API
+  description: Agreement Management APIs
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - PayTo Agreements
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-payto-agreements-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-payto-payments-api
+  name: Assembly Payments PayTo Payments API
+  description: Payment Initiation APIs
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - PayTo Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-payto-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-requests-api
+  name: Assembly Payments Requests API
+  description: The Requests API from Assembly Payments — 2 operation(s) for requests.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-requests-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-status-api
+  name: Assembly Payments Status API
+  description: The Status API from Assembly Payments — 1 operation(s) for status.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-sub-wallets-api
+  name: Assembly Payments Sub Wallets API
+  description: The Sub-wallets API from Assembly Payments — 9 operation(s) for sub-wallets.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Sub-wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-sub-wallets-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-token-auth-api
+  name: Assembly Payments Token Auth API
+  description: The Token Auth API from Assembly Payments — 1 operation(s) for token auth.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Token Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-token-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-tools-api
+  name: Assembly Payments Tools API
+  description: The Tools API from Assembly Payments — 1 operation(s) for tools.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Tools
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-tools-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-transaction-supplementary-data-api
+  name: Assembly Payments Transaction supplementary data API
+  description: >-
+    The Transaction supplementary data API from Assembly Payments — 1 operation(s) for transaction supplementary
+    data.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Transaction supplementary data
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-transaction-supplementary-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-transactions-api
+  name: Assembly Payments Transactions API
+  description: The Transactions API from Assembly Payments — 7 operation(s) for transactions.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-users-api
+  name: Assembly Payments Users API
+  description: The Users API from Assembly Payments — 9 operation(s) for users.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-users-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-virtual-accounts-api
+  name: Assembly Payments Virtual Accounts API
+  description: The Virtual Accounts API from Assembly Payments — 5 operation(s) for virtual accounts.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Virtual Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-virtual-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+- aid: assembly-payments:assembly-payments-wallet-accounts-api
+  name: Assembly Payments Wallet Accounts API
+  description: The Wallet Accounts API from Assembly Payments — 7 operation(s) for wallet accounts.
+  humanURL: https://developer.hellozai.com/reference/overview
+  baseURL: https://secure.api.promisepay.com
+  tags:
+  - Wallet Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/assembly-payments-wallet-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-user-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-charge-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-bank-account-request-body-au-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-item-request-body-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-va
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-account-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-pay-id-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-update-va-status-resp-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-deregister-pay-id-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-virtual-accounts-list-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/overview-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-status-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-agreement-details-response-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-validate-agreement-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-amend-agreement-details-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-request-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-initiate-payment-response-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/async-overview
+  - type: JSONSchema
+    url: json-schema/assembly-payments-make-payment-request-body-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-status-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-callbacks-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-single-item-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference
+  - type: JSONSchema
+    url: json-schema/assembly-payments-payment-data-schema.json
+  - type: JSONSchema
+    url: json-schema/assembly-payments-supplementary-data-schema.json
+  - type: Documentation
+    url: https://developer.hellozai.com/reference/npplastdomesticleg-1
+  - type: JSONSchema
+    url: json-schema/assembly-payments-npp-last-domestic-leg-disbursement-schema.json
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: assemblypay.com 301s to www.hellozai.com; hellozai.com/about-us states "CurrencyFair and Assembly Payments merge to become Zai". Website
+    kept as assemblypay.com (live redirect); rebrand recorded in description, name left unchanged.
+  evidence:
+  - url: https://assemblypay.com/
+    status: 200
+  - url: https://www.hellozai.com/about-us
+    status: 200
+  - url: https://developer.hellozai.com/docs/introduction
+    status: 200
+  - url: https://github.com/AssemblyPayments
+    status: 200
+x-enrichment:
+  date: '2026-10-22'
+  status: enriched
+  artifacts_added: 91
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

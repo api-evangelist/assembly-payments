@@ -1,0 +1,46 @@
+overlay: 1.0.0
+info:
+  title: PayTo enhancements (API Evangelist)
+  version: 1.0.0
+extends: openapi/assembly-payments-payto-api-openapi.yml
+x-generated: '2026-10-22'
+x-method: generated
+x-description: Adds provider/docs metadata and per-operation agent-safety hints (derived from HTTP method only) without mutating the original
+  contract.
+actions:
+- target: $.info
+  update:
+    x-provider: Assembly Payments (now Zai)
+    x-api-evangelist-profiled: '2026-10-22'
+    x-docs: https://developer.hellozai.com/docs/introduction
+    x-llms-txt: https://developer.hellozai.com/llms.txt
+- target: $.paths['/agreements'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/agreements/validate'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/agreements/{agreement_uuid}'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/agreements/{agreement_uuid}/amend'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/agreements/{agreement_uuid}/create'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/agreements/{agreement_uuid}/payment_requests'].get
+  update:
+    x-agent-safety: read-only
+- target: $.paths['/agreements/{agreement_uuid}/payment_requests/initiate'].post
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/agreements/{agreement_uuid}/recall'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/agreements/{agreement_uuid}/status'].patch
+  update:
+    x-agent-safety: mutating
+- target: $.paths['/payment_requests/{payment_request_uuid}'].get
+  update:
+    x-agent-safety: read-only
